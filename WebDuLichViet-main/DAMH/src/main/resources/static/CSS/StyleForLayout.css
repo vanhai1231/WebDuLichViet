@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Ngăn cuộn ngang */
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #ffffff;
+    height: 100px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.menu li {
+    display: inline-block; /* Hiển thị các mục trong menu theo hàng ngang */
+}
+
+.menu li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.menu li a:hover {
+    background-color: #f1f1f1;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.submenu li {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.submenu li:hover {
+    background-color: #f1f1f1;
+}
+
+.menu li:hover .submenu {
+    display: block;
+}
+
+/* Chỉnh sửa cho video */
+video {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    position: absolute; /* Đặt video ở đầu trang */
+    top: 0;
+    left: 0;
+    z-index: -1; /* Z-index thấp hơn để đảm bảo thanh menu đè lên */
+}
+
+/* CSS cho các nút Đăng nhập và Đăng ký */
+.menu .login-register {
+    display: flex;
+    align-items: center;
+}
+
+.menu .login-register a {
+    border: 1px solid #FF3366;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.menu .login-register a:hover {
+    background-color: #f1f1f1;
+}

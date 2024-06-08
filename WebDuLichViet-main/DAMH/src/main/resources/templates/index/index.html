@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang Chủ</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link th:href="@{/CSS/StyleForLayout.css}" href="../../static/CSS/StyleForLayout.css"
+          rel="stylesheet" type="text/css" media="screen"/>
+    <link th:href="@{/CSS/index.css}" href="../../static/CSS/index.css"
+          rel="stylesheet" type="text/css" media="screen"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <video width="1000" autoplay muted loop style="display: block; margin: 0 auto;">
+        <source th:src="@{/video/video-nhom9.mp4}" type="video/mp4">
+    </video>
+    <div class="search-bar">
+        <input type="text" placeholder="Địa điểm">
+        <input type="date" placeholder="Ngày đến">
+        <input type="date" placeholder="Ngày về">
+        <input type="number" placeholder="Số phòng">
+        <input type="number" placeholder="Số khách">
+        <button>Tìm kiếm</button>
+    </div>
+    <!-- Thêm dòng chữ trên video -->
+    <div class="video-text">
+        Đăng nhập để nhận thêm ưu đãi 15% khi<br> đặt phòng khách sạn, vé máy bay
+    </div>
+</div>
+</body>
+</html>
