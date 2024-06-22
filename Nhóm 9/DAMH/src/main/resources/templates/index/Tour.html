@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh Sách Tour Du Lịch</title>
+    <link rel="stylesheet" th:href="@{/CSS/StyleForLayout.css}">
+    <link rel="stylesheet" th:href="@{/CSS/tourlist.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script th:src="@{/js/ScriptForLayout.js}" src="../../static/js/ScriptForLayout.js"></script>
+    <script th:src="@{/js/tourlist.js}" src="../../static/js/tourlist.js"></script>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script> <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .filter-box {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            margin-left:-90px;
+        }
+        .filter-box h4 {
+            margin-bottom: 20px;
+        }
+        .filter-box .form-group {
+            margin-bottom: 15px;
+        }
+        .filter-box .btn-primary {
+            width: 100%;
+        }
+        #tourList .card {
+            margin-bottom: 20px;
+        }
+        #tourList .card img {
+            height: 200px;
+            object-fit: cover;
+        }
+        .locTour{
+            color:#fff;
+            background-color:#FF3366;
+            border-color:#FF3366;
+            border: 0px;
+            height: 35px;
+            width: 95px;
+        }
+    </style>
+</head>
+<body>
+
+<div layout:fragment="content" style="padding-top: 130px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="filter-box">
+                    <h4>Bộ lọc</h4>
+                    <form id="filterForm">
+                        <div class="form-group">
+                            <label for="tourType">Loại hình tour</label>
+                            <select id="tourType" class="form-select" name="tourType">
+                                <option value="">Tất cả</option>
+                                <option value="adventure">Phiêu lưu</option>
+                                <option value="relaxation">Thư giãn</option>
+                                <option value="cultural">Văn hóa</option>
+                                <option value="nature">Thiên nhiên</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="destination">Nơi đi</label>
+                            <input type="text" id="destination" class="form-control" name="destination">
+                        </div>
+                        <div class="form-group">
+                            <label for="departureDate">Ngày đi</label>
+                            <input type="text" id="departureDate" class="flatpickr form-control" name="departureDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="budget">Ngân sách của quý khách</label>
+                            <input type="number" id="budget" class="form-control" name="budget">
+                        </div>
+                        <div class="form-group">
+                            <label for="transport">Phương tiện</label>
+                            <select id="transport" class="form-select" name="transport">
+                                <option value="">Tất cả</option>
+                                <option value="plane">Máy bay</option>
+                                <option value="bus">Xe buýt</option>
+                                <option value="train">Tàu hỏa</option>
+                                <option value="boat">Thuyền</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" id="promotion" class="form-check-input" name="promotion">
+                            <label for="promotion" class="form-check-label">Chỉ hiển thị những chuyến đi có khuyến mãi</label>
+                        </div>
+                        <button type="button" class="locTour" onclick="filterTours()">Lọc tour</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div id="tourList" class="row">
+                    <!-- Tour items will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        flatpickr(".flatpickr", {
+            dateFormat: "d/m/Y",
+            minDate: "today"
+        });
+    });
+
+    function filterTours() {
+        var form = $('#filterForm');
+        var formData = form.serialize();
+
+        $.ajax({
+            type: "GET",
+            url: '/api/v1/tours', // Replace with the actual endpoint to fetch tours
+            data: formData,
+            dataType: 'json',
+            success: function(response) {
+                var tourList = $('#tourList');
+                tourList.empty();
+                if (response.tours && response.tours.length > 0) {
+                    response.tours.forEach(function(tour) {
+                        var tourItem = `<div class="col-md-4">
+                            <div class="card">
+                                <img src="${tour.imageUrl}" class="card-img-top" alt="${tour.tenTour}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${tour.tenTour}</h5>
+                                    <p class="card-text">${tour.description}</p>
+                                    <p class="card-text"><small class="text-muted">${tour.price.toLocaleString('vi-VN')} VND</small></p>
+                                    <a href="/DuLichViet/TourDetail/${tour.id}" class="btn btn-primary">Chi tiết</a>
+                                </div>
+                            </div>
+                        </div>`;
+                        tourList.append(tourItem);
+                    });
+                } else {
+                    tourList.append('<p>Không có tour nào phù hợp với tiêu chí tìm kiếm.</p>');
+                }
+            },
+            error: function(xhr) {
+                console.error('Error:', xhr);
+                alert('Đã xảy ra lỗi khi tải danh sách tour.');
+            }
+        });
+    }
+</script>
+</body>
+</html>

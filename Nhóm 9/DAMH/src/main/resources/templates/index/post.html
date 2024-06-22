@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Du Lịch</title>
+    <link rel="stylesheet" th:href="@{/CSS/StyleForBlog.css}" href="../../static/CSS/StyleForBlog.css" type="text/css">
+    <!-- meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- link tags-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900|Work+Sans:300,400,500,600,700,800,900">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.min.css">
+    <!-- title tag-->
+    <title>Post</title>
+</head>
+<body>
+<div layout:fragment="content">
+<head>
+    <!-- meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- link tags-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900|Work+Sans:300,400,500,600,700,800,900">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <title>Blog</title>
+    <link rel="stylesheet" th:href="@{/CSS/StyleForBlog.css}" href="../../static/CSS/StyleForBlog.css" type="text/css">
+</head>
+<body id="post__single-page">
+<div class="container_wrapper">
+    <section class="__colored" id="navigation_container">
+        <label for="menu_icon"> <i class="fa fa-bars"></i></label>
+        <input id="menu_icon" type="checkbox">
+
+    </section>
+    <section id="post-featured-image">
+        <div class="post__featured-image">
+            <div class="post__title-container">
+                <h2>Lorem ipsum dolor, sit amet, consectetur</h2>
+                <p>OCTOBER 11, 2018  — by John Doe  — Views: 100</p>
+                <div class="post__avatar-container">
+                    <div class="post__avatar"><a href="#">avatar</a></div>
+                    <div class="post__avatar-name">
+                        <h5>Written by</h5>
+                        <p>John Deo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="post-content">
+        <div class="post__content">
+            <p>Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It </p>
+            <p><a href="#">Ipsum is simply dummy text </a></p>
+            <h2>Why do we use it?</h2>
+            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+            <div class="post__media_container">
+                <div class="post__media_photo"></div>
+                <div class="post__media_caption">
+                    <p>There are many variations of passages of Lorem Ipsum available</p>
+                </div>
+            </div>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It </p>
+            <h2>Why do we use it?</h2>
+            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+        </div>
+        <div class="post__tags">
+            <h6>TAGS</h6>
+            <ul>
+                <li><a href="#">CEBU,</a></li>
+                <li><a href="#">CITYESACPE,</a></li>
+                <li><a href="#">ELEGANT BEACH RESORT,</a></li>
+                <li><a href="#">NORTH-CEBU,</a></li>
+                <li><a href="#">RESORT,</a></li>
+                <li><a href="#">REVIEW,</a></li>
+                <li><a href="#">TRAVEL-REVIEW</a></li>
+            </ul>
+        </div>
+    </section>
+    <section id="post-author-bio">
+        <div class="author-bio__container">
+            <div class="author-bio__avatar"><a href="#">avatar </a></div>
+            <div class="author-bio__description">
+                <h2>John Doe</h2>
+                <p>An aspiring cinematographer and front-end developer. Founder of cityescape.ph. Help me build a community where everyone's experience can make a difference. Join us now.</p>
+            </div>
+            <div class="author-bio__social-media">
+                <ul>
+                    <li><a class="fa fa-facebook" href="#"></a></li>
+                    <li><a class="fa fa-instagram" href="#"></a></li>
+                    <li><a class="fa fa-envelope" href="#"></a></li>
+                    <li><a class="fa fa-youtube" href="#"></a></li>
+                    <li><a class="fa fa-link" href="#"></a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section id="post-comment">
+        <h5>THIS POST HAS COMMENTS</h5>
+        <div class="comment__container">
+            <div class="comment__avatar"><a href="#">avatar </a></div>
+            <div class="comment__description">
+                <h2>John Doe</h2><span>16 APR 2018</span>
+                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+            </div>
+            <div class="comment__action"><a href="#">reply</a></div>
+        </div>
+    </section>
+    <section id="comment-form">
+        <h5>Leave Comment</h5>
+        <form class="comment-form__container">
+            <input class="comment__name" placeholder="name">
+            <input class="comment__email" placeholder="email">
+            <input class="comment__message" placeholder="message">
+            <button class="comment__action">submit</button>
+        </form>
+    </section>
+</div>
+<footer>
+    <div class="container_wrapper">
+        <div id="footer__site_description">
+        </div>
+        <div id="footer__pages">
+        </div>
+    </div>
+</footer>
+</body>
+</html>

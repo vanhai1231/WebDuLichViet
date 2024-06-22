@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Website Đặt Tour Du Lịch</title>
+    <link rel="stylesheet" th:href="@{/CSS/StyleForLayout.css}">
+    <link rel="stylesheet" th:href="@{/CSS/loginandregisterlayout.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script th:src="@{/js/ScriptForLayout.js}" src="../../static/js/ScriptForLayout.js"></script>
+    <script th:src="@{/js/LoginAndRegister.js}" src="../../static/js/LoginAndRegister.js"></script>
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function submitFormlayout() {
+            var form = $('#registerFormlayout');
+            var formData = form.serialize();
+
+            $.ajax({
+                type: "POST",
+                url: form.attr('action'),
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.errors && response.errors.length > 0) {
+                        var errorMessage = "Lỗi xảy ra:<br>";
+                        response.errors.forEach(function(error) {
+                            errorMessage += error + "<br>";
+                        });
+                        $('#errorMessages').html(errorMessage);
+                    } else {
+                        alert(response.message || 'Đăng ký thành công!');
+                        window.location.href = '/DangNhap';
+                    }
+                },
+                error: function(xhr) {
+                    console.error('Error:', xhr);
+                    var errorMessage = xhr.responseText.trim();
+                    if (errorMessage.length === 0) {
+                        errorMessage = 'Đã xảy ra lỗi khi xử lý yêu cầu.';
+                    }
+                    alert(errorMessage);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+
+<nav>
+    <ul class="menu">
+        <li><a href="/DuLichViet/Home"><img id="logo" th:src="@{/images/Logo.jpg}" alt="Logo" style="height: 100px;"></a></li>
+        <li><a href="/DuLichViet/Home"><i class="fas fa-home"></i> <span th:text="#{home}"></span></a></li>
+        <li><a href="/DuLichViet/About"><i class="fas fa-info-circle"></i> <span th:text="#{about_us}"></span></a></li>
+        <li><a href="/DuLichViet/Tour"><i class="fas fa-plane"></i> <span th:text="#{tours}"></span></a></li>
+        <li><a href="#"><i class="fas fa-map-marker-alt"></i> <span th:text="#{destinations}"></span></a></li>
+        <li><a href="/DuLichViet/Blog"><i class="fas fa-blog"></i> <span th:text="#{blog}"></span></a></li>
+        <li><a href="#"><i class="fas fa-envelope"></i> <span th:text="#{contact_us}"></span></a></li>
+        <li class="login-register">
+            <th:block  sec:authorize="isAuthenticated()">
+                <span>Chào,  <span sec:authentication="name"></span></span>
+            </th:block>
+            <th:block class="nav-item" sec:authorize="isAuthenticated()">
+                <form th:action="@{/logout}" method="post">
+                    <button style="background-color:white;color:red"class="btn btn-outline-light"
+                            type="submit">Logout</button>
+                </form>
+            </th:block>
+
+            <th:block  sec:authorize="!isAuthenticated()">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" th:text="#{login}"></a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal" th:text="#{register}"></a>
+            </th:block>
+        </li>
+        <li class="language-selector" style="display:flex;">
+                <a href="?lang=vi" class="flag-container vietnam" id="vietnamFlag">
+                    <img th:src="@{/images/vi.png}" src="/static/images/vi.png" alt="Vietnam Flag">
+                </a>
+                <a href="?lang=en" class="flag-container english" id="englishFlag">
+                    <img th:src="@{/images/en.png}" src="/static/images/en.png" alt="English Flag">
+                </a>
+        </li>
+    </ul>
+</nav>
+
+<div layout:fragment="content" style="padding-top: 130px;"></div>
+<!-- ĐĂng Nhập Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="height:400px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel" th:text="#{login}"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="model-body">
+                <form th:action="@{/DangNhap}" method="post">
+                    <div class="social-icons-model">
+                        <a th:href="@{/oauth2/authorization/google}" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                        <a th:href="@{/oauth2/authorization/facebook}" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                        <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                    <span>or use your email password</span>
+                    <div th:if="${param.error}" class="alert alert-danger">
+                        Invalid username and password.
+                    </div>
+                    <div th:if="${param.logout}" class="alert alert-success">
+                        You have been logged out.
+                    </div>
+                    <input type="text" class="form-control" required
+                           name="username" placeholder="Username">
+                    <input type="password" class="form-control" required
+                           name="password" placeholder="Password">
+                    <a href="#">Quên mật khẩu?</a>
+                    <button type="submit" th:text="#{login}"></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Đăng Ký Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="height:600px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerModalLabel" th:text="#{register}"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="model-body" >
+                <form id="registerFormlayout" th:action="@{/DangKy}" th:object="${user}" method="post">
+
+                    <!-- Thêm một div để hiển thị lỗi -->
+
+                    <div class="social-icons-model">
+                        <a th:href="@{/oauth2/authorization/google}" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                        <a th:href="@{/oauth2/authorization/facebook}" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                        <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                    <span>or use your email for registeration</span>
+
+                    <input type="text" class="form-control" required  name="tenTK"
+                           placeholder="Nhập Tài Khoản">
+                    <input type="password" class="form-control" required  name="passWord"
+                           placeholder="Nhập Mật Khẩu">
+
+                    <input type="text" class="form-control" required  name="user.hoTen"
+                           placeholder="Nhập Họ Tên">
+
+                    <input type="text" class="form-control" required  name="user.email"
+                           placeholder="Nhập Email">
+                    <input type="number" class="form-control" required  name="user.sdt"
+                           placeholder="Nhập Số Điện Thoại" value="0" >
+                    <input type="text" class="form-control" required  name="user.diaChi"
+                           placeholder="Nhập Địa Chỉ">
+
+                    <button type="button" onclick="submitFormlayout()" th:text="#{register}"></button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3 th:text="#{footer.company_name}"></h3>
+            <p th:text="#{footer.customer_care}"></p>
+            <p th:text="#{footer.email}"></p>
+            <p th:text="#{footer.hanoi_office}"></p>
+            <p th:text="#{footer.hcm_office}"></p>
+        </div>
+        <div class="footer-column">
+            <h3 th:text="#{footer.policies}"></h3>
+            <p th:text="#{footer.terms}"></p>
+            <p th:text="#{footer.payment}"></p>
+            <p th:text="#{footer.privacy}"></p>
+            <p th:text="#{footer.operational}"></p>
+            <p th:text="#{footer.loyalty}"></p>
+            <p th:text="#{footer.hotel_review}"></p>
+        </div>
+        <div class="footer-column">
+            <h3 th:text="#{footer.customers_partners}"></h3>
+            <p th:text="#{footer.gifts}"></p>
+            <p th:text="#{footer.partner}"></p>
+            <p th:text="#{footer.login}"></p>
+            <p th:text="#{footer.recruitment}"></p>
+        </div>
+    </div>
+</footer>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

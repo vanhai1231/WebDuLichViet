@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang Chủ</title>
+    <link rel="stylesheet" th:href="@{/CSS/StyleForindex.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link th:href="@{/CSS/Slide.css}" href="../../static/CSS/Slide.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include Slick JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <!-- Include flatpickr -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <!-- Slick JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <!------------------------>
+
+    <!-- Include your custom JS -->
+    <script th:src="@{/js/JSForIndex.js}"></script>
+    <script th:src="@{/js/ScriptForSlide.js}"></script>
+    <script>
+        async function fetchSuggestions(query) {
+    if (query.length === 0) {
+        document.getElementById('suggestions').innerHTML = '';
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/suggestions?query=${encodeURIComponent(query)}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const suggestions = await response.json();
+        if (!suggestions || typeof suggestions !== 'object') {
+            throw new Error('Invalid response format');
+        }
+
+        const combinedSuggestions = combineAndFilterSuggestions(suggestions);
+        displaySuggestions(combinedSuggestions);
+    } catch (error) {
+        console.error('Fetch suggestions failed:', error);
+        document.getElementById('suggestions').innerHTML = '<p>Error fetching suggestions</p>';
+    }
+}
+
+function combineAndFilterSuggestions(suggestions) {
+    const tinhSuggestions = suggestions.tinhSuggestions || [];
+    const thanhPhoSuggestions = suggestions.thanhPhoSuggestions || [];
+    const suggestionMap = new Map();
+
+    tinhSuggestions.forEach(tinh => {
+        suggestionMap.set(tinh.tenTinh, tinh);
+    });
+
+    thanhPhoSuggestions.forEach(thanhPho => {
+        suggestionMap.set(thanhPho.tenTP, thanhPho);
+    });
+
+    return Array.from(suggestionMap.values());
+}
+
+function displaySuggestions(suggestions) {
+    const suggestionBox = document.getElementById('suggestions');
+    suggestionBox.innerHTML = ''; // Clear old suggestions
+
+    if (suggestions.length > 0) {
+        suggestions.forEach(location => {
+            const option = document.createElement('div');
+            const displayText = location.tenTinh ? location.tenTinh : location.tenTP;
+            option.textContent = displayText;
+            option.className = 'suggestion';
+            option.onclick = function() {
+                document.getElementById('location-input').value = displayText;
+                suggestionBox.innerHTML = ''; // Clear suggestions after selection
+            };
+            suggestionBox.appendChild(option);
+        });
+        suggestionBox.style.display = 'block'; // Show the suggestion box if there are suggestions
+    } else {
+        suggestionBox.style.display = 'none'; // Hide the suggestion box if there are no suggestions
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('location-input').addEventListener('input', function(e) {
+        const inputVal = e.target.value.trim(); // Trim whitespace
+        if (inputVal.length > 2) {
+            fetchSuggestions(inputVal);
+        } else {
+            document.getElementById('suggestions').innerHTML = ''; // Clear suggestion box if input length is not sufficient
+        }
+    });
+
+    document.getElementById('dangkyBtn').addEventListener('click', checkLogin);
+});
+
+function checkLogin(event) {
+    event.preventDefault(); // Prevent the default redirect action
+toastr.options = {
+	"closeButton": true,
+	"positionClass": "toast-bottom-right",
+	"progressBar": true,
+	"timeOut": "3000", // 3s
+};
+    fetch('/api/check-login')
+        .then(response => response.json())
+        .then(isLoggedIn => {
+            if (!isLoggedIn) {
+                // Show a notification using Toastr.js
+                toastr.error('Vui lòng đăng nhập để đăng ký Tour.');
+
+            } else {
+                // User is logged in, proceed with the default action (redirect)
+                window.location.href = event.target.href;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+    </script>
+</head>
+<body>
+<div layout:fragment="content" style="position: relative;">
+    <video width="1400" autoplay muted loop style="display: block; margin: 0 auto;">
+        <source th:src="@{/video/video-nhom9.mp4}" type="video/mp4">
+    </video>
+    <!-- Thêm dòng chữ trên video -->
+    <div class="video-text">
+        <span th:text="#{login.to.discount}"></span><br>
+        <span th:text="#{15%}"></span>
+    </div>
+    <!-- Thanh tìm kiếm -->
+    <div class="search-bar">
+        <input type="text" oninput="fetchSuggestions(this.value)" id="location-input" th:placeholder="#{location}">
+        <div id="suggestions" class="suggestions"></div>
+        <input type="date" class="date" th:placeholder="#{arrival.date}"><span>|</span>
+        <input type="date" class="date" th:placeholder="#{departure.date}"><span>|</span>
+        <input type="number" th:placeholder="#{rooms}"><span>|</span>
+        <input type="number" th:placeholder="#{guests}"><span>|</span>
+        <button th:text="#{search}"></button>
+    </div>
+    <div th:replace="partials/SlidePartial :: slideshow"></div>
+    <!-- Thêm banner -->
+    <div class="banner">
+        <img th:src="@{/images/banner1.jpg}" alt="Banner" style="display: block; margin: 0 auto;">
+    </div>
+
+    <div class="support">
+        <span th:text="#{support.and.advice}"></span>
+    </div>
+    <div class="destination-container">
+        <!-- Thêm tiêu đề -->
+        <h2 class="title" th:text="#{favorite.destinations}"></h2>
+        <h3 class="subtitle" th:text="#{hottest.places.recommended.by.DuLichViet}"></h3>
+        <!-- Thêm hình ảnh địa điểm -->
+        <div class="destination-images">
+            <img class="destination-image large" th:src="@{/images/HCM.jpg}" alt="Destination 1">
+            <img class="destination-image small" th:src="@{/images/dalat.jpg}" alt="Destination 2">
+            <img class="destination-image large" th:src="@{/images/hanoi.jpg}" alt="Destination 3">
+            <img class="destination-image small" th:src="@{/images/nhatrang.jpg}" alt="Destination 4">
+            <img class="destination-image large" th:src="@{/images/sapa.jpg}" alt="Destination 5">
+            <img class="destination-image small" th:src="@{/images/vungtau.jpg}" alt="Destination 6">
+            <img class="destination-image large" th:src="@{/images/danang.jpg}" alt="Destination 7">
+            <img class="destination-image large" th:src="@{/images/phuquoc.jpg}" alt="Destination 8">
+            <img class="destination-image large" th:src="@{/images/hoian.jpg}" alt="Destination 9">
+            <img class="destination-image large" th:src="@{/images/quynhon.jpg}" alt="Destination 10">
+            <!-- Thêm nhiều hình ảnh khác tùy theo nhu cầu -->
+        </div>
+    </div>
+    <h2 th:text="#{attractive.tours}" class="attractive"></h2>
+    <input type="hidden" id="isNotLoggedIn" sec:authorize="!isAuthenticated()" value="false"/>
+    <!-- Hiển thị danh sách các tour -->
+    <div class="card-container">
+        <!-- Các card tour ở đây -->
+        <div th:each="tour : ${tours}" class="tour-card">
+            <!-- Hình ảnh đại diện -->
+            <div class="tour-image-container">
+                <img th:src="@{${tour.mainImageUrl}}" alt="Main Tour Image" class="tour-image">
+                <img th:src="@{${tour.secondaryImageUrl}}" alt="Secondary Tour Image" class="tour-image secondary-image">
+                <span>
+                    <i class="bi bi-heart"></i>
+                </span>
+            </div>
+            <!-- Thông tin tour -->
+            <div class="tour-info">
+                <h2 class="tour-name" th:text="${tour.tenTour}">Tên Tour</h2>
+                <!-- Hình ngôi sao -->
+                <span class="star-icon">⭐⭐⭐⭐⭐</span>
+                <p class="tour-date" th:text="#{departure.date.label} +' '+ ${#dates.format(tour.ngayKH, 'dd/MM/yyyy')}">Ngày Khởi Hành</p>
+                <p class="price" th:text="#{price.label} +' '+ ${tour.giaTour}">Giá: </p>
+                <!-- Thêm các thông tin khác tùy theo nhu cầu -->
+            </div>
+            <!-- Nút Đăng ký -->
+            <a id="dangkyBtn" class="dangky-btn"
+               th:href="@{/DuLichViet/TourDetail/{maTour}(maTour=${tour.maTour})}"
+               onclick="checkLogin(event)"
+               th:text="#{register}"></a>
+        </div>
+        <!-- Các card tour khác... -->
+    </div>
+
+    <!-- Thêm phần cửa sổ chat -->
+    <div id="chat-window" class="chat-window">
+        <div class="chat-header">
+            <span class="close-btn">&times;</span> <!-- Nút đóng cửa sổ -->
+            <span th:text="#{support.chat}"></span>
+        </div>
+        <div class="chat-body">
+            <!-- Nội dung chat sẽ được đặt ở đây -->
+        </div>
+        <div class="chat-footer">
+            <input type="text" th:placeholder="#{enter.message}">
+            <button>Gửi</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

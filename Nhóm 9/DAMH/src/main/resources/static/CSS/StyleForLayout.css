@@ -1,0 +1,158 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Ngăn cuộn ngang */
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #ffffff;
+    height: 100px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.menu li {
+    display: inline-block; /* Hiển thị các mục trong menu theo hàng ngang */
+}
+
+.menu li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.menu li a:hover {
+    background-color: #f1f1f1;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.submenu li {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.submenu li:hover {
+    background-color: #f1f1f1;
+}
+
+.menu li:hover .submenu {
+    display: block;
+}
+
+/* CSS cho các nút Đăng nhập và Đăng ký */
+.menu .login-register {
+    display: flex;
+    align-items: center;
+}
+.menu li:hover a {
+    color: #FF3366; /* Thay đổi màu chữ */
+}
+
+.menu li:hover a i {
+    color: #FF3366; /* Thay đổi màu của icon */
+}
+
+.menu .login-register a {
+    border: 1px solid #FF3366;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.menu .login-register a:hover {
+    background-color: #f1f1f1;
+}
+.img .logo{
+     width: 100px;
+}
+header{
+    top: 0;
+    left: 0; width: 100%;
+    position: absolute;
+    overflow: hidden;
+}
+
+footer {
+    background-color: #f1f1f1;
+    padding: 20px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* height: 100px; */
+    z-index: 111;
+    overflow: hidden;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-column {
+    width: 30%;
+}
+
+.footer-column h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.footer-column p {
+    font-size: 16px;
+    color: #212529;
+}
+/* CSS cho hiệu ứng trượt từ trên xuống */
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal.slide-down .modal-dialog {
+    animation: slideDown 0.5s ease-out;
+}
+
+.language-selector {
+    display: flex;
+    align-items: center;
+}
+
+.language-selector .flag-container {
+    margin-left: 0; /* Ensure no spacing between flags */
+}
+
+.language-selector .flag-container img {
+    width: 24px; /* Adjust the width as needed */
+    height: auto;
+    margin-left: 0; /* Ensure no spacing between flags */
+}

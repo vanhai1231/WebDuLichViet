@@ -1,0 +1,71 @@
+.flatpickr-calendar {
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.flatpickr-day {
+    background: #f2f2f2;
+    color: #333;
+}
+
+.flatpickr-day.today {
+    background: #FF3366;
+    color: #fff;
+}
+
+.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
+    background: #FF3366;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+.left-column, .right-column {
+    flex: 1;
+    padding: 20px;
+}
+.left-column {
+    border-right: 1px solid #ddd;
+}
+.right-column {
+    padding-left: 40px;
+}
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+.image-gallery img {
+    width: 100px; /* Điều chỉnh kích thước theo ý muốn */
+    height: auto;
+    cursor: pointer;
+}
+.main-image {
+    width: 100%; /* Đặt chiều rộng hình ảnh chính theo ý muốn */
+    height: auto;
+    margin-bottom: 20px;
+}
+.register-button {
+    background-color: #ff4081; /* Màu nền của nút */
+    color: white; /* Màu chữ của nút */
+    padding: 10px 20px; /* Khoảng cách padding */
+    border: none; /* Không viền */
+    cursor: pointer; /* Con trỏ chuột khi hover */
+    width: 100%;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+.form-group input {
+    width: calc(100% - 10px);
+    padding: 5px;
+}

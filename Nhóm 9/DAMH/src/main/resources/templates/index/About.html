@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" th:href="@{/CSS/About.css}" href="../../static/CSS/About.css" type="text/css">
+    <script th:src="@{/js/About.js}" src="../../static/js/About.js"></script>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div id="slide">
+            <div class="item" th:style="'background-image: url(/images/about1.jpg);'">
+                <div class="content">
+                    <div class="name" th:text="#{about_us}"></div>
+                    <div class="des" th:text="#{about_us_description}"></div>
+                    <button th:text="#{view_more}"></button>
+                </div>
+            </div>
+            <div class="item" th:style="'background-image: url(/images/about2.jpg);'">
+                <div class="content">
+                    <div class="name" th:text="#{about_mission}"></div>
+                    <div class="des" th:text="#{about_mission_description}"></div>
+                    <button th:text="#{view_more}"></button>
+                </div>
+            </div>
+            <div class="item" th:style="'background-image: url(/images/about3.jpg);'">
+                <div class="content">
+                    <div class="name" th:text="#{about_goal}"></div>
+                    <div class="des" th:text="#{about_goal_description}"></div>
+                    <button th:text="#{view_more}"></button>
+                </div>
+            </div>
+            <div class="item" th:style="'background-image: url(/images/about4.jpg);'">
+                <div class="content">
+                    <div class="name" th:text="#{about_responsibility}"></div>
+                    <div class="des" th:text="#{about_responsibility_description}"></div>
+                    <button th:text="#{view_more}"></button>
+                </div>
+            </div>
+            <div class="item" th:style="'background-image: url(/images/about5.jpg);'">
+                <div class="content">
+                    <div class="name" th:text="#{about_team}"></div>
+                    <div class="des" th:text="#{about_team_description}"></div>
+                    <button th:text="#{view_more}"></button>
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            <button id="prev"><i class="fa-solid fa-angle-left"></i></button>
+            <button id="next"><i class="fa-solid fa-angle-right"></i></button>
+        </div>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

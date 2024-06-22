@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8d790c2a-0af5-4afe-8c06-4676842d7624" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/controller/BlogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/controller/SuggestionsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/IRoleRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/ITaiKhoanRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/IUserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/ThanhPhoRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/TinhRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/TaiKhoanService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/ThanhPhoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/TinhService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/About.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/LoginAndRegister.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/loginandregisterlayout.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/adult-adventure-backlit-915972.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/adventure-albay-clouds-672358.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/aeroplane-air-air-travel-723240.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/architecture-building-cebu-1364558.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/asia-bay-beach-1076240.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/beach-city-enjoyment-1440399.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/beach-colorful-colourful-164287.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/jared-rice-388264-unsplash.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/wang-xi-677960-unsplash.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/js/About.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/js/LoginAndRegister.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/js/script.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/js/script.min.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/index/About.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/index/post.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/users/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/users/loginandregister.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/users/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/DamhApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/DamhApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/controller/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/controller/homeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/controller/homeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/KhachSan.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/KhachSan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/TaiKhoan.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/TaiKhoan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/Tour.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/Tour.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/modeltg/Users.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/TaiKhoanRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/TaiKhoanRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/TourRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/TourRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/ImagesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/ImagesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/TourService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/TourService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/Slide.css" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/Slide.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/StyleForBlog.css" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/StyleForBlog.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/StyleForLayout.css" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/StyleForLayout.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/StyleForindex.css" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/StyleForindex.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/js/ScriptForSlide.js" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/js/ScriptForSlide.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/index/Blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/index/Blog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/index/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/login/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/partials/SlidePartial.html" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/partials/SlidePartial.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="CSS File" />
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2hRMvvaQgVYvqNG2ITXO0XDpOz7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.DamhApplication.executor": "Run",
+    "Application.Unnamed.executor": "Run",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.DamhApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Admin/source/WebDuLichViet/Nhóm 9/DAMH/src/main/resources/static/CSS",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\source\WebDuLichViet\Nhóm 9\DAMH\src\main\resources\static\CSS" />
+      <recent name="C:\Users\Admin\source\WebDuLichViet\Nhóm 9\DAMH\src\main\resources\templates\index" />
+      <recent name="C:\Users\Admin\source\WebDuLichViet\Nhóm 9\DAMH\src\main\resources\templates\Blog" />
+      <recent name="C:\Users\Admin\source\WebDuLichViet\Nhóm 9\DAMH\src\main\resources\static\js" />
+      <recent name="C:\Users\Admin\source\WebDuLichViet\Nhóm 9\DAMH\src\main\java\com\hutech\DAMH\controller" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\source\WebDuLichViet\Nhóm 9\DAMH\src\main\resources\templates\index" />
+      <recent name="C:\Users\Admin\source\WebDuLichViet\Nhóm 9\DAMH\src\main\resources\templates" />
+      <recent name="C:\Users\Admin\source\WebDuLichViet\Nhóm 9\DAMH\src\main\resources\templates\errors" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Unnamed">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="22" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="com.hutech.DAMH.DamhApplication" />
+      <module name="DACS" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="WebDuLichViet" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="WebDuLichViet" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DamhApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="DACS" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.hutech.DAMH.DamhApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Unnamed" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8d790c2a-0af5-4afe-8c06-4676842d7624" name="Changes" comment="" />
+      <created>1717552670651</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1717552670651</updated>
+      <workItem from="1717552671698" duration="2815000" />
+      <workItem from="1717652411450" duration="7492000" />
+      <workItem from="1717748738312" duration="57000" />
+      <workItem from="1717749421109" duration="76000" />
+      <workItem from="1717749636852" duration="124000" />
+      <workItem from="1717749976765" duration="14157000" />
+      <workItem from="1717768500571" duration="111000" />
+      <workItem from="1717768693818" duration="26000" />
+      <workItem from="1717816206959" duration="23000" />
+      <workItem from="1717861285026" duration="16000" />
+      <workItem from="1718162704563" duration="24000" />
+      <workItem from="1718430732074" duration="433000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

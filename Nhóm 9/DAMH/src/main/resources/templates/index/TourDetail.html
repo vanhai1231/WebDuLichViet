@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${tour.tenTour} + ' - Chi Tiết Tour'">Chi Tiết Tour</title>
+    <link rel="stylesheet" th:href="@{/CSS/Detail.css}">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Thêm các link CSS, JavaScript cần thiết nếu có -->
+    <script>
+        function changeMainImage(src) {
+            document.getElementById('mainImage').src = src;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            flatpickr(".flatpickr", {
+                dateFormat: "d/m/Y",
+                minDate: "today" // Ngày khởi hành không thể là ngày trong quá khứ
+            });
+        });
+
+        function calculateTotal() {
+            var adults = document.getElementById('adults').value;
+            var pricePerAdult = parseFloat(document.getElementById('pricePerAdult').value);
+            var total = adults * pricePerAdult; // Chỉ tính giá tiền cho người lớn
+            document.getElementById('totalPrice').textContent = total.toLocaleString('vi-VN') + ' VND';
+        }
+        function makePayment() {
+            var totalPrice = document.getElementById('totalPrice').textContent;
+            var tongTien = parseFloat(totalPrice.replace(' VND', '').replace(/\./g, ''));
+
+            fetch('/api/v1/payment?amount=' + tongTien, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.payUrl) {
+                        window.location.href = data.payUrl;
+                    } else {
+                        alert('Có lỗi xảy ra, vui lòng thử lại sau.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+<div layout:fragment="content" class="container">
+    <!-- Cột bên trái -->
+    <div class="left-column">
+        <h2 th:text="${tour.tenTour}">Tên Tour</h2>
+        <img id="mainImage" th:src="@{${tour.mainImageUrl}}" alt="Main Tour Image" class="main-image">
+        <div class="image-gallery" th:if="${tour.otherImageUrls != null}">
+            <div th:each="imageUrl : ${tour.otherImageUrls}">
+                <img th:src="@{${imageUrl}}" alt="Other Tour Image" th:onclick="|changeMainImage('@{${imageUrl}}')|">
+            </div>
+        </div>
+    </div>
+
+    <!-- Cột bên phải -->
+    <div class="right-column">
+        <div class="form-group">
+            <label for="departureDate">Chọn ngày khởi hành:</label>
+            <input type="text" id="departureDate" class="flatpickr" placeholder="Chọn ngày khởi hành:">
+        </div>
+        <div class="form-group">
+            <label for="adults">Số người lớn:</label>
+            <input type="number" id="adults" name="adults" min="1" value="1" oninput="calculateTotal()">
+        </div>
+        <div class="form-group">
+            <label for="children">Số trẻ em:</label>
+            <input type="number" id="children" name="children" min="0" value="0">
+        </div>
+        <div class="form-group">
+            <p>Tổng tiền: <span id="totalPrice">0 VND</span></p>
+        </div>
+        <input type="hidden" id="pricePerAdult" th:value="${tour.giaTour}">
+
+        <button class="register-button" onclick="makePayment()">Đặt tour</button>
+    </div>
+</div>
+</body>
+</html>

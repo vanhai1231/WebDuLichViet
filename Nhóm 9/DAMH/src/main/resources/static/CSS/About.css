@@ -1,0 +1,63 @@
+body {
+    background-color: #ADD8E6;
+    overflow: auto;
+    position: relative; /* changed to relative */
+    width: 100%;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 600px; /* set an explicit height */
+    overflow: hidden;
+}
+
+#slide {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.5s ease;
+}
+
+.item {
+    min-width: 200px; /* changed to min-width to allow flexbox to handle sizing */
+    height: 100%;
+    background-position: 50% 50%;
+    transition: 0.5s;
+    background-size: cover;
+    border-radius: 20px;
+    box-shadow: 0 30px 50px #505050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #eee;
+}
+
+.item .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttons {
+    position: absolute;
+    bottom: 20px; /* adjusted to position correctly */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 222222;
+    display: flex;
+    gap: 10px;
+}
+
+.buttons button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #555;
+    transition: 0.5s;
+}
+
+.buttons button:hover {
+    background-color: #bac383;
+}
