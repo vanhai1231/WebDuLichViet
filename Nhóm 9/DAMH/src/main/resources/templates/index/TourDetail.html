@@ -27,11 +27,13 @@
             var total = adults * pricePerAdult; // Chỉ tính giá tiền cho người lớn
             document.getElementById('totalPrice').textContent = total.toLocaleString('vi-VN') + ' VND';
         }
+
         function makePayment() {
             var totalPrice = document.getElementById('totalPrice').textContent;
             var tongTien = parseFloat(totalPrice.replace(' VND', '').replace(/\./g, ''));
+            var maTour = document.getElementById('maTour').value; // Sử dụng value thay vì textContent
 
-            fetch('/api/v1/payment?amount=' + tongTien, {
+            fetch('/api/v1/payment/' + maTour + '?amount=' + tongTien, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -47,6 +49,7 @@
                 })
                 .catch(error => console.error('Error:', error));
         }
+
     </script>
 </head>
 <body>
@@ -80,6 +83,7 @@
             <p>Tổng tiền: <span id="totalPrice">0 VND</span></p>
         </div>
         <input type="hidden" id="pricePerAdult" th:value="${tour.giaTour}">
+        <input type="hidden" id="maTour" th:value="${tour.maTour}">
 
         <button class="register-button" onclick="makePayment()">Đặt tour</button>
     </div>

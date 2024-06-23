@@ -6,12 +6,12 @@
     <meta charset="UTF-8">
     <title>Danh Sách Tour Du Lịch</title>
     <link rel="stylesheet" th:href="@{/CSS/StyleForLayout.css}">
-    <link rel="stylesheet" th:href="@{/CSS/tourlist.css}">
+    <link rel="stylesheet" th:href="@{/CSS/StyleForindex.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <script th:src="@{/js/ScriptForLayout.js}" src="../../static/js/ScriptForLayout.js"></script>
-    <script th:src="@{/js/tourlist.js}" src="../../static/js/tourlist.js"></script>
-    <script th:src="@{/webjars/jquery/jquery.min.js}"></script> <!-- Include jQuery -->
+    <script th:src="@{/js/GoiYDiaDiem.js}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .filter-box {
@@ -20,7 +20,6 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             margin-bottom: 20px;
-            margin-left:-90px;
         }
         .filter-box h4 {
             margin-bottom: 20px;
@@ -61,15 +60,13 @@
                             <label for="tourType">Loại hình tour</label>
                             <select id="tourType" class="form-select" name="tourType">
                                 <option value="">Tất cả</option>
-                                <option value="adventure">Phiêu lưu</option>
-                                <option value="relaxation">Thư giãn</option>
-                                <option value="cultural">Văn hóa</option>
-                                <option value="nature">Thiên nhiên</option>
+                                <option th:each="loaiTour : ${loaiTours}" th:value="${loaiTour.maLoaiTour}" th:text="${loaiTour.loaiTour}"></option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="destination">Nơi đi</label>
-                            <input type="text" id="destination" class="form-control" name="destination">
+                            <label for="location-input">Nơi đi</label>
+                            <input class="form-control" type="text" oninput="fetchSuggestions(this.value)" id="location-input" th:placeholder="#{location}">
+                            <div id="suggestions" class="suggestions-tour"></div>
                         </div>
                         <div class="form-group">
                             <label for="departureDate">Ngày đi</label>
@@ -83,77 +80,85 @@
                             <label for="transport">Phương tiện</label>
                             <select id="transport" class="form-select" name="transport">
                                 <option value="">Tất cả</option>
-                                <option value="plane">Máy bay</option>
-                                <option value="bus">Xe buýt</option>
-                                <option value="train">Tàu hỏa</option>
-                                <option value="boat">Thuyền</option>
+                                <option th:each="phuongTien : ${phuongTiens}" th:value="${phuongTien.maPhuongTien}" th:text="${phuongTien.tenPhuongTien}"></option>
                             </select>
                         </div>
                         <div class="form-group form-check">
                             <input type="checkbox" id="promotion" class="form-check-input" name="promotion">
                             <label for="promotion" class="form-check-label">Chỉ hiển thị những chuyến đi có khuyến mãi</label>
                         </div>
-                        <button type="button" class="locTour" onclick="filterTours()">Lọc tour</button>
+                        <button type="button" class="locTour" id="filterButton">Lọc tour</button>
                     </form>
                 </div>
             </div>
             <div class="col-md-9">
                 <div id="tourList" class="row">
-                    <!-- Tour items will be displayed here -->
+                    <!-- Hiển thị danh sách các tour -->
+                    <div class="card-container">
+                        <!-- Các card tour ở đây -->
+                        <div th:each="tour : ${tours}" class="tour-card">
+                            <!-- Hình ảnh đại diện -->
+                            <div class="tour-image-container">
+                                <img th:src="@{${tour.mainImageUrl}}" alt="Main Tour Image" class="tour-image">
+                                <img th:src="@{${tour.secondaryImageUrl}}" alt="Secondary Tour Image" class="tour-image secondary-image">
+                                <span>
+                                    <i class="bi bi-heart"></i>
+                                </span>
+                            </div>
+                            <!-- Thông tin tour -->
+                            <div class="tour-info">
+                                <h2 class="tour-name" th:text="${tour.tenTour}">Tên Tour</h2>
+                                <!-- Hình ngôi sao -->
+                                <span class="star-icon">⭐⭐⭐⭐⭐</span>
+                                <p class="tour-date" th:text="'Ngày khởi hành: ' + ${#dates.format(tour.ngayKH, 'dd/MM/yyyy')}">Ngày Khởi Hành</p>
+                                <p class="price" th:text="'Giá: ' + ${tour.giaTour}">Giá </p>
+                            </div>
+                            <a id="dangkyBtn" class="dangky-btn"
+                               th:href="@{/DuLichViet/TourDetail/{maTour}(maTour=${tour.maTour})}"
+                               onclick="checkLogin(event)"
+                               th:text="#{register}"></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        flatpickr(".flatpickr", {
-            dateFormat: "d/m/Y",
-            minDate: "today"
+    $(document).ready(function() {
+        $('#filterButton').click(function() { // Bắt sự kiện click của nút "Lọc tour"
+            console.log("Button clicked!");
+            var formData = $('#filterForm').serialize(); // Serialize form data
+            $.ajax({
+                type: "GET",
+                url: "/api/tours/filter",
+                data: formData,
+                success: function(response) {
+                    $('#tourList').empty(); // Xóa danh sách tour hiện tại
+                    $.each(response, function(index, tour) {
+                        var html = '<div class="col-md-4">';
+                        html += '<div class="card">';
+                        html += '<img src="' + tour.mainImageUrl + '" class="card-img-top" alt="Tour Image">';
+                        html += '<div class="card-body">';
+                        html += '<h5 class="card-title">' + tour.tenTour + '</h5>';
+                        html += '<p class="card-text">Ngày khởi hành: ' + tour.ngayKH + '</p>';
+                        html += '<p class="card-text">Giá: ' + tour.giaTour + '</p>';
+                        html += '<a href="/DuLichViet/TourDetail/' + tour.maTour + '" class="btn btn-primary">Đăng ký</a>';
+                        html += '</div></div></div>';
+                        $('#tourList').append(html); // Thêm tour card mới vào danh sách
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching filtered tours:', error);
+                }
+            });
         });
     });
-
-    function filterTours() {
-        var form = $('#filterForm');
-        var formData = form.serialize();
-
-        $.ajax({
-            type: "GET",
-            url: '/api/v1/tours', // Replace with the actual endpoint to fetch tours
-            data: formData,
-            dataType: 'json',
-            success: function(response) {
-                var tourList = $('#tourList');
-                tourList.empty();
-                if (response.tours && response.tours.length > 0) {
-                    response.tours.forEach(function(tour) {
-                        var tourItem = `<div class="col-md-4">
-                            <div class="card">
-                                <img src="${tour.imageUrl}" class="card-img-top" alt="${tour.tenTour}">
-                                <div class="card-body">
-                                    <h5 class="card-title">${tour.tenTour}</h5>
-                                    <p class="card-text">${tour.description}</p>
-                                    <p class="card-text"><small class="text-muted">${tour.price.toLocaleString('vi-VN')} VND</small></p>
-                                    <a href="/DuLichViet/TourDetail/${tour.id}" class="btn btn-primary">Chi tiết</a>
-                                </div>
-                            </div>
-                        </div>`;
-                        tourList.append(tourItem);
-                    });
-                } else {
-                    tourList.append('<p>Không có tour nào phù hợp với tiêu chí tìm kiếm.</p>');
-                }
-            },
-            error: function(xhr) {
-                console.error('Error:', xhr);
-                alert('Đã xảy ra lỗi khi tải danh sách tour.');
-            }
-        });
-    }
 </script>
+
+
 </body>
 </html>

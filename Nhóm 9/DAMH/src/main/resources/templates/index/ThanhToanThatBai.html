@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán thất bại</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" th:href="@{/CSS/PaymentFailed.css}"> </head>
+<body>
+<div class="container">
+    <div class="error-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" height="100" viewBox="0 0 100 100" width="100">
+            <circle cx="50" cy="50" fill="#F04438" r="40"/>
+            <path d="M68 32L32 68" stroke="#fff" stroke-linecap="round" stroke-width="6"/>
+            <path d="M32 32L68 68" stroke="#fff" stroke-linecap="round" stroke-width="6"/>
+        </svg>
+    </div>
+    <h1>Thanh toán thất bại</h1>
+    <p>Rất tiếc, giao dịch thanh toán của bạn không thể được xử lý vào lúc này. Vui lòng thử lại sau hoặc liên hệ với bộ phận hỗ trợ khách hàng.</p>
+    <div class="actions">
+        <a href="contact.html" class="button button-primary">Liên hệ hỗ trợ</a>
+        <a href="index.html" class="button button-secondary">Trở về trang chủ</a>
+    </div>
+</div>
+</body>
+</html>

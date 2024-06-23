@@ -31,107 +31,8 @@
     <!-- Include your custom JS -->
     <script th:src="@{/js/JSForIndex.js}"></script>
     <script th:src="@{/js/ScriptForSlide.js}"></script>
-    <script>
-        async function fetchSuggestions(query) {
-    if (query.length === 0) {
-        document.getElementById('suggestions').innerHTML = '';
-        return;
-    }
+    <script th:src="@{/js/GoiYDiaDiem.js}"></script>
 
-    try {
-        const response = await fetch(`/api/suggestions?query=${encodeURIComponent(query)}`);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const suggestions = await response.json();
-        if (!suggestions || typeof suggestions !== 'object') {
-            throw new Error('Invalid response format');
-        }
-
-        const combinedSuggestions = combineAndFilterSuggestions(suggestions);
-        displaySuggestions(combinedSuggestions);
-    } catch (error) {
-        console.error('Fetch suggestions failed:', error);
-        document.getElementById('suggestions').innerHTML = '<p>Error fetching suggestions</p>';
-    }
-}
-
-function combineAndFilterSuggestions(suggestions) {
-    const tinhSuggestions = suggestions.tinhSuggestions || [];
-    const thanhPhoSuggestions = suggestions.thanhPhoSuggestions || [];
-    const suggestionMap = new Map();
-
-    tinhSuggestions.forEach(tinh => {
-        suggestionMap.set(tinh.tenTinh, tinh);
-    });
-
-    thanhPhoSuggestions.forEach(thanhPho => {
-        suggestionMap.set(thanhPho.tenTP, thanhPho);
-    });
-
-    return Array.from(suggestionMap.values());
-}
-
-function displaySuggestions(suggestions) {
-    const suggestionBox = document.getElementById('suggestions');
-    suggestionBox.innerHTML = ''; // Clear old suggestions
-
-    if (suggestions.length > 0) {
-        suggestions.forEach(location => {
-            const option = document.createElement('div');
-            const displayText = location.tenTinh ? location.tenTinh : location.tenTP;
-            option.textContent = displayText;
-            option.className = 'suggestion';
-            option.onclick = function() {
-                document.getElementById('location-input').value = displayText;
-                suggestionBox.innerHTML = ''; // Clear suggestions after selection
-            };
-            suggestionBox.appendChild(option);
-        });
-        suggestionBox.style.display = 'block'; // Show the suggestion box if there are suggestions
-    } else {
-        suggestionBox.style.display = 'none'; // Hide the suggestion box if there are no suggestions
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('location-input').addEventListener('input', function(e) {
-        const inputVal = e.target.value.trim(); // Trim whitespace
-        if (inputVal.length > 2) {
-            fetchSuggestions(inputVal);
-        } else {
-            document.getElementById('suggestions').innerHTML = ''; // Clear suggestion box if input length is not sufficient
-        }
-    });
-
-    document.getElementById('dangkyBtn').addEventListener('click', checkLogin);
-});
-
-function checkLogin(event) {
-    event.preventDefault(); // Prevent the default redirect action
-toastr.options = {
-	"closeButton": true,
-	"positionClass": "toast-bottom-right",
-	"progressBar": true,
-	"timeOut": "3000", // 3s
-};
-    fetch('/api/check-login')
-        .then(response => response.json())
-        .then(isLoggedIn => {
-            if (!isLoggedIn) {
-                // Show a notification using Toastr.js
-                toastr.error('Vui lòng đăng nhập để đăng ký Tour.');
-
-            } else {
-                // User is logged in, proceed with the default action (redirect)
-                window.location.href = event.target.href;
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
-    </script>
 </head>
 <body>
 <div layout:fragment="content" style="position: relative;">
@@ -168,17 +69,46 @@ toastr.options = {
         <h3 class="subtitle" th:text="#{hottest.places.recommended.by.DuLichViet}"></h3>
         <!-- Thêm hình ảnh địa điểm -->
         <div class="destination-images">
-            <img class="destination-image large" th:src="@{/images/HCM.jpg}" alt="Destination 1">
-            <img class="destination-image small" th:src="@{/images/dalat.jpg}" alt="Destination 2">
-            <img class="destination-image large" th:src="@{/images/hanoi.jpg}" alt="Destination 3">
-            <img class="destination-image small" th:src="@{/images/nhatrang.jpg}" alt="Destination 4">
-            <img class="destination-image large" th:src="@{/images/sapa.jpg}" alt="Destination 5">
-            <img class="destination-image small" th:src="@{/images/vungtau.jpg}" alt="Destination 6">
-            <img class="destination-image large" th:src="@{/images/danang.jpg}" alt="Destination 7">
-            <img class="destination-image large" th:src="@{/images/phuquoc.jpg}" alt="Destination 8">
-            <img class="destination-image large" th:src="@{/images/hoian.jpg}" alt="Destination 9">
-            <img class="destination-image large" th:src="@{/images/quynhon.jpg}" alt="Destination 10">
-            <!-- Thêm nhiều hình ảnh khác tùy theo nhu cầu -->
+            <div class="image-container large">
+                <img class="destination-image" src="/images/HCM.jpg" alt="Destination 1">
+                <div class="image-text" th:text="#{hcm}"></div>
+            </div>
+            <div class="image-container small">
+                <img class="destination-image" src="/images/dalat.jpg" alt="Destination 2">
+                <div class="image-text" th:text="#{dalat}"></div>
+            </div>
+            <div class="image-container large">
+                <img class="destination-image" src="/images/hanoi.jpg" alt="Destination 3">
+                <div class="image-text" th:text="#{hanoi}"></div>
+            </div>
+            <div class="image-container small">
+                <img class="destination-image" src="/images/nhatrang.jpg" alt="Destination 4">
+                <div class="image-text" th:text="#{nhatrang}"></div>
+            </div>
+            <div class="image-container large">
+                <img class="destination-image" src="/images/sapa.jpg" alt="Destination 5">
+                <div class="image-text" th:text="#{sapa}"></div>
+            </div>
+            <div class="image-container small">
+                <img class="destination-image" src="/images/vungtau.jpg" alt="Destination 6">
+                <div class="image-text" th:text="#{vungtau}"></div>
+            </div>
+            <div class="image-container large">
+                <img class="destination-image" src="/images/danang.jpg" alt="Destination 7">
+                <div class="image-text" th:text="#{danang}"></div>
+            </div>
+            <div class="image-container large">
+                <img class="destination-image" src="/images/phuquoc.jpg" alt="Destination 8">
+                <div class="image-text" th:text="#{phuquoc}"></div>
+            </div>
+            <div class="image-container large">
+                <img class="destination-image" src="/images/hoian.jpg" alt="Destination 9">
+                <div class="image-text" th:text="#{hoian}"></div>
+            </div>
+            <div class="image-container large">
+                <img class="destination-image" src="/images/quynhon.jpg" alt="Destination 10">
+                <div class="image-text" th:text="#{quynhon}"></div>
+            </div>
         </div>
     </div>
     <h2 th:text="#{attractive.tours}" class="attractive"></h2>
@@ -189,6 +119,7 @@ toastr.options = {
         <div th:each="tour : ${tours}" class="tour-card">
             <!-- Hình ảnh đại diện -->
             <div class="tour-image-container">
+                <i class="bi bi-heart heart-icon"></i>
                 <img th:src="@{${tour.mainImageUrl}}" alt="Main Tour Image" class="tour-image">
                 <img th:src="@{${tour.secondaryImageUrl}}" alt="Secondary Tour Image" class="tour-image secondary-image">
                 <span>
@@ -208,6 +139,7 @@ toastr.options = {
             <a id="dangkyBtn" class="dangky-btn"
                th:href="@{/DuLichViet/TourDetail/{maTour}(maTour=${tour.maTour})}"
                onclick="checkLogin(event)"
+               th:data-ma-tour="${tour.maTour}"
                th:text="#{register}"></a>
         </div>
         <!-- Các card tour khác... -->

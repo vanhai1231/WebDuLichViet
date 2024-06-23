@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán thành công</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" th:href="@{/CSS/PaymentSuccess.css}"> </head>
+<body>
+<div class="container">
+    <div class="success-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" height="100" viewBox="0 0 100 100" width="100">
+            <circle cx="50" cy="50" fill="#4CAF50" r="40"/>
+            <path d="M25 75l30 30l60 -60" stroke="#fff" stroke-linecap="round" stroke-width="6"/>
+        </svg>
+    </div>
+    <h1>Thanh toán thành công!</h1>
+    <p>Cảm ơn bạn đã thanh toán. Đơn hàng của bạn đã được xác nhận và đang được xử lý.</p>
+    <div class="details">
+        <h2>Thông tin chi tiết</h2>
+        <table>
+            <tr>
+                <th>Mã đơn hàng</th>
+                <td>{{ orderId }}</td>
+            </tr>
+            <tr>
+                <th>Tổng số tiền</th>
+                <td>{{ amount }}</td>
+            </tr>
+            <tr>
+                <th>Phương thức thanh toán</th>
+                <td>{{ paymentMethod }}</td>
+            </tr>
+            <tr>
+                <th>Thời gian thanh toán</th>
+                <td>{{ paymentDateTime }}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="actions">
+
+        <a href="index.html" class="button button-secondary">Trở về trang chủ</a>
+    </div>
+</div>
+</body>
+</html>
