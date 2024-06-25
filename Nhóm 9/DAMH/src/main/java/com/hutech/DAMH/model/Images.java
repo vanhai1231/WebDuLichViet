@@ -2,12 +2,15 @@ package com.hutech.DAMH.model;
 
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Date;
 import java.util.List;
-
+@Getter
+@Setter
 @Entity
 @IdClass(ImagesId.class)
 @Table(name = "Images")
@@ -18,7 +21,6 @@ public class Images {
     private String maTour;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private int id;
 

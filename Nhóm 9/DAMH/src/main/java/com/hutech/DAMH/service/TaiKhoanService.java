@@ -1,4 +1,5 @@
 package com.hutech.DAMH.service;
+import com.hutech.DAMH.CustomUserDetails;
 import com.hutech.DAMH.Role;
 import com.hutech.DAMH.model.TaiKhoan;
 
@@ -10,6 +11,9 @@ import com.hutech.DAMH.repository.UserRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +21,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Service
 @Slf4j
 @Transactional
@@ -40,6 +50,7 @@ public class TaiKhoanService implements UserDetailsService {
     public TaiKhoan processOAuthPostLogin(OAuth2User oauth2User) {
         String email = oauth2User.getAttribute("email");
         String name = oauth2User.getAttribute("name");
+
         String address = oauth2User.getAttribute("address");
         Optional<User> existUserssss = iUserRepository.findByEmail(email);
 
@@ -47,6 +58,7 @@ public class TaiKhoanService implements UserDetailsService {
         User user=null;
         if (existUserssss.isEmpty()) {
             taiKhoan = new TaiKhoan();
+
             taiKhoan.setTenTK(email); // Assuming username is the email
 //            taiKhoan.setPassWord("123"); // No password for OAuth users
             taiKhoan.setPassWord(new BCryptPasswordEncoder().encode("123"));
@@ -77,33 +89,71 @@ public class TaiKhoanService implements UserDetailsService {
         );
     }
     // Tải thông tin chi tiết người dùng để xác thực.
+//    @Override
+//    public UserDetails loadUserByUsername(String tenTK) throws UsernameNotFoundException {
+//        var user = taiKhoanRepository.findByTenTK(tenTK)
+//                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+//
+//        return org.springframework.security.core.userdetails.User
+//                .withUsername(user.getTenTK())
+//                .password(user.getPassword())
+//                .authorities(user.getAuthorities())
+//                .accountExpired(!user.isAccountNonExpired())
+//                .accountLocked(!user.isAccountNonLocked())
+//                .credentialsExpired(!user.isCredentialsNonExpired())
+//                .disabled(!user.isEnabled())
+//                .build();
+//    }
     @Override
-    public UserDetails loadUserByUsername(String tenTK) throws
-            UsernameNotFoundException {
-        var user = taiKhoanRepository.findByTenTK(tenTK)
+    public UserDetails loadUserByUsername(String tenTK) throws UsernameNotFoundException {
+        TaiKhoan user = taiKhoanRepository.findByTenTK(tenTK)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        return org.springframework.security.core.userdetails.User
-                .withUsername(user.getTenTK())
-                .password(user.getPassword())
-                .authorities(user.getAuthorities())
-                .accountExpired(!user.isAccountNonExpired())
-                .accountLocked(!user.isAccountNonLocked())
-                .credentialsExpired(!user.isCredentialsNonExpired())
-                .disabled(!user.isEnabled())
-                .build();
+
+        return new CustomUserDetails(
+                user.getTenTK(),
+                user.getPassword(),
+                user.getID(),
+                user.getAuthorities()
+        );
     }
+
     // Tìm kiếm người dùng dựa trên tên đăng nhập.
     public Optional<TaiKhoan> findByTenTK(String tenTK) throws
             UsernameNotFoundException {
         return taiKhoanRepository.findByTenTK(tenTK);
     }
-    public Optional<User> findByEmail(String email) throws
-            UsernameNotFoundException {
-        return iUserRepository.findByEmail(email);
+//    public Optional<User> findByEmail(String email) throws
+//            UsernameNotFoundException {
+//        return iUserRepository.findByEmail(email);
+//    }
+public Optional<TaiKhoan> findByEmail(String email) throws UsernameNotFoundException {
+    Optional<User> userOptional = iUserRepository.findByEmail(email);
+    if (userOptional.isPresent()) {
+        return taiKhoanRepository.findByUser(userOptional.get());
     }
+    return Optional.empty();
+}
     public Optional<User> findBySdt(int sdt) throws
             UsernameNotFoundException {
         return iUserRepository.findBySdt(sdt);
+    }
+    public boolean passwordsMatch(String rawPassword, String encodedPassword) {
+        return new BCryptPasswordEncoder().matches(rawPassword, encodedPassword);
+    }
+    public boolean hasRole(String roleName) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return false;
+        }
+
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        for (GrantedAuthority authority : authorities) {
+            if (authority.getAuthority().equals(roleName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

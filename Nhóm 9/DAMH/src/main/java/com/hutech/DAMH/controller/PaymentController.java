@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,13 +34,23 @@ public class PaymentController {
         this.hoaDonService = hoaDonService;
     }
 
-    @GetMapping("/api/v1/payment/{maTour}")
-    public Map<String, String> payment(@RequestParam int amount, @PathVariable String maTour, Authentication authentication, HttpSession session) throws Exception {
+    @GetMapping("/api/v1/payment/{maTour}/{sdt}/{diachi}/{adults}/{children}")
+    public Map<String, String> payment(@PathVariable String maTour,
+                                       @PathVariable String sdt,
+                                       @PathVariable String diachi,
+                                       @PathVariable String adults,
+                                       @PathVariable String children,
+                                       @RequestParam int amount,
+                                       Authentication authentication, HttpSession session) throws Exception {
         String username = getCurrentUsername(authentication);
         if (username == null) {
             throw new Exception("Không thể lấy thông tin tài khoản người dùng hiện hành");
         }
         session.setAttribute("maTour", maTour);
+        session.setAttribute("sdt", sdt);
+        session.setAttribute("diachi", diachi);
+        session.setAttribute("adults", adults);
+        session.setAttribute("children", children);
         String endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
         String partnerCode = "MOMOOJOI20210710";
         String accessKey = "iPXneGmrJH0G8FOP";
@@ -82,6 +94,8 @@ public class PaymentController {
             message.put("requestType", "captureMoMoWallet");
             message.put("signature", signature);
             message.put("maTour", maTour);
+            message.put("phoneNumber", sdt);
+            message.put("address", diachi);
 
             String response = PaymentRequest.sendPaymentRequest(endpoint, message.toString());
             JSONObject jsonResponse = new JSONObject(response);
@@ -102,10 +116,18 @@ public class PaymentController {
         }
     }
 
+
     @GetMapping("/api/v1/payment/callback")
     public String handlePaymentCallback(@RequestParam Map<String, String> queryParams, Model model, Authentication authentication, HttpSession session) throws Exception {
         // Lấy maTour từ session
         String maTour = (String) session.getAttribute("maTour");
+        String sdt = (String) session.getAttribute("sdt");
+        String diachi = (String) session.getAttribute("diachi");
+        Object adultsObj = session.getAttribute("adults");
+        Object childrenObj = session.getAttribute("children");
+
+        int NguoiLon = adultsObj != null ? Integer.parseInt(adultsObj.toString()) : 0;
+        int TreEm = childrenObj != null ? Integer.parseInt(childrenObj.toString()) : 0;
 
         // Kiểm tra maTour có tồn tại hay không
         if (maTour == null) {
@@ -117,6 +139,7 @@ public class PaymentController {
 
         String amount = queryParams.get("amount");
         String orderId = queryParams.get("orderId");
+
         String param = queryParams.toString().substring(0, queryParams.toString().indexOf("signature") - 1);
         param = java.net.URLDecoder.decode(param, StandardCharsets.UTF_8);
         String username = getCurrentUsername(authentication);
@@ -127,13 +150,13 @@ public class PaymentController {
         }
 
         System.out.println("Callback received for user: " + username);
-        System.out.println("Amount: " + amount + ", Order ID: " + orderId + ", MaTour: " + maTour);
+        System.out.println("Amount: " + amount + ", Order ID: " + orderId + ", MaTour: " + maTour + ",sdt: " + sdt + ",DiaChi: " + diachi);
 
         if (param.contains("Bad request")) {
             return "index/ThanhToanThatBai";
         } else {
             try {
-                savePaymentToHoaDon(Integer.parseInt(amount), orderId, username, maTour);
+                savePaymentToHoaDon(Integer.parseInt(amount), orderId, username, maTour,sdt,diachi,NguoiLon,TreEm);
                 System.out.println("Payment saved successfully.");
                 return "index/ThanhToanThanhCong";
             } catch (Exception e) {
@@ -144,18 +167,19 @@ public class PaymentController {
         }
     }
 
-
     private String getCurrentUsername(Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
             Object principal = authentication.getPrincipal();
             if (principal instanceof UserDetails) {
                 return ((UserDetails) principal).getUsername();
+            } else if (principal instanceof OAuth2User) {
+                return ((OAuth2User) principal).getAttribute("email");
             }
         }
         return null;
     }
 
-    private void savePaymentToHoaDon(int amount, String orderId, String username, String maTour) throws Exception {
+    private void savePaymentToHoaDon(int amount, String orderId, String username, String maTour,String sdt,String DiaChi,int NguoiLon,int TreEm) throws Exception {
         TaiKhoan taiKhoan = taiKhoanService.findByTenTK(username)
                 .orElseThrow(() -> new Exception("Không tìm thấy tài khoản với tên: " + username));
 
@@ -165,7 +189,10 @@ public class PaymentController {
         hoaDon.setNgayLap(new Date());
         hoaDon.setId(taiKhoan.getID());
         hoaDon.setMaTour(maTour);
-
+        hoaDon.setSdt(sdt);
+        hoaDon.setDiaChi(DiaChi);
+        hoaDon.setSoNguoiLon(NguoiLon);
+        hoaDon.setSoTreEm(TreEm);
         hoaDonService.saveHoaDon(hoaDon);
 
         System.out.println("Saving HoaDon: " + hoaDon);

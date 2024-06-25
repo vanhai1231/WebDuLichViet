@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
 @Setter
@@ -23,6 +24,7 @@ public class Tour {
     private String tenTour;
 
     @Column(name = "NgayKH")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") // Specify the date-time format expected
     private Date ngayKH;
 
     @Column(name = "NoiKhoiHanh")
@@ -50,9 +52,9 @@ public class Tour {
     @JoinColumn(name = "MaLoaiTour")
     private LoaiTour loaiTour;
 
-    @ManyToOne
-    @JoinColumn(name = "MaKM")
-    private KhuyenMai khuyenMai;
+//    @ManyToOne
+//    @JoinColumn(name = "MaKM")
+//    private KhuyenMai khuyenMai;
 
     @Transient
     private List<String> imageUrls;

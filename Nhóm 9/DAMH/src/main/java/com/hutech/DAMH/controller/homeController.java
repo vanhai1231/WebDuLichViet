@@ -6,15 +6,19 @@ import com.hutech.DAMH.service.LoaiTourService;
 import com.hutech.DAMH.service.PhuongTienService;
 import com.hutech.DAMH.service.TourService;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
-@SessionAttributes({"taiKhoan", "userId"})
+//@SessionAttributes({"taiKhoan", "userId"})
 @RequestMapping("/DuLichViet")
 public class homeController {
 
@@ -22,12 +26,13 @@ public class homeController {
     private TourService tourService;
     @Autowired
     private ImagesService imagesService; // Thêm dòng này
-
+    @Autowired
+    private LoaiTourService loaiTourService;
+    @Autowired
+    private PhuongTienService phuongTienService;
     @GetMapping("/Home")
-    public String showProductList(Model model) {
-        if (!model.containsAttribute("taiKhoan")) {
-            model.addAttribute("taiKhoan", new TaiKhoan());
-        }
+    public String showProductList(Model model, HttpSession session) {
+
         // Lấy danh sách các tour và thêm vào model
         List<Tour> tours = tourService.getAllTours();
         for (Tour tour : tours) {
@@ -88,10 +93,6 @@ public class homeController {
         return "index/TourDetail"; // Trả về view hiển thị chi tiết tour
     }
 
-    @Autowired
-    private LoaiTourService loaiTourService;
-    @Autowired
-    private PhuongTienService phuongTienService;
     @GetMapping("/Tour")
     public String showTour(Model model) {
 
@@ -114,4 +115,5 @@ public class homeController {
         model.addAttribute("phuongTiens", phuongTiens);
         return "index/Tour";
     }
+
 }

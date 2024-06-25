@@ -31,7 +31,8 @@
                         $('#errorMessages').html(errorMessage);
                     } else {
                         alert(response.message || 'Đăng ký thành công!');
-                        window.location.href = '/DangNhap';
+<!--                        window.location.href = '/DangNhap';-->
+                        window.location.href = '/NhapOtp'; // Redirect to OTP input page
                     }
                 },
                 error: function(xhr) {
@@ -85,6 +86,7 @@
             <button type="button" onclick="submitForm()">Sign Up</button>
 
         </form>
+
     </div>
     <div class="form-container sign-in">
         <form th:action="@{/DangNhap}" method="post">
@@ -107,7 +109,7 @@
                    name="username" placeholder="Username">
             <input type="password" class="form-control" required id="passwordid"
                    name="password" placeholder="Password">
-            <a href="#">Quên mật khẩu?</a>
+            <a href="/QuenMatKhau">Quên mật khẩu?</a>
             <button>Sign In</button>
         </form>
     </div>

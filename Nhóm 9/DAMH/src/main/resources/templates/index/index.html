@@ -137,8 +137,8 @@
             </div>
             <!-- Nút Đăng ký -->
             <a id="dangkyBtn" class="dangky-btn"
-               th:href="@{/DuLichViet/TourDetail/{maTour}(maTour=${tour.maTour})}"
                onclick="checkLogin(event)"
+               th:href="@{/DuLichViet/TourDetail/{maTour}(maTour=${tour.maTour})}"
                th:data-ma-tour="${tour.maTour}"
                th:text="#{register}"></a>
         </div>

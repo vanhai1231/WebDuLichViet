@@ -1,0 +1,143 @@
+<!-- add-tour-form.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      layout:decorate="~{layout_admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Tour</title>
+    <style>
+        .custom-select {
+            width: 100%;
+        }
+
+        .btn {
+            margin-top: 20px;
+        }
+
+        .error-popover {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content" style="position: relative;">
+    <div class="col-md-12 ">
+        <h3>Thêm Sản Phẩm</h3>
+
+        <div class="col-md-9" style="margin-left:150px;">
+            <form action="/Admin/AddTour" method="post" th:object="${tour}" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="maTour">Mã Tour:</label>
+                    <input type="text" id="maTour" name="maTour" th:field="*{maTour}" required><br><br>
+                    <!--        <span id="tenSanPhamError" class="text-danger"></span>-->
+                </div>
+
+
+                <div class="form-group">
+                    <label for="tenTour">Tên Tour:</label>
+                    <input type="text" id="tenTour" name="tenTour" th:field="*{tenTour}" required><br><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="ngayKH">Ngày Khởi Hành:</label>
+                    <input type="datetime-local" id="ngayKH" name="ngayKH" th:field="*{ngayKH}" required><br><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="noiKhoiHanh">Nơi Khởi Hành:</label>
+                    <input type="text" id="noiKhoiHanh" name="noiKhoiHanh" th:field="*{noiKhoiHanh}" required><br><br>
+                </div>
+                <div class="form-group">
+                    <label for="soluong">Số Lượng:</label>
+                    <input type="number" id="soluong" name="soluong" th:field="*{soluong}" required><br><br>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="giaTour">Giá:</label>
+                    <input type="number" id="giaTour" name="giaTour" th:field="*{giaTour}" required><br><br>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="tinh" class="form-label">Tỉnh:</label>
+                    <select th:field="*{tinh}" class="form-control" id="tinh" required>
+                        <option th:each="tinh : ${tinhs}"
+                                th:value="${tinh.maTinh}" th:text="${tinh.tenTinh}"></option>
+                    </select>
+                    <div class="text-danger" th:if="${#fields.hasErrors('tinh')}" th:errors="*{tinh}"></div>
+                </div>
+                <div class="form-group">
+                    <label for="loaiTour" class="form-label">Loại Tour:</label>
+                    <select th:field="*{loaiTour}" class="form-control" id="loaiTour" required>
+                        <option th:each="loaiTour : ${loaiTours}"
+                                th:value="${loaiTour.maLoaiTour}" th:text="${loaiTour.loaiTour}"></option>
+                    </select>
+                    <div class="text-danger" th:if="${#fields.hasErrors('loaiTour')}" th:errors="*{loaiTour}"></div>
+
+
+
+                    <div class="form-group">
+                        <label for="loaiTour" class="form-label">Phòng:</label>
+                        <select th:field="*{phong}" class="form-control" id="phong" required>
+                            <option th:each="phong : ${phongs}"
+                                    th:value="${phong.maPhong}" th:text="${phong.loaiPhong.tenLoai}"></option>
+                        </select>
+                        <div class="text-danger" th:if="${#fields.hasErrors('phong')}" th:errors="*{phong}"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="loaiTour" class="form-label">Phương Tiện:</label>
+                        <select th:field="*{phuongTien}" class="form-control" id="phuongTien" required>
+                            <option th:each="phuongTien : ${phuongTiens}"
+                                    th:value="${phuongTien.maPhuongTien}" th:text="${phuongTien.tenPhuongTien}"></option>
+                        </select>
+                        <div class="text-danger" th:if="${#fields.hasErrors('phuongTien')}" th:errors="*{phuongTien}"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mainImageFile">Hình Ảnh 1:</label>
+                        <input type="file" id="mainImageFile" name="mainImageFile" accept="image/*" required multiple onchange="previewImage1(event)"><br><br>
+                        <img id="preview1" src="#" alt="Preview Image" style="max-width: 200px; max-height: 200px; margin-top: 10px; display: none;">
+                    </div>
+                    <div class="form-group">
+                        <label for="secondaryImageFile">Hình Ảnh 2:</label>
+                        <input type="file" id="secondaryImageFile" name="secondaryImageFile" accept="image/*" required multiple onchange="previewImage2(event)"><br><br>
+                        <img id="preview2" src="#" alt="Preview Image" style="max-width: 200px; max-height: 200px; margin-top: 10px; display: none;">
+                    </div>
+                    <script>
+                        function previewImage1(event) {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    var preview = document.getElementById('preview1');
+                    preview1.src = reader.result;
+                    preview1.style.display = 'block'; // Hiển thị hình ảnh đã chọn
+                }
+                reader.readAsDataURL(event.target.files[0]);
+            }
+                    </script>
+                    <script>
+                        function previewImage2(event) {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    var preview2 = document.getElementById('preview2');
+                    preview2.src = reader.result;
+                    preview2.style.display = 'block'; // Hiển thị hình ảnh đã chọn
+                }
+                reader.readAsDataURL(event.target.files[0]);
+            }
+
+                    </script>
+
+                    <div class="form-group btn" style="margin-top:20px">
+                        <input type="submit" class="btn btn-success" value="Add Tour">
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</section>>
+</body>
+</html>

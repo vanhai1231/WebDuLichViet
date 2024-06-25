@@ -8,6 +8,8 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
@@ -19,6 +21,7 @@ import java.util.Set;
 @Table(name = "TaiKhoan")
 public class TaiKhoan implements UserDetails {
 
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
@@ -35,6 +38,9 @@ public class TaiKhoan implements UserDetails {
     @ManyToOne
     @JoinColumn(name = "idUser")
     private User user;
+    // Getters and Setters
+
+
 
 
     @ManyToMany(fetch=FetchType.EAGER)
@@ -54,10 +60,12 @@ public class TaiKhoan implements UserDetails {
         return passWord;
     }
 
+
     @Override
     public String getUsername() {
         return tenTK;
     }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -86,4 +94,7 @@ public class TaiKhoan implements UserDetails {
     public int hashCode() {
         return getClass().hashCode();
     }
+
+
+
 }

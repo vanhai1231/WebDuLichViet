@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Tour</title>
+    <style>
+        .custom-select {
+            width: 100%;
+        }
+        .btn {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content" style="position:relative;">
+    <div class="col-md-12">
+        <h3>Sửa Sản Phẩm</h3>
+        <div class="col-md-9" style="margin-left:150px;">
+            <form th:action="@{/Admin/UpdateTour/{id}(id=${tour.maTour})}" method="post" enctype="multipart/form-data">
+                <input type="hidden" id="maTour" name="maTour" th:value="${tour.maTour}">
+                <div class="form-group">
+                    <label for="tenTour">Tên Tour:</label>
+                    <input type="text" id="tenTour" name="tenTour" th:value="${tour.tenTour}" required>
+                </div>
+                <div class="form-group">
+                    <label for="giaTour">Giá:</label>
+                    <input type="number" id="giaTour" name="giaTour" th:value="${tour.giaTour}" required>
+                </div>
+                <div class="form-group">
+                    <label for="ngayKH">Ngày Khởi Hành:</label>
+                    <input type="datetime-local" id="ngayKH" name="ngayKH" th:value="${tour.ngayKH}" required>
+                </div>
+                <div class="form-group">
+                    <label for="noiKhoiHanh">Nơi Khởi Hành:</label>
+                    <input type="text" id="noiKhoiHanh" name="noiKhoiHanh" th:value="${tour.noiKhoiHanh}" required>
+                </div>
+                <div class="form-group">
+                    <label for="tinh">Mã Tỉnh:</label>
+                    <select id="tinh" name="tinh.maTinh" required>
+                        <option th:each="tinh : ${tinhs}" th:value="${tinh.maTinh}" th:text="${tinh.tenTinh}" th:selected="${tour.tinh.maTinh == tinh.maTinh}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="loaiTour">Mã Loại Tour:</label>
+                    <select id="loaiTour" name="loaiTour.maLoaiTour" required>
+                        <option th:each="loaiTour : ${loaiTours}" th:value="${loaiTour.maLoaiTour}" th:text="${loaiTour.loaiTour}" th:selected="${tour.loaiTour.maLoaiTour == loaiTour.maLoaiTour}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="phong">Mã Phòng:</label>
+                    <select id="phong" name="phong.maPhong" required>
+                        <option th:each="phong : ${phongs}" th:value="${phong.maPhong}" th:text="${phong.loaiPhong.tenLoai}" th:selected="${tour.phong.maPhong == phong.maPhong}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="phuongTien">Phương Tiện:</label>
+                    <select id="phuongTien" name="phuongTien.maPhuongTien" required>
+                        <option th:each="phuongTien : ${phuongTiens}" th:value="${phuongTien.maPhuongTien}" th:text="${phuongTien.tenPhuongTien}" th:selected="${tour.phuongTien.maPhuongTien == phuongTien.maPhuongTien}"></option>
+                    </select>
+                </div>
+                <div>
+                    <label for="mainImageFile">Hình Ảnh:</label>
+                    <input type="file" id="mainImageFile" name="mainImageFile" onchange="previewImage1(this);">
+                    <div id="imagePreview1">
+                        <img th:src="@{${tour.mainImageUrl}}" alt="Main Image" style="width: 200px; height: auto;">
+                    </div>
+                </div>
+                <div>
+                    <label for="secondaryImageFile">Hình Ảnh:</label>
+                    <input type="file" id="secondaryImageFile" name="secondaryImageFile" onchange="previewImage2(this);">
+                    <div id="imagePreview2">
+                        <img th:src="@{${tour.secondaryImageUrl}}" alt="Main Image" style="width: 200px; height: auto;">
+                    </div>
+                </div>
+
+                <script>
+                    function previewImage1(input) {
+                        var file = input.files[0];
+                        var reader = new FileReader();
+
+                        reader.onload = function(e) {
+                            var preview = document.getElementById('imagePreview1').getElementsByTagName('img')[0];
+                            preview.src = e.target.result;
+                        };
+
+                        reader.readAsDataURL(file);
+                    }
+
+                    function previewImage2(input) {
+                        var file = input.files[0];
+                        var reader = new FileReader();
+
+                        reader.onload = function(e) {
+                            var preview = document.getElementById('imagePreview2').getElementsByTagName('img')[0];
+                            preview.src = e.target.result;
+                        };
+
+                        reader.readAsDataURL(file);
+                    }
+                </script>
+                <div>
+                    <button type="submit" class="btn btn-primary">Update Tour</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

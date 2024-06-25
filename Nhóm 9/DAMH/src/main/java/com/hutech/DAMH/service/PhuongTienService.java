@@ -9,11 +9,7 @@ import java.util.List;
 
 @Service
 public class PhuongTienService {
-
     @Autowired
     private PhuongTienRepository phuongTienRepository;
-
-    public List<PhuongTien> getAllPhuongTien() {
-        return phuongTienRepository.findAll();
-    }
+    public List<PhuongTien> getAllPhuongTien(){return phuongTienRepository.findAll();}
 }

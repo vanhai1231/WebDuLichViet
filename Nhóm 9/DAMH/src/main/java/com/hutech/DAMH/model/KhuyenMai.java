@@ -1,11 +1,11 @@
 package com.hutech.DAMH.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.sql.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -21,4 +21,17 @@ public class KhuyenMai {
 
     @Column(name = "PhanTramKM")
     private int phanTramKM;
+
+    @Column(name = "NgayBatDau")
+    private Date ngayBatDau;
+
+    @Column(name = "NgayKetThuc")
+    private Date ngayKetThuc;
+
+    @Column(name = "SoLan")
+    private boolean SoLan;
+
+    @ManyToOne
+    @JoinColumn(name = "idTaiKhoan")
+    private TaiKhoan taiKhoan;
 }

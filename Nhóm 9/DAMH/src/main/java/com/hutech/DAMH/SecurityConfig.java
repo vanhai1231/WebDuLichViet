@@ -1,4 +1,5 @@
 package com.hutech.DAMH;
+import com.hutech.DAMH.model.TaiKhoan;
 import com.hutech.DAMH.service.TaiKhoanService;
 
 import jakarta.validation.constraints.NotNull;
@@ -40,12 +41,13 @@ public class SecurityConfig {
         auth.setPasswordEncoder(passwordEncoder()); // Thiết lập cơ chế mã hóa mật khẩu.
         return auth; // Trả về nhà cung cấp xác thực.
     }
+
     @Bean
     public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/CSS/**","webjars/**", "/js/**","/images/**", "/video/**","/", "/oauth/**", "/index/**", "/error",
-                                "/DangNhap","/DuLichViet/Home","/DuLichViet/About","/DuLichViet/Blog","/DangKy","/DuLichViet/TourDetail/**", "/partials/**", "/cart/**")
+                        .requestMatchers("/assets/**","/CSS/**","webjars/**", "/js/**","/images/**", "/video/**","/", "/oauth/**", "/index/**", "/error",
+                        "/Admin/delete/**","/Admin/UpdateTour/**","/Admin/edit/**","/Admin/ThemTour","/Admin/ThemTour?error","/Admin/AddTour","/Admin/logoutAdmin", "/Admin/DanhSachTour","/Admin/login?error","/Admin/login","/DangNhap","/Admin/Home","/DuLichViet/Home","/NhapOtp","/verifyOtp","/DoiMatKhau","/QuenMatKhau","/DuLichViet/About","/DuLichViet/Blog","/DangKy", "/partials/**", "/cart/**")
                         .permitAll() // Cho phép truy cập không cần xác thực.
                         .requestMatchers("/products/edit/**", "/products/add", "/products/delete")
                         .hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.
@@ -59,12 +61,22 @@ public class SecurityConfig {
                         .loginPage("/DangNhap")
                         .defaultSuccessUrl("/google", true)
                         .failureUrl("/DangNhap?error")
+                        .permitAll()
                 )
                 .oauth2Login(oauth2Login -> oauth2Login
                         .loginPage("/DangNhap")
                         .defaultSuccessUrl("/facebook", true)
                         .failureUrl("/DangNhap?error")
+                        .permitAll()
                 )
+//                .logout(logout -> logout
+//                        .logoutUrl("/logoutAdmin")
+//                        .logoutSuccessUrl("/Admin/login") // Trang chuyển hướng sau khi đăng xuất.
+//                        .deleteCookies("JSESSIONID") // Xóa cookie.
+//                        .invalidateHttpSession(true) // Hủy phiên làm việc.
+//                        .clearAuthentication(true) // Xóa xác thực.
+//                        .permitAll()
+//                )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/DangNhap") // Trang chuyển hướng sau khi đăng xuất.
@@ -73,13 +85,27 @@ public class SecurityConfig {
                         .clearAuthentication(true) // Xóa xác thực.
                         .permitAll()
                 )
+                //admin
+
+//                .formLogin(formLogin1 -> formLogin1
+//                        .loginPage("/Admin/login") // Trang đăng nhập.
+//                        .loginProcessingUrl("/Admin/login") // URL xử lý đăng nhập.
+//                        .defaultSuccessUrl("/Admin/Home",true) // Trang sau đăng nhập thành công.
+//                        .failureUrl("/Admin/login?error") // Trang đăng nhập thất bại.
+//                        .permitAll()
+//
+//                )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/DangNhap") // Trang đăng nhập.
                         .loginProcessingUrl("/DangNhap") // URL xử lý đăng nhập.
-                        .defaultSuccessUrl("/DuLichViet/Home") // Trang sau đăng nhập thành công.
+                        .defaultSuccessUrl("/DuLichViet/Home",true) // Trang sau đăng nhập thành công.
                         .failureUrl("/DangNhap?error") // Trang đăng nhập thất bại.
                         .permitAll()
+
                 )
+                //admin
+
+
                 .rememberMe(rememberMe -> rememberMe
                         .key("hutech")
                         .rememberMeCookieName("hutech")
@@ -91,13 +117,15 @@ public class SecurityConfig {
                 )
                 .sessionManagement(sessionManagement -> sessionManagement
                         .maximumSessions(1) // Giới hạn số phiên đăng nhập.
-                        .expiredUrl("/login") // Trang khi phiên hết hạn.
+                        .expiredUrl("/DangNhap") // Trang khi phiên hết hạn.
                 )
+
                 .httpBasic(httpBasic -> httpBasic
                         .realmName("hutech") // Tên miền cho xác thực cơ bản.
                 )
                 .build(); // Xây dựng và trả về chuỗi lọc bảo mật.
     }
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

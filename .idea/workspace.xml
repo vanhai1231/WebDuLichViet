@@ -5,67 +5,240 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d790c2a-0af5-4afe-8c06-4676842d7624" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/controller/BlogController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/controller/SuggestionsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/IRoleRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/ITaiKhoanRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/IUserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/ThanhPhoRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/TinhRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/TaiKhoanService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/ThanhPhoService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/TinhService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/CustomUserDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/LocaleConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/controller/AdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/controller/CallbackPaymentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/controller/PaymentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/controller/TourAdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/controller/TourController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/ChiTietKhuyenMai.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/KhuyenMai.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/ChiTietKhuyenMaiRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/HinhAnhRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/HoaDonRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/KhuyenMaiRespository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/LoaiTourRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/PhongRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/PhuongTienRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/HoaDonService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/HoaDonServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/KhuyenMaiService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/LoaiTourService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/OTPService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/PhongService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/PhuongTienService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/messages_en.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/messages_vi.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/404.css" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/About.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/LoginAndRegister.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/loginandregisterlayout.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/Detail.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/Payment.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/Slide.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/StyleForBlog.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/StyleForLayout.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/StyleForindex.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/forgotpassword.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/nhapotp.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/css/style.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/fonts/Ubuntu/Ubuntu-Bold.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/fonts/Ubuntu/Ubuntu-Bold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/fonts/Ubuntu/Ubuntu-Bold.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/fonts/Ubuntu/Ubuntu-Bold.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/fonts/Ubuntu/Ubuntu-Light.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/fonts/Ubuntu/Ubuntu-Light.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/fonts/Ubuntu/Ubuntu-Light.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/fonts/Ubuntu/Ubuntu-Light.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/fonts/Ubuntu/Ubuntu-Medium.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/fonts/Ubuntu/Ubuntu-Medium.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/fonts/Ubuntu/Ubuntu-Medium.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/fonts/Ubuntu/Ubuntu-Medium.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/fonts/Ubuntu/Ubuntu-Regular.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/fonts/Ubuntu/Ubuntu-Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/fonts/Ubuntu/Ubuntu-Regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/fonts/Ubuntu/Ubuntu-Regular.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/dashboard/circle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/dashboard/circle.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/dashboard/img_1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/dashboard/img_2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/dashboard/img_3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/dashboard/img_4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces-clipart/pic-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces-clipart/pic-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces-clipart/pic-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces-clipart/pic-4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face10.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face11.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face12.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face13.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face14.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face15.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face16.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face17.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face18.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face19.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face20.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face21.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face22.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face23.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face24.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face25.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face26.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face27.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face7.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face8.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/faces/face9.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/favicon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/logo-mini.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/sprites/blue.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/sprites/dark.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/sprites/flag.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/sprites/green.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/sprites/jsgrid-icons.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/sprites/red.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/images/sprites/yellow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/js/chart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/js/dashboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/js/file-upload.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/js/hoverable-collapse.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/js/jquery.cookie.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/js/misc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/js/off-canvas.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/js/todo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/js/todolist.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/_dashboard.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/_demo.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/_fonts.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/_footer.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/_functions.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/_layouts.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/_misc.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/_navbar.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/_reset.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/_sidebar.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/_typography.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/_utilities.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/_variables.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/_vertical-wrapper.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/_widget-grid.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/components/_badges.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/components/_bootstrap-progress.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/components/_breadcrumbs.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/components/_buttons.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/components/_cards.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/components/_checkbox-radio.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/components/_dropdown.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/components/_forms.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/components/_icons.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/components/_lists.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/components/_preview.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/components/_tables.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/components/_todo-list.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/landing-screens/_auth.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/mixins/_animation.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/mixins/_background.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/mixins/_badges.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/mixins/_blockqoute.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/mixins/_breadcrumbs.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/mixins/_buttons.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/mixins/_cards.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/mixins/_misc.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/mixins/_pagination.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/mixins/_popovers.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/mixins/_text.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/mixins/_tooltips.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/scss/style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/vendors/chart.js/Chart.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/vendors/css/vendor.bundle.base.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/vendors/js/bootstrap.min.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/vendors/js/vendor.bundle.base.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/vendors/mdi/css/materialdesignicons.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/vendors/mdi/css/materialdesignicons.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/vendors/mdi/fonts/materialdesignicons-webfont.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/vendors/mdi/fonts/materialdesignicons-webfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/vendors/mdi/fonts/materialdesignicons-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/assets/vendors/mdi/fonts/materialdesignicons-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/Airplane.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/Blod.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/DaNang1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/DaNang2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/DuLichViet1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/DuLichViet2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/DuLichViet3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/HCM.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/Logo.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/PhanThiet1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/PhanThiet2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/PhuQuoc1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/PhuQuoc2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/PhuQuoc3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/PhuQuoc4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/PhuQuoc5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/PhuQuoc6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/PhuYen1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/PhuYen2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/PhuYen3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/YenTu1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/YenTu2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/about1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/about2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/about3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/about4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/about5.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/adult-adventure-backlit-915972.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/adventure-albay-clouds-672358.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/aeroplane-air-air-travel-723240.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/architecture-building-cebu-1364558.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/asia-bay-beach-1076240.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/banh-xe.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/banner1.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/beach-city-enjoyment-1440399.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/beach-colorful-colourful-164287.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/bus-vxr.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/dalat.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/danang.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/en.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/hanoi.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/hoian.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/icon.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/jared-rice-388264-unsplash.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/nhatrang.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/phuquoc.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/quynhon.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/sapa.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/skyline-vxr-new.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/vi.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/vungtau.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/images/wang-xi-677960-unsplash.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/js/About.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/js/LoginAndRegister.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/js/Filter-Tour.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/js/GoiYDiaDiem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/js/JSForIndex.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/js/ScriptForLayout.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/js/ScriptForSlide.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/js/script.min.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/js/script.min.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/index/About.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/index/post.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/users/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/users/loginandregister.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/users/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/DamhApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/DamhApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/controller/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/controller/homeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/controller/homeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/KhachSan.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/KhachSan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/TaiKhoan.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/TaiKhoan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/Tour.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/Tour.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/modeltg/Users.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/TaiKhoanRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/TaiKhoanRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/TourRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/TourRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/ImagesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/ImagesService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/TourService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/java/com/hutech/DAMH/service/TourService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/Slide.css" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/Slide.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/StyleForBlog.css" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/StyleForBlog.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/StyleForLayout.css" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/StyleForLayout.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/StyleForindex.css" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/CSS/StyleForindex.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/js/ScriptForSlide.js" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/static/js/ScriptForSlide.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/index/Blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/index/Blog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/index/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/login/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/partials/SlidePartial.html" beforeDir="false" afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/partials/SlidePartial.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/Admin/add-tour-form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/Admin/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/Admin/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/Admin/tours-list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/Admin/update-tour-form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/index/ThanhToanThanhCong.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/index/ThanhToanThatBai.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/index/Tour.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/layout_admin.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/otp_verification.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/users/forgot_password.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Nhóm 9/DAMH/src/main/resources/templates/users/reset_password.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,22 +248,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="CSS File" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
@@ -102,9 +268,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.DamhApplication.executor": "Run",
     "Application.Unnamed.executor": "Run",
     "DefaultHtmlFileTemplate": "HTML File",
+    "JUnit.static.img in DACS.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -114,32 +280,30 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Admin/source/WebDuLichViet/Nhóm 9/DAMH/src/main/resources/static/CSS",
+    "last_opened_file_path": "D:/WebDuLichViet-Hai/Nhóm 9/DAMH/src/main/resources/static/CSS",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "MavenSettings",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Admin\source\WebDuLichViet\Nhóm 9\DAMH\src\main\resources\static\CSS" />
-      <recent name="C:\Users\Admin\source\WebDuLichViet\Nhóm 9\DAMH\src\main\resources\templates\index" />
-      <recent name="C:\Users\Admin\source\WebDuLichViet\Nhóm 9\DAMH\src\main\resources\templates\Blog" />
-      <recent name="C:\Users\Admin\source\WebDuLichViet\Nhóm 9\DAMH\src\main\resources\static\js" />
-      <recent name="C:\Users\Admin\source\WebDuLichViet\Nhóm 9\DAMH\src\main\java\com\hutech\DAMH\controller" />
+      <recent name="D:\WebDuLichViet-Hai\Nhóm 9\DAMH\src\main\resources\static\CSS" />
+      <recent name="D:\WebDuLichViet-Hai\Nhóm 9\DAMH\src\main\resources\templates\index" />
+      <recent name="D:\WebDuLichViet-Hai\Nhóm 9\DAMH\src\main\java\com\hutech\DAMH\controller" />
+      <recent name="D:\WebDuLichViet-Hai\Nhóm 9\DAMH\src\main\java\com\hutech\DAMH" />
+      <recent name="D:\WebDuLichViet-Hai\Nhóm 9\DAMH\src\main\resources\static" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Admin\source\WebDuLichViet\Nhóm 9\DAMH\src\main\resources\templates\index" />
-      <recent name="C:\Users\Admin\source\WebDuLichViet\Nhóm 9\DAMH\src\main\resources\templates" />
-      <recent name="C:\Users\Admin\source\WebDuLichViet\Nhóm 9\DAMH\src\main\resources\templates\errors" />
+      <recent name="D:\WebDuLichViet-Hai\Nhóm 9\DAMH\src\main\resources\templates\Admin" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="com.hutech.DAMH.components" />
+      <recent name="com.hutech.DAMH.customer" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Unnamed">
@@ -152,15 +316,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="WebDuLichViet" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="WebDuLichViet" />
-      <option name="filePath" />
+    <configuration name="static.img in DACS" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="DACS" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="static.img.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="static.img" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -175,7 +340,13 @@
     </configuration>
     <list>
       <item itemvalue="Application.Unnamed" />
+      <item itemvalue="JUnit.static.img in DACS" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.static.img in DACS" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -197,6 +368,7 @@
       <workItem from="1717861285026" duration="16000" />
       <workItem from="1718162704563" duration="24000" />
       <workItem from="1718430732074" duration="433000" />
+      <workItem from="1718720814061" duration="24000" />
     </task>
     <servers />
   </component>

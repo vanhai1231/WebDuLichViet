@@ -9,7 +9,9 @@ import java.util.List;
 public class TinhService {
     @Autowired
     private TinhRepository TinhRepository;
-
+    public List<Tinh> getAllTinh() {
+        return TinhRepository.findAll();
+    }
     public List<Tinh> getSuggestions(String query) {
         return TinhRepository.findBytenTinhContainingIgnoreCase(query);
     }

@@ -6,14 +6,12 @@
     <meta charset="UTF-8">
     <title>Blog Du Lịch</title>
     <link rel="stylesheet" th:href="@{/CSS/StyleForBlog.css}" href="../../static/CSS/StyleForBlog.css" type="text/css">
-    <!-- meta tags-->
+    <!-- meta tags và các thư viện CSS khác -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- link tags-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900|Work+Sans:300,400,500,600,700,800,900">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.min.css">
-    <!-- title tag-->
     <title>Blog</title>
 </head>
 <body>
@@ -21,46 +19,23 @@
 
     <section id="latest-review">
         <h2 class="section-title">
-            <div class="color-city">Mới nhất </div>
-            <div class="color-cape">Review</div>
+            <div class="color-city">latest </div>
+            <div class="color-cape">review</div>
         </h2>
         <div class="container_wrapper">
             <div class="grid_post_container">
-                <div class="post-card">
-                    <a class="post-card__category" th:href="@{/Blog/post}" href="post">category</a>
-                    <div class="post-card__featured-image"></div>
-                    <div class="post-card__details">
-                        <h2><a th:href="@{/Blog/post}" href="post">Vũng Tàu </a></h2>
-                        <p>Top 10 địa điểm ăn uống</p>
-                        <a class="post-card__avatar" th:href="@{/Blog/post}" href="post">
-                            <div class="avatar__circle"></div>
-                            <div class="avatar__name">by Hải nè</div>
-                            <div class="avatar__muted-line"></div>
-                        </a>
+                <!-- Lặp qua danh sách các bài đăng từ controller -->
+                <div th:each="post : ${posts}" class="post-card">
+                    <a class="post-card__category" th:href="@{/Blog/post/{id}(id=${post.id})}" th:text="${post.title}">Title</a>
+                    <div class="post-card-image">
+                        <!-- Thêm hình ảnh đại diện của bài đăng -->
+                        <img th:src="@{/images/{imageName}(imageName=${post.hinhAnh})}" alt="Featured Image" class="imageForBlog">
                     </div>
-                </div>
-                <div class="post-card">
-                    <a class="post-card__category" th:href="@{/Blog/post}" href="post">category</a>
-                    <div class="post-card__featured-image"></div>
                     <div class="post-card__details">
-                        <h2><a th:href="@{/Blog/post}" href="post">Đà Lạt </a></h2>
-                        <p>Đi chơi về chia tay người yêu</p>
-                        <a class="post-card__avatar" th:href="@{/Blog/post}" href="post">
+                        <p th:text="${post.noiDung}">Summary</p>
+                        <a class="post-card__avatar" th:href="@{/Blog/post/{id}(id=${post.id})}">
                             <div class="avatar__circle"></div>
-                            <div class="avatar__name">by Raizer nè</div>
-                            <div class="avatar__muted-line"></div>
-                        </a>
-                    </div>
-                </div>
-                <div class="post-card">
-                    <a class="post-card__category" th:href="@{/Blog/post}" href="post">category</a>
-                    <div class="post-card__featured-image"></div>
-                    <div class="post-card__details">
-                        <h2><a th:href="@{/Blog/post}" href="post">Hà Nội</a></h2>
-                        <p>Hà Nội không vội được đâu</p>
-                        <a class="post-card__avatar" th:href="@{/Blog/post}" href="post">
-                            <div class="avatar__circle"></div>
-                            <div class="avatar__name">by Raizer</div>
+                            <div class="avatar__name" th:text="${'by '}">by Author</div>
                             <div class="avatar__muted-line"></div>
                         </a>
                     </div>

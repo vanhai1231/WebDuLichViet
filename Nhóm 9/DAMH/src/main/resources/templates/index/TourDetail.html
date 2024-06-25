@@ -14,13 +14,6 @@
             document.getElementById('mainImage').src = src;
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            flatpickr(".flatpickr", {
-                dateFormat: "d/m/Y",
-                minDate: "today" // Ngày khởi hành không thể là ngày trong quá khứ
-            });
-        });
-
         function calculateTotal() {
             var adults = document.getElementById('adults').value;
             var pricePerAdult = parseFloat(document.getElementById('pricePerAdult').value);
@@ -28,26 +21,30 @@
             document.getElementById('totalPrice').textContent = total.toLocaleString('vi-VN') + ' VND';
         }
 
-        function makePayment() {
+      function makePayment() {
             var totalPrice = document.getElementById('totalPrice').textContent;
             var tongTien = parseFloat(totalPrice.replace(' VND', '').replace(/\./g, ''));
-            var maTour = document.getElementById('maTour').value; // Sử dụng value thay vì textContent
+            var maTour = document.getElementById('${tour.maTour}').value;
+            var sdt = encodeURIComponent(document.getElementById('phoneNumber').value);
+            var diachi = encodeURIComponent(document.getElementById('address').value);
+            var adults = document.getElementById('adults').value;
+            var children = document.getElementById('children').value;
 
-            fetch('/api/v1/payment/' + maTour + '?amount=' + tongTien, {
+            fetch(`/api/v1/payment/${maTour}/${sdt}/${diachi}/${adults}/${children}?amount=${tongTien}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.payUrl) {
-                        window.location.href = data.payUrl;
-                    } else {
-                        alert('Có lỗi xảy ra, vui lòng thử lại sau.');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+            .then(response => response.json())
+            .then(data => {
+                if (data.payUrl) {
+                    window.location.href = data.payUrl;
+                } else {
+                    alert('Có lỗi xảy ra, vui lòng thử lại sau.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
         }
 
     </script>
@@ -68,10 +65,6 @@
     <!-- Cột bên phải -->
     <div class="right-column">
         <div class="form-group">
-            <label for="departureDate">Chọn ngày khởi hành:</label>
-            <input type="text" id="departureDate" class="flatpickr" placeholder="Chọn ngày khởi hành:">
-        </div>
-        <div class="form-group">
             <label for="adults">Số người lớn:</label>
             <input type="number" id="adults" name="adults" min="1" value="1" oninput="calculateTotal()">
         </div>
@@ -80,10 +73,86 @@
             <input type="number" id="children" name="children" min="0" value="0">
         </div>
         <div class="form-group">
+            <label for="phoneNumber">Số điện thoại:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Số điện thoại">
+        </div>
+        <div class="form-group">
+            <label for="address">Địa chỉ:</label>
+            <input type="text" id="address" name="address" placeholder="Địa chỉ">
+        </div>
+        <div class="form-group">
+            <label for="${khuyenMai.maKM}">Nhập mã khuyến mãi:</label>
+            <input type="text" id="${khuyenMai.maKM}" name="${khuyenMai.maKM}" placeholder="Nhập mã khuyến mãi">
+            <button onclick="applyPromotion()">Áp dụng</button>
+            <p id="promoMessage" style="color: red;"></p>
+        </div>
+
+
+        <input type="hidden"  th:value="${tour.maTour}"  id="${tour.maTour}" name="${tour.maTour}">
+        <script>
+            function applyPromotion() {
+                var promoCode = document.getElementById('${khuyenMai.maKM}').value;
+                var tourCode = document.getElementById('${tour.maTour}').value;
+
+                fetch('/api/applyPromotion?maTour=' + encodeURIComponent(tourCode) + '&maKM=' + encodeURIComponent(promoCode), {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(errorData => {
+                            throw new Error(errorData.error || 'Unknown error');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.discountApplied) {
+
+
+                        // Kiểm tra thời gian sử dụng của mã khuyến mãi
+                        var startDate = new Date(data.startDate);
+                        var endDate = new Date(data.endDate);
+                         // Hiển thị mã khuyến mãi
+
+                        var currentDate = new Date();
+                        if (currentDate < startDate || currentDate > endDate) {
+                            document.getElementById('promoMessage').textContent = 'Mã khuyến mãi đã hết hạn.';
+                        }
+
+                        else {
+                        var newPrice = data.newPrice;
+                        document.getElementById('priceSale').value = newPrice;
+                        calculateTotal(); // Tính lại tổng tiền dựa trên giá mới
+                            document.getElementById('promoMessage').textContent = 'Áp dụng mã khuyến mãi thành công!';
+                        }
+
+
+                    } else {
+                        document.getElementById('promoMessage').textContent = 'Mã khuyến mãi không hợp lệ hoặc đã hết hạn.';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                     document.getElementById('promoMessage').textContent = error.message;
+                });
+            }
+
+            function formatCurrency(amount, currency) {
+                return amount.toLocaleString('vi-VN') + ' ' + currency;
+            }
+        </script>
+
+        <div class="form-group">
             <p>Tổng tiền: <span id="totalPrice">0 VND</span></p>
         </div>
         <input type="hidden" id="pricePerAdult" th:value="${tour.giaTour}">
-        <input type="hidden" id="maTour" th:value="${tour.maTour}">
+        <div class="form-group">
+            <p>Tiền sau giảm:</p>
+            <input type="text" id="priceSale" th:value="${tour.giaTour}">
+        </div>
 
         <button class="register-button" onclick="makePayment()">Đặt tour</button>
     </div>

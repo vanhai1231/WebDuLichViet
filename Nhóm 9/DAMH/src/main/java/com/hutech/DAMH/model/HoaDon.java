@@ -26,6 +26,19 @@ public class HoaDon {
     @Column(name = "MaTour", nullable = false, length = 10)
     private String maTour;
 
+    @Column(name = "Sdt",length = 10)
+    private String sdt;
+
+    @Column(name = "DiaChi", length = 250)
+    private String diaChi;
+
+    @Column(name = "SoNguoiLon")
+    private int soNguoiLon;
+
+    @Column(name = "SoTreEm")
+    private int soTreEm;
+
+
     @Column(name = "ID", nullable = false)
     private int id;
 
@@ -39,4 +52,3 @@ public class HoaDon {
 
     // Getters and setters
 }
-

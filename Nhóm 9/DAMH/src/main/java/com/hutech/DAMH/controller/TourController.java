@@ -1,28 +1,76 @@
 package com.hutech.DAMH.controller;
 
 import com.hutech.DAMH.model.Tour;
+import com.hutech.DAMH.service.ImagesService;
 import com.hutech.DAMH.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api/tours")
+@RequestMapping("/api")
 public class TourController {
+    @Autowired
+    private TourService tourService;
 
     @Autowired
-    private TourService tourService; // Inject your tour service
+    private ImagesService imagesService;
 
+//        @GetMapping("/applyPromotion")
+//        public ResponseEntity<?> applyPromotion(@RequestParam("maTour") String maTour, @RequestParam("maKM") String maKM) {
+//            int newPrice = tourService.applyPromotionAndGetNewPrice(maTour, maKM);
+//
+//            // Chuẩn bị phản hồi JSON với giá mới
+//            Map<String, Object> response = new HashMap<>();
+//            response.put("discountApplied", true);
+//            response.put("newPrice", newPrice);
+//
+//            return ResponseEntity.ok(response);
+//        }
+    //giamr gias
+        @GetMapping("/applyPromotion")
+        public ResponseEntity<?> applyPromotion(@RequestParam("maTour") String maTour, @RequestParam("maKM") String maKM) {
+            try {
+                Map<String, Object> promotionInfo = tourService.applyPromotionAndGetNewPrice(maTour, maKM);
+                return ResponseEntity.ok(promotionInfo);
+            } catch (IllegalArgumentException e) {
+                Map<String, String> errorResponse = new HashMap<>();
+                errorResponse.put("error", e.getMessage());
+                return ResponseEntity.badRequest().body(errorResponse);
+            } catch (SecurityException e) {
+                Map<String, String> errorResponse = new HashMap<>();
+                errorResponse.put("error", e.getMessage());
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+            }
+        }
     @GetMapping("/filter")
-    public List<Tour> filterTours(@RequestParam(required = false) String tourType,
-                                  @RequestParam(required = false) String destination,
-                                  @RequestParam(required = false) String departureDate,
-                                  @RequestParam(required = false) Integer budget,
-                                  @RequestParam(required = false) String transport,
-                                  @RequestParam(required = false) Boolean promotion) {
-        // Implement your logic to filter tours based on parameters
-        List<Tour> filteredTours = tourService.filterTours(tourType, destination, departureDate, budget, transport, promotion);
-        return filteredTours;
+    public ResponseEntity<List<Tour>> filterTours(
+            @RequestParam(required = false) String tourType,
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date departureDate,
+            @RequestParam(required = false) Integer budget,
+            @RequestParam(required = false) String transport,
+            @RequestParam(required = false, defaultValue = "false") boolean promotionOnly) {
+
+        List<Tour> filteredTours = tourService.filterTours(tourType, location, departureDate, budget, transport, promotionOnly);
+        for (Tour tour : filteredTours) {
+            List<String> imageUrls = imagesService.getImagesByMaTour(tour.getMaTour());
+            if (!imageUrls.isEmpty()) {
+                tour.setMainImageUrl(imageUrls.get(0)); // Hình ảnh chính
+                tour.setSecondaryImageUrl(imageUrls.get(1)); // Các hình ảnh khác
+            }
+        }
+        return ResponseEntity.ok(filteredTours);
     }
+
 }
