@@ -8,6 +8,7 @@ import com.hutech.DAMH.service.TourService;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 //@SessionAttributes({"taiKhoan", "userId"})
@@ -94,25 +97,34 @@ public class homeController {
     }
 
     @GetMapping("/Tour")
-    public String showTour(Model model) {
+    public String showTour(@RequestParam(defaultValue = "0") int page,
+                           @RequestParam(defaultValue = "4") int size, Model model) {
 
         if (!model.containsAttribute("taiKhoan")) {
             model.addAttribute("taiKhoan", new TaiKhoan());
         }
-        // Lấy danh sách các tour và thêm vào model
-        List<Tour> tours = tourService.getAllTours();
+
+        Page<Tour> tourPage = tourService.getProductsbyPage(page, size);
+        List<Tour> tours = tourPage.getContent();
         for (Tour tour : tours) {
             List<String> imageUrls = imagesService.getImagesByMaTour(tour.getMaTour());
             if (!imageUrls.isEmpty()) {
-                tour.setMainImageUrl(imageUrls.get(0)); // Hình ảnh chính
-                tour.setSecondaryImageUrl(imageUrls.get(1)); // Các hình ảnh khác
+                tour.setMainImageUrl(imageUrls.get(0));
+                if (imageUrls.size() > 1) {
+                    tour.setSecondaryImageUrl(imageUrls.get(1));
+                }
             }
         }
         model.addAttribute("tours", tours);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", tourPage.getTotalPages());
+        model.addAttribute("pageNumbers", IntStream.range(0, tourPage.getTotalPages()).boxed().collect(Collectors.toList()));
+
         List<LoaiTour> loaiTours = loaiTourService.getAllLoaiTour();
         List<PhuongTien> phuongTiens = phuongTienService.getAllPhuongTien();
         model.addAttribute("loaiTours", loaiTours);
         model.addAttribute("phuongTiens", phuongTiens);
+
         return "index/Tour";
     }
 

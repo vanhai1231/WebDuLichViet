@@ -1,6 +1,8 @@
 package com.hutech.DAMH.controller;
 
+import com.hutech.DAMH.model.ChiTietKhuyenMai;
 import com.hutech.DAMH.model.Images;
+import com.hutech.DAMH.model.KhuyenMai;
 import com.hutech.DAMH.model.Tour;
 import com.hutech.DAMH.service.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -31,6 +34,7 @@ public class TourAdminController {
     private PhongService phongService;
     @Autowired
     private PhuongTienService phuongTienService;
+    private final ChiTietKhuyenMaiService chiTietKhuyenMaiService;
     @GetMapping("DanhSachTour")
     public String showTourList(Model model, HttpServletRequest request) {
         // Kiểm tra session
@@ -129,4 +133,39 @@ public class TourAdminController {
         return "redirect:/Admin/DanhSachTour";
     }
 
+    private final KhuyenMaiService khuyenMaiService;
+
+    @GetMapping("/KhuyenMai")
+    public String showKhuyenMaiForm(Model model) {
+        List<Tour> tours = tourService.getAllTours();
+        model.addAttribute("tours", tours);
+        return "/Admin/khuyenmai";
+    }
+
+    @PostMapping("/KhuyenMai")
+    public String createKhuyenMai(@RequestParam("tenKM") String tenKM,
+                                  @RequestParam("phanTramKM") int phanTramKM,
+                                  @RequestParam("ngayBatDau") String ngayBatDau,
+                                  @RequestParam("ngayKetThuc") String ngayKetThuc,
+                                  @RequestParam("maTour") String maTour) {
+        KhuyenMai khuyenMai = new KhuyenMai();
+        String timeStamp = String.valueOf(System.currentTimeMillis());
+        String maKM = "KM" + timeStamp.substring(timeStamp.length() - 8);
+        khuyenMai.setMaKM(maKM);
+
+        khuyenMai.setTenPhuongTien(tenKM);
+        khuyenMai.setPhanTramKM(phanTramKM);
+        khuyenMai.setNgayBatDau(Date.valueOf(ngayBatDau));
+        khuyenMai.setNgayKetThuc(Date.valueOf(ngayKetThuc));
+
+        khuyenMaiService.save(khuyenMai);
+
+        ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai();
+        chiTietKhuyenMai.setMaTour(maTour);
+        chiTietKhuyenMai.setMaKM(khuyenMai.getMaKM());
+
+        chiTietKhuyenMaiService.save(chiTietKhuyenMai);
+
+        return "redirect:/Admin/KhuyenMai";
+    }
 }

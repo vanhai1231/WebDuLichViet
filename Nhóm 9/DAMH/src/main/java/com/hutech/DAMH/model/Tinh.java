@@ -16,4 +16,5 @@ public class Tinh {
     @Column(name = "TenTinh", length = 50)
     private String tenTinh;
 
+    // Getters and setters
 }

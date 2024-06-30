@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Trang Chủ</title>
@@ -10,41 +7,29 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link th:href="@{/CSS/Slide.css}" href="../../static/CSS/Slide.css" rel="stylesheet" type="text/css" media="screen"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Include Slick JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <!-- Include flatpickr -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-    <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
-    <!-- Slick JS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <!------------------------>
-
-    <!-- Include your custom JS -->
     <script th:src="@{/js/JSForIndex.js}"></script>
     <script th:src="@{/js/ScriptForSlide.js}"></script>
     <script th:src="@{/js/GoiYDiaDiem.js}"></script>
-
+    <script th:src="@{/js/Wishlist.js}"></script>
 </head>
 <body>
 <div layout:fragment="content" style="position: relative;">
     <video width="1400" autoplay muted loop style="display: block; margin: 0 auto;">
         <source th:src="@{/video/video-nhom9.mp4}" type="video/mp4">
     </video>
-    <!-- Thêm dòng chữ trên video -->
     <div class="video-text">
         <span th:text="#{login.to.discount}"></span><br>
         <span th:text="#{15%}"></span>
     </div>
-    <!-- Thanh tìm kiếm -->
     <div class="search-bar">
         <input type="text" oninput="fetchSuggestions(this.value)" id="location-input" th:placeholder="#{location}">
         <div id="suggestions" class="suggestions"></div>
@@ -55,19 +40,15 @@
         <button th:text="#{search}"></button>
     </div>
     <div th:replace="partials/SlidePartial :: slideshow"></div>
-    <!-- Thêm banner -->
     <div class="banner">
         <img th:src="@{/images/banner1.jpg}" alt="Banner" style="display: block; margin: 0 auto;">
     </div>
-
     <div class="support">
         <span th:text="#{support.and.advice}"></span>
     </div>
     <div class="destination-container">
-        <!-- Thêm tiêu đề -->
         <h2 class="title" th:text="#{favorite.destinations}"></h2>
         <h3 class="subtitle" th:text="#{hottest.places.recommended.by.DuLichViet}"></h3>
-        <!-- Thêm hình ảnh địa điểm -->
         <div class="destination-images">
             <div class="image-container large">
                 <img class="destination-image" src="/images/HCM.jpg" alt="Destination 1">
@@ -113,46 +94,34 @@
     </div>
     <h2 th:text="#{attractive.tours}" class="attractive"></h2>
     <input type="hidden" id="isNotLoggedIn" sec:authorize="!isAuthenticated()" value="false"/>
-    <!-- Hiển thị danh sách các tour -->
     <div class="card-container">
-        <!-- Các card tour ở đây -->
         <div th:each="tour : ${tours}" class="tour-card">
-            <!-- Hình ảnh đại diện -->
             <div class="tour-image-container">
-                <i class="bi bi-heart heart-icon"></i>
+                <i class="bi bi-heart heart-icon" data-ma-tour="${tour.maTour}"></i>
                 <img th:src="@{${tour.mainImageUrl}}" alt="Main Tour Image" class="tour-image">
                 <img th:src="@{${tour.secondaryImageUrl}}" alt="Secondary Tour Image" class="tour-image secondary-image">
-                <span>
-                    <i class="bi bi-heart"></i>
-                </span>
             </div>
-            <!-- Thông tin tour -->
             <div class="tour-info">
                 <h2 class="tour-name" th:text="${tour.tenTour}">Tên Tour</h2>
-                <!-- Hình ngôi sao -->
                 <span class="star-icon">⭐⭐⭐⭐⭐</span>
                 <p class="tour-date" th:text="#{departure.date.label} +' '+ ${#dates.format(tour.ngayKH, 'dd/MM/yyyy')}">Ngày Khởi Hành</p>
                 <p class="price" th:text="#{price.label} +' '+ ${tour.giaTour}">Giá: </p>
-                <!-- Thêm các thông tin khác tùy theo nhu cầu -->
+
+                <div th:if="${tour.promotionActive}">
+                    <p class="discount">Giảm giá: <span th:text="${tour.phanTramGiam} + '%'"></span></p>
+
+                </div>
             </div>
-            <!-- Nút Đăng ký -->
-            <a id="dangkyBtn" class="dangky-btn"
-               onclick="checkLogin(event)"
-               th:href="@{/DuLichViet/TourDetail/{maTour}(maTour=${tour.maTour})}"
-               th:data-ma-tour="${tour.maTour}"
-               th:text="#{register}"></a>
+            <a id="dangkyBtn" class="dangky-btn" onclick="checkLogin(event)" th:href="@{/DuLichViet/TourDetail/{maTour}(maTour=${tour.maTour})}" th:data-ma-tour="${tour.maTour}" th:text="#{register}"></a>
         </div>
-        <!-- Các card tour khác... -->
     </div>
 
-    <!-- Thêm phần cửa sổ chat -->
     <div id="chat-window" class="chat-window">
         <div class="chat-header">
-            <span class="close-btn">&times;</span> <!-- Nút đóng cửa sổ -->
+            <span class="close-btn">&times;</span>
             <span th:text="#{support.chat}"></span>
         </div>
         <div class="chat-body">
-            <!-- Nội dung chat sẽ được đặt ở đây -->
         </div>
         <div class="chat-footer">
             <input type="text" th:placeholder="#{enter.message}">
@@ -160,5 +129,53 @@
         </div>
     </div>
 </div>
+<script>
+    let tours = [
+        { maTour: 1, tenTour: "Tour 1", ngayKH: "2024-07-01", giaTour: "1000", mainImageUrl: "/images/tour1.jpg", secondaryImageUrl: "/images/tour1-2.jpg" },
+        { maTour: 2, tenTour: "Tour 2", ngayKH: "2024-07-02", giaTour: "2000", mainImageUrl: "/images/tour2.jpg", secondaryImageUrl: "/images/tour2-2.jpg" },
+    ];
+
+    let currentIndex = 0;
+    const toursPerPage = 4;
+
+    function showMoreTours() {
+        const container = document.querySelector('.card-container');
+        const endIndex = currentIndex + toursPerPage;
+        const toursToShow = tours.slice(currentIndex, endIndex);
+
+        toursToShow.forEach(tour => {
+            const tourCard = document.createElement('div');
+            tourCard.classList.add('tour-card');
+            tourCard.innerHTML = `
+                <div class="tour-image-container">
+                    <i class="bi bi-heart heart-icon"></i>
+                    <img src="${tour.mainImageUrl}" alt="Main Tour Image" class="tour-image">
+                    <img src="${tour.secondaryImageUrl}" alt="Secondary Tour Image" class="tour-image secondary-image">
+                    <span>
+                        <i class="bi bi-heart"></i>
+                    </span>
+                </div>
+                <div class="tour-info">
+                    <h2 class="tour-name">${tour.tenTour}</h2>
+                    <span class="star-icon">⭐⭐⭐⭐⭐</span>
+                    <p class="tour-date">Ngày Khởi Hành: ${tour.ngayKH}</p>
+                    <p class="price">Giá: ${tour.giaTour}</p>
+                    ${tour.promotionActive ? `<p class="discount">${tour.phanTramGiam}%</p><p class="promo-period">Thời gian khuyến mãi: ${tour.ngayBatDauKM} - ${tour.ngayKetThucKM}</p>` : ''}
+                </div>
+                <a id="dangkyBtn" class="dangky-btn" href="/DuLichViet/TourDetail/${tour.maTour}" data-ma-tour="${tour.maTour}">Đăng ký</a>
+            `;
+            container.appendChild(tourCard);
+        });
+
+        currentIndex += toursPerPage;
+
+        if (currentIndex >= tours.length) {
+            document.getElementById('showMoreBtn').style.display = 'none';
+        }
+    }
+
+    showMoreTours();
+</script>
+
 </body>
 </html>

@@ -48,6 +48,25 @@
             height: 35px;
             width: 95px;
         }
+        .pagination {
+            margin-top: 20px;
+            display:inline;
+            text-align:center;
+        }
+        .pagination li {
+            display: inline;
+            margin: 0 5px;
+        }
+        .pagination a {
+            color: #FF3366;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #FF3366;
+            border-radius: 5px;
+        }
+        .pagination .active a {
+            background-color: #FF3366;
+            color: white;
     </style>
 </head>
 <body>
@@ -114,6 +133,11 @@
                                     <p class="tour-date" th:text="'Ngày khởi hành: ' + ${#dates.format(tour.ngayKH, 'dd/MM/yyyy')}">Ngày Khởi Hành</p>
                                     <p class="price" th:text="'Giá: ' + ${tour.giaTour}"></p>
                                 </div>
+                                <!-- Thông tin khuyến mãi -->
+                                <div th:if="${tour.promotionActive}">
+                                    <p class="discount">Giảm giá: <span th:text="${tour.phanTramGiam} + '%'"></span></p>
+
+                                </div>
                                 <a id="dangkyBtn" class="dangky-btn"
                                    th:href="@{/DuLichViet/TourDetail/{maTour}(maTour=${tour.maTour})}"
                                    onclick="checkLogin(event)"
@@ -122,6 +146,13 @@
                         </div>
                     </div>
                 </div>
+            <nav aria-label="Page navigation" class="pagination">
+                <ul>
+                    <li th:each="i : ${pageNumbers}" th:class="${currentPage == i} ? 'active'">
+                        <a th:href="@{/DuLichViet/Tour(page=${i}, size=${size})}" th:text="${i + 1}">1</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>

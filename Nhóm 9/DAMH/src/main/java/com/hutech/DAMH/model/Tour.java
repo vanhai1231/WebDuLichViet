@@ -1,14 +1,13 @@
 package com.hutech.DAMH.model;
 
 import jakarta.persistence.*;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -35,10 +34,12 @@ public class Tour {
 
     @ManyToOne
     @JoinColumn(name = "MaPhuongTien")
+    @JsonManagedReference
     private PhuongTien phuongTien;
 
     @ManyToOne
     @JoinColumn(name = "MaTinh")
+    @JsonManagedReference
     private Tinh tinh;
 
     @Column(name = "Soluong")
@@ -46,47 +47,81 @@ public class Tour {
 
     @ManyToOne
     @JoinColumn(name = "MaPhong")
+    @JsonManagedReference
     private Phong phong;
 
     @ManyToOne
     @JoinColumn(name = "MaLoaiTour")
+    @JsonBackReference
     private LoaiTour loaiTour;
 
-//    @ManyToOne
-//    @JoinColumn(name = "MaKM")
-//    private KhuyenMai khuyenMai;
+    @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private List<ChiTietWishlist> chiTietWishlists;
 
     @Transient
     private List<String> imageUrls;
 
     @Transient
     private String mainImageUrl;
+
     @Transient
     private String secondaryImageUrl;
-    public String getSecondaryImageUrl() {
-        return secondaryImageUrl;
-    }
-    public void setSecondaryImageUrl(String secondaryImageUrl) {
-        this.secondaryImageUrl = secondaryImageUrl;
-    }
 
     @Transient
     private List<String> otherImageUrls;
+    @Transient
+    private int giaKhuyenMai;
+    @Transient
+    private boolean promotionActive;
+    @Transient
+    private int phanTramGiam;
+    @Transient
+    private Date ngayBatDauKM;
+    @Transient
+    private Date ngayKetThucKM;
 
-    public void setMainImageUrl(String mainImageUrl) {
-        this.mainImageUrl = mainImageUrl;
+    // Getters and setters
+    public boolean isPromotionActive() {
+        return promotionActive;
     }
 
-    public String getMainImageUrl() {
-        return this.mainImageUrl;
+    public void setPromotionActive(boolean promotionActive) {
+        this.promotionActive = promotionActive;
     }
 
-    public void setOtherImageUrls(List<String> otherImageUrls) {
-        this.otherImageUrls = otherImageUrls;
+    // Getter và setter cho thuộc tính phanTramGiam
+    public int getPhanTramGiam() {
+        return phanTramGiam;
     }
 
-    public List<String> getOtherImageUrls() {
-        return this.otherImageUrls;
+    public void setPhanTramGiam(int phanTramGiam) {
+        this.phanTramGiam = phanTramGiam;
+    }
+
+    // Getter và setter cho ngày bắt đầu và kết thúc khuyến mãi
+    public Date getNgayBatDauKM() {
+        return ngayBatDauKM;
+    }
+
+    public void setNgayBatDauKM(Date ngayBatDauKM) {
+        this.ngayBatDauKM = ngayBatDauKM;
+    }
+
+    public Date getNgayKetThucKM() {
+        return ngayKetThucKM;
+    }
+
+    public void setNgayKetThucKM(Date ngayKetThucKM) {
+        this.ngayKetThucKM = ngayKetThucKM;
+    }
+
+    public int getGiaKhuyenMai() {
+        return phanTramGiam;
+    }
+
+    public void setGiaKhuyenMai(int giaKhuyenMai) {
+        this.giaKhuyenMai = giaKhuyenMai;
     }
     // Getters and setters
 }

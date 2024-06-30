@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Getter
 @Setter
@@ -19,7 +20,8 @@ public class LoaiTour {
     private String loaiTour;
 
     @OneToMany(mappedBy = "loaiTour", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<Tour> tours;
 
-    // Constructors, getters and setters
+    // Constructors, getters, and setters
 }

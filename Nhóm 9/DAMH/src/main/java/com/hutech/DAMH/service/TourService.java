@@ -6,11 +6,15 @@ import com.hutech.DAMH.repository.HinhAnhRepository;
 import com.hutech.DAMH.repository.ImagesRepository;
 import com.hutech.DAMH.repository.KhuyenMaiRespository;
 import com.hutech.DAMH.repository.TourRepository;
+import com.hutech.DAMH.specification.TourSpecification;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -56,41 +60,36 @@ public class TourService {
 
         return tours;
     }
-    public List<Tour> filterTours(String tourType, String destination, Date departureDate, Integer budget, String transport, Boolean promotion) {
+
+    public Page<Tour> getProductsbyPage(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return tourRepository.findAll(pageable);
+    }
+
+    public List<Tour> getFilteredTours(String tenTour, String noiKhoiHanh, Date ngayKH, Integer giaTour) {
         Specification<Tour> spec = Specification.where(null);
 
-        if (!StringUtils.isEmpty(tourType)) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("loaiTour").get("maLoaiTour"), tourType));
+        if (tenTour != null && !tenTour.isEmpty()) {
+            spec = spec.and(TourSpecification.withField("tenTour", tenTour));
         }
-
-        if (!StringUtils.isEmpty(destination)) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("noiKhoiHanh"), destination));
+        if (noiKhoiHanh != null && !noiKhoiHanh.isEmpty()) {
+            spec = spec.and(TourSpecification.withField("noiKhoiHanh", noiKhoiHanh));
         }
-
-        if (departureDate != null) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("ngayKH"), departureDate));
+        if (ngayKH != null) {
+            spec = spec.and(TourSpecification.withField("ngayKH", ngayKH));
         }
-
-        if (budget != null) {
-            spec = spec.and((root, query, cb) -> cb.lessThanOrEqualTo(root.get("giaTour"), budget));
-        }
-
-        if (!StringUtils.isEmpty(transport)) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("phuongTien").get("maPhuongTien"), transport));
-        }
-
-        if (promotion != null && promotion) {
-            spec = spec.and((root, query, cb) -> cb.isNotNull(root.get("khuyenMai")));
+        if (giaTour != null) {
+            spec = spec.and(TourSpecification.withField("giaTour", giaTour));
         }
 
         return tourRepository.findAll(spec);
     }
+
+
+
     public Tour getTourByMaTour(String maTour) {
         return tourRepository.findByMaTour(maTour);
     }
-
-
-
 
     public Tour addTour(Tour tour, String mainImageUrl, String secondaryImageUrl) {
         // Save the tour entity
@@ -139,15 +138,7 @@ public class TourService {
         // Return the file path (relative to the project)
         return "/images/" + uniqueFileName; // Trả về đường dẫn cắt bớt chỉ lưu "img/"
     }
-
-
-
     private static final String UPLOAD_DIR = "C:/Users/Admin/Source/Nhóm 9/DAMH/src/main/resources/static/images/";
-
-
-
-
-
 
     @Transactional(rollbackFor = Exception.class)
     public Tour updateTour(Tour updatedTour, MultipartFile mainImageFile, MultipartFile secondaryImageFile) throws IOException {

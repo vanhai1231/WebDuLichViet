@@ -9,6 +9,7 @@ import com.hutech.DAMH.model.TaiKhoan;
 import com.hutech.DAMH.service.KhuyenMaiService;
 import com.hutech.DAMH.service.OTPService;
 import com.hutech.DAMH.service.TaiKhoanService;
+import com.hutech.DAMH.service.WishlistService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -39,6 +40,8 @@ public class AccountController {
     private final OTPService otpService;
     @Autowired
     private KhuyenMaiService khuyenMaiService;
+    @Autowired
+    private WishlistService wishlistService;
 
     @GetMapping("/DangNhap")
     public String login(Model model, Authentication authentication, HttpSession session) {
@@ -108,6 +111,7 @@ public class AccountController {
         if (sessionOtp != null && sessionOtp.equals(inputOtp)) {
             taiKhoanService.save(user);
             taiKhoanService.setDefaultRole(user.getUsername());
+            wishlistService.getOrCreateWishlistId(user.getID()); // Create wishlist for the user
             generateAndSavePromoCode(user);
             session.removeAttribute("otp");
             session.removeAttribute("user");

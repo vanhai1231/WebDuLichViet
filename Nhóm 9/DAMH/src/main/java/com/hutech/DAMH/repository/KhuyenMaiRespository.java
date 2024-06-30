@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface KhuyenMaiRespository extends JpaRepository<KhuyenMai, String> {
     Optional<KhuyenMai> findByMaKM(String MaKM);
+
 }

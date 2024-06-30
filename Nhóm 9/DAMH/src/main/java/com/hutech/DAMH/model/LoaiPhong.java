@@ -19,4 +19,3 @@ public class LoaiPhong {
 
     // Getters and setters
 }
-
