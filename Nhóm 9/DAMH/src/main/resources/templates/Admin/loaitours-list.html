@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+<head>
+    <title th:text="${title} ?: 'Tour'">Loại Tour</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        /* Đặt width cho từng cột */
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 40%; /* width cho cột số thứ tự */
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width:40%; /* width cho cột tên sản phẩm */
+            white-space: normal; /* Cho phép xuống dòng nếu nội dung quá dài */
+        }
+
+            th:nth-child(3),
+            td:nth-child(3) {
+                width: 20%; /* width cho cột tên sản phẩm */
+                white-space: normal; /* Cho phép xuống dòng nếu nội dung quá dài */
+            }
+
+        /* Thêm scrollbar ngang */
+        .table-container {
+            overflow-x: auto;
+        }
+    </style>
+    <link rel="stylesheet" th:href="@{/assets/css/Admin.css}" type="text/css">
+</head>
+<body>
+
+<section layout:fragment="content" style="position: relative;">
+    <div>
+        <div>
+            <h2>Danh Sách Loại Tour</h2>
+        </div>
+
+        <div style="margin-top: 10px; margin-bottom: 10px;">
+            <a th:href="@{/Admin/ThemLoaiTour}" class="btn btn-success btn-sm" >Thêm Loại Tour</a>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col" style="background-color:#B66DFF;color:White">Mã Loại Tour</th>
+                <th scope="col" style="background-color:#B66DFF;color:White">Tên Loại Tour</th>
+                <th scope="col" style="background-color:#B66DFF;color:White">Chức Năng</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="loaitour : ${loaitours}">
+                <td th:text="${loaitour.maLoaiTour}"></td>
+                <td th:text="${loaitour.loaiTour}"></td>
+                <td>
+                    <a th:href="@{/Admin/SuaLoaiTour/{id}(id=${loaitour.maLoaiTour})}"
+                       class="btn btn-warning btn-sm">Sửa</a>
+                    <span th:if="${isAdmin}">
+                <a th:href="@{/Admin/XoaLoaiTour/{id}(id=${loaitour.maLoaiTour})}"
+                   class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc không?')">Xóa</a>
+                </span>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

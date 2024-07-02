@@ -1,9 +1,8 @@
 package com.hutech.DAMH.service;
 import com.hutech.DAMH.CustomUserDetails;
 import com.hutech.DAMH.Role;
-import com.hutech.DAMH.model.TaiKhoan;
+import com.hutech.DAMH.model.*;
 
-import com.hutech.DAMH.model.User;
 import com.hutech.DAMH.repository.IRoleRepository;
 import com.hutech.DAMH.repository.ITaiKhoanRepository;
 import com.hutech.DAMH.repository.IUserRepository;
@@ -41,11 +40,84 @@ public class TaiKhoanService implements UserDetailsService {
 
     @Autowired
     private IRoleRepository roleRepository;
+    public List<TaiKhoan> getAllTaiKhoan (){return taiKhoanRepository.findAll();}
+    public Optional<TaiKhoan> getTaiKhoanId(int ID) {
+        return taiKhoanRepository.findById(String.valueOf(ID));
+    }
+    //số tài khoản
+    public long countUserAccounts() {
+        return taiKhoanRepository.findAll().stream()
+                .filter(taiKhoan -> taiKhoan.getRoles().stream()
+                        .anyMatch(role -> role.getName().equals("USER")))
+                .count();
+    }
+    
     // Lưu người dùng mới vào cơ sở dữ liệu sau khi mã hóa mật khẩu.
     public void save(@NotNull TaiKhoan user) {
         user.setPassWord(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user.getUser());
         taiKhoanRepository.save(user);
+    }
+    //Them  Nhan Vien
+    public TaiKhoan addAcocount(TaiKhoan taiKhoan) {
+        User user = taiKhoan.getUser();
+        if (user != null) {
+            user = userRepository.save(user);
+            taiKhoan.setUser(user);
+        }
+        taiKhoan.setPassWord(new BCryptPasswordEncoder().encode(taiKhoan.getPassword()));
+        return taiKhoanRepository.save(taiKhoan);
+    }
+
+    public TaiKhoan updateTaiKhoan(TaiKhoan taiKhoan) {
+        TaiKhoan existingTaiKhoan = taiKhoanRepository.findById(String.valueOf(taiKhoan.getID())).orElse(null);
+        if (existingTaiKhoan != null) {
+            existingTaiKhoan.setTenTK(taiKhoan.getTenTK());
+            existingTaiKhoan.setPassWord(new BCryptPasswordEncoder().encode(taiKhoan.getPassword()));
+
+
+
+
+            User user = taiKhoan.getUser();
+            if (user != null) {
+                existingTaiKhoan.getUser().setHoTen(user.getHoTen());
+                existingTaiKhoan.getUser().setEmail(user.getEmail());
+                existingTaiKhoan.getUser().setSdt(user.getSdt());
+                existingTaiKhoan.getUser().setDiaChi(user.getDiaChi());
+            }
+            if (taiKhoan.getRoles() != null) {
+                existingTaiKhoan.setRoles(taiKhoan.getRoles());
+            }
+            return taiKhoanRepository.save(existingTaiKhoan);
+        }
+        return null;
+    }
+    public void deleteTaiKhoan(int ID) {
+        TaiKhoan taiKhoan = taiKhoanRepository.findById(String.valueOf(ID))
+                .orElseThrow(() -> new IllegalStateException("Account with ID " + ID + " does not exist."));
+
+
+        User user = taiKhoan.getUser();
+
+        // Delete the associated User entity if it exists
+        if (user != null) {
+            userRepository.delete(user);
+        }
+
+
+
+        taiKhoanRepository.delete(taiKhoan);
+    }
+    // Gán vai trò mặc định cho người dùng dựa trên tên người dùng.
+    public void setDefaultRoleNhanVien(String tenTK) {
+        taiKhoanRepository.findByTenTK(tenTK).ifPresentOrElse(
+                user -> {
+
+                    user.getRoles().add(roleRepository.findRoleById(Role.EMPLOYEE.value));
+                    taiKhoanRepository.save(user);
+                },
+                () -> { throw new UsernameNotFoundException("User not found"); }
+        );
     }
     public TaiKhoan processOAuthPostLogin(OAuth2User oauth2User) {
         String email = oauth2User.getAttribute("email");

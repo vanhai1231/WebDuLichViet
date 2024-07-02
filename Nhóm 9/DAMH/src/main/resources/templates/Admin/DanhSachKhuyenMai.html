@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách khuyến mãi</title>
+</head>
+<body>
+<div class="container">
+    <div layout:fragment="content">
+        <h2>Danh sách các khuyến mãi</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Mã KM</th>
+                <th>Tên khuyến mãi</th>
+                <th>Phần trăm giảm giá</th>
+                <th>Ngày bắt đầu</th>
+                <th>Ngày kết thúc</th>
+                <th>Tour khuyến mãi</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="km : ${danhSachKhuyenMai}">
+                <td th:text="${km.maKM}"></td>
+                <td th:text="${km.tenKM}"></td>
+                <td th:text="${km.phanTramKM}"></td>
+                <td th:text="${km.ngayBatDau}"></td>
+                <td th:text="${km.ngayKetThuc}"></td>
+                <td th:text="${km.tenTour}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

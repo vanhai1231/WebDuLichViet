@@ -21,9 +21,10 @@ public class User {
 //    @Size(min = 1, max = 50, message = "Name must be between 1 and 50 characters")
     private String hoTen;
 
-    @Column(name = "Email" ,unique = true)
+    @Column(name = "Email", unique = true)
     @NotBlank(message = "Vui lòng điền email")
-    @Size(min = 1, max = 50, message = "Email must be between 1 and 50 characters")
+    @Size(min = 1, max = 50, message = "Email phải từ 1 -> 50 ký tự")
+    @Email(message = "Địa chỉ email không hợp lệ")
     private String email;
 
     @Column(name = "SDT", length = 10,unique = true)

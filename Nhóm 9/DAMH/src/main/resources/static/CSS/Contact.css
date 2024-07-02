@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.contact-page {
+    padding: 50px 0;
+}
+
+.contact-page h2 {
+    margin-bottom: 30px;
+    font-size: 36px;
+    color: #333;
+}
+
+.contact-form .form-control {
+    border-radius: 0;
+}
+
+.contact-form .btn {
+    background-color: #FF3366;
+    border-color: #FF3366;
+}
+
+.contact-info {
+    margin-top: 30px;
+}
+
+.contact-info h4 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #333;
+}
+
+.contact-info p {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.contact-info i {
+    margin-right: 10px;
+    color: #FF3366;
+}

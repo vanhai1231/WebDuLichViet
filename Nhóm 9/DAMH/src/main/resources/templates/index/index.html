@@ -110,12 +110,10 @@
                 <p class="tour-date" th:text="#{departure.date.label} +' '+ ${#dates.format(tour.ngayKH, 'dd/MM/yyyy')}">Ngày Khởi Hành</p>
                 <div th:if="${tour.promotionActive}">
                     <p class="discount">Giảm giá: <span th:text="${tour.phanTramGiam} + '%'"></span></p>
-                    <p class="price">Giá: <span th:text="${tour.giaTour}"></span></p>
-                    <p class="price">Giá sau khi giảm: <span th:text="${tour.giaSauGiam}"></span></p>
+                    <p class="price" th:text="#{price.label} +' '+ ${tour.formattedGiaTour}">Giá: </p>                    <p class="price">Giá sau khi giảm: <span th:text="${tour.giaSauGiam}"></span></p>
                 </div>
                 <div th:if="${!tour.promotionActive}">
-                    <p class="price">Giá: <span th:text="${tour.giaTour}"></span></p>
-                </div>
+                    <p class="price" th:text="#{price.label} +' '+ ${tour.formattedGiaTour}">Giá: </p>                </div>
             </div>
             <a id="dangkyBtn" class="dangky-btn" onclick="checkLogin(event)" th:href="@{/DuLichViet/TourDetail/{maTour}(maTour=${tour.maTour})}" th:data-ma-tour="${tour.maTour}" th:text="#{register}"></a>
         </div>

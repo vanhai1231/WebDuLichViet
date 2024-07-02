@@ -17,7 +17,7 @@ public class KhuyenMai {
     private String maKM;
 
     @Column(name = "TenKM", length = 50)
-    private String tenPhuongTien;
+    private String tenKM;
 
     @Column(name = "PhanTramKM")
     private int phanTramKM;
@@ -34,4 +34,6 @@ public class KhuyenMai {
     @ManyToOne
     @JoinColumn(name = "idTaiKhoan")
     private TaiKhoan taiKhoan;
+
+
 }

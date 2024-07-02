@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa Khách Sạn</title>
+    <link rel="stylesheet" th:href="@{/assets/css/Admin.css}" type="text/css">
+</head>
+<body>
+<section layout:fragment="content" style="position: relative;">
+    <div class="col-md-12">
+        <h3>Sửa Hóa Đơn</h3>
+        <div class="col-md-9" style="margin-left:150px;">
+            <form th:action="@{/Admin/SuaKhachSan/{id}(id=${khachsan.maKS})}" method="post">
+                <div class="form-group">
+                    <label for="maKS">Mã Khách Sạn:</label>
+                    <input type="text" id="maKS" name="maKS" th:value="${khachsan.maKS}">
+                </div>
+                <div class="form-group">
+                    <label for="tenKS">Tên Khách Sạn:</label>
+                    <input type="text" id="tenKS" name="tenKS" th:value="${khachsan.tenKS}">
+                </div>
+                <div class="form-group">
+                    <label for="diaChi">Địa Chỉ:</label>
+                    <input type="text" id="diaChi" name="diaChi" th:value="${khachsan.diaChi}">
+                </div>
+                <!--                <input type="hidden" id="maHD" name="maHD" th:value="${hoadon.maHD}">-->
+                <!--                <input type="hidden" id="id" name="id" th:value="${hoadon.id}">-->
+                <!--                <input type="hidden" id="maTour" name="maTour" th:value="${hoadon.maTour}">-->
+                <div class="form-group">
+                    <label for="danhGia">Đánh Giá:</label>
+                    <input type="text" id="danhGia" name="danhGia" th:value="${khachsan.danhGia}">
+                </div>
+
+
+                <div>
+                    <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</section>
+</body>
+</html>

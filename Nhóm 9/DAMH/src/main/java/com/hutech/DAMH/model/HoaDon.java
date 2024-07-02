@@ -50,5 +50,7 @@ public class HoaDon {
     @JoinColumn(name = "MaTour", insertable = false, updatable = false)
     private Tour tour;
 
+    @Column(name = "TrangThai")
+    private String trangThai;
     // Getters and setters
 }

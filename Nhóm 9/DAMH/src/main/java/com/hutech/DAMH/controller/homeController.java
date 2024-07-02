@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedWriter;
+import java.text.NumberFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -44,6 +45,7 @@ public class homeController {
 
     @GetMapping("/Home")
     public String showProductList(Model model, HttpSession session) {
+        NumberFormat numberFormat = NumberFormat.getInstance(new Locale("vi", "VN"));
 
         // Lấy danh sách các tour và thêm vào model
         List<Tour> tours = tourService.getAllTours();
@@ -53,6 +55,9 @@ public class homeController {
                 tour.setMainImageUrl(imageUrls.get(0)); // Hình ảnh chính
                 tour.setSecondaryImageUrl(imageUrls.get(1)); // Các hình ảnh khác
             }
+            String formattedPrice = numberFormat.format(tour.getGiaTour());
+            tour.setFormattedGiaTour(formattedPrice + "VNĐ");
+
             // Kiểm tra xem tour có trong bảng ChiTietKhuyenMai không
             ChiTietKhuyenMai chiTietKhuyenMai = chiTietKhuyenMaiService.findByMaTour(tour.getMaTour());
             if (chiTietKhuyenMai != null) {
@@ -68,10 +73,7 @@ public class homeController {
             }
         }
 
-
         model.addAttribute("tours", tours);
-
-
         return "/index/index";
     }
 
@@ -87,7 +89,6 @@ public class homeController {
 
     @GetMapping("/About")
     public String showAbout(Model model) {
-
         if (!model.containsAttribute("taiKhoan")) {
             model.addAttribute("taiKhoan", new TaiKhoan());
         }
@@ -128,7 +129,6 @@ public class homeController {
         }
         // Thêm tour và danh sách hình ảnh vào model
         model.addAttribute("tour", tour);
-
         return "index/TourDetail"; // Trả về view hiển thị chi tiết tour
     }
 
@@ -140,7 +140,7 @@ public class homeController {
             model.addAttribute("taiKhoan", new TaiKhoan());
         }
 
-        Page<Tour> tourPage = tourService.getProductsbyPage(page, size);
+        Page<Tour> tourPage = tourService.getProductsByPage(page, size);
         List<Tour> tours = tourPage.getContent();
 
         StringBuilder tourInfoBuilder = new StringBuilder();
@@ -235,5 +235,15 @@ public class homeController {
     private double calculatePromotionalPrice(double originalPrice, double discountPercent) {
         double discountAmount = (discountPercent / 100) * originalPrice;
         return originalPrice - discountAmount;
+    }
+
+    @GetMapping("/Contact")
+    public String showContact(Model model) {
+
+        if (!model.containsAttribute("taiKhoan")) {
+            model.addAttribute("taiKhoan", new TaiKhoan());
+        }
+
+        return "index/Contact";
     }
 }

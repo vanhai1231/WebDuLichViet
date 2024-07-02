@@ -1,9 +1,6 @@
 package com.hutech.DAMH.controller;
 
-import com.hutech.DAMH.model.ChiTietKhuyenMai;
-import com.hutech.DAMH.model.Images;
-import com.hutech.DAMH.model.KhuyenMai;
-import com.hutech.DAMH.model.Tour;
+import com.hutech.DAMH.model.*;
 import com.hutech.DAMH.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -17,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,7 +32,10 @@ public class TourAdminController {
     private PhongService phongService;
     @Autowired
     private PhuongTienService phuongTienService;
-    private final ChiTietKhuyenMaiService chiTietKhuyenMaiService;
+    @Autowired
+    private KhuyenMaiService khuyenMaiService;
+    @Autowired
+    private ChiTietKhuyenMaiService chiTietKhuyenMaiService;
     @GetMapping("DanhSachTour")
     public String showTourList(Model model, HttpServletRequest request) {
         // Kiểm tra session
@@ -43,8 +44,11 @@ public class TourAdminController {
         if (session == null || session.getAttribute("username") == null) {
             return "redirect:/Admin/login";
         }
-
-        model.addAttribute("tours", tourService.getAllTours());
+        String username = (String) session.getAttribute("username");
+        model.addAttribute("username", username);
+        boolean isAdmin = "ADMIN".equals(username);
+        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("tours", tourService.getAllToursAdmin());
         return "/Admin/tours-list";
     }
 
@@ -133,8 +137,6 @@ public class TourAdminController {
         return "redirect:/Admin/DanhSachTour";
     }
 
-    private final KhuyenMaiService khuyenMaiService;
-
     @GetMapping("/KhuyenMai")
     public String showKhuyenMaiForm(Model model) {
         List<Tour> tours = tourService.getAllTours();
@@ -153,7 +155,7 @@ public class TourAdminController {
         String maKM = "KM" + timeStamp.substring(timeStamp.length() - 8);
         khuyenMai.setMaKM(maKM);
 
-        khuyenMai.setTenPhuongTien(tenKM);
+        khuyenMai.setTenKM(tenKM);
         khuyenMai.setPhanTramKM(phanTramKM);
         khuyenMai.setNgayBatDau(Date.valueOf(ngayBatDau));
         khuyenMai.setNgayKetThuc(Date.valueOf(ngayKetThuc));
@@ -167,5 +169,23 @@ public class TourAdminController {
         chiTietKhuyenMaiService.save(chiTietKhuyenMai);
 
         return "redirect:/Admin/KhuyenMai";
+    }
+
+    @GetMapping("/DanhSachKhuyenMai")
+    public String danhSachKhuyenMai(Model model) {
+        List<KhuyenMai> danhSachKhuyenMai = khuyenMaiService.findAll();
+
+        List<KhuyenMaiDTO> khuyenMaiDTOs = new ArrayList<>();
+        for (KhuyenMai km : danhSachKhuyenMai) {
+            List<ChiTietKhuyenMai> chiTietKhuyenMais = chiTietKhuyenMaiService.findByMaKM(km.getMaKM());
+            for (ChiTietKhuyenMai ctkm : chiTietKhuyenMais) {
+                String tenTour = ctkm.getTour().getTenTour();
+                KhuyenMaiDTO dto = new KhuyenMaiDTO(km, tenTour);
+                khuyenMaiDTOs.add(dto);
+            }
+        }
+
+        model.addAttribute("danhSachKhuyenMai", khuyenMaiDTOs);
+        return "Admin/DanhSachKhuyenMai";
     }
 }

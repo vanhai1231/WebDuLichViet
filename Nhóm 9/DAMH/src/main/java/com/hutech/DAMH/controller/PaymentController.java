@@ -2,15 +2,16 @@ package com.hutech.DAMH.controller;
 
 import com.hutech.DAMH.model.HoaDon;
 import com.hutech.DAMH.model.TaiKhoan;
+import com.hutech.DAMH.model.Tour;
 import com.hutech.DAMH.other.MoMoSecurity;
 import com.hutech.DAMH.other.PaymentRequest;
 import com.hutech.DAMH.service.HoaDonService;
 import com.hutech.DAMH.service.TaiKhoanService;
+import com.hutech.DAMH.service.TourService;
 import jakarta.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,10 +30,12 @@ import java.util.Map;
 public class PaymentController {
     private final TaiKhoanService taiKhoanService;
     private final HoaDonService hoaDonService;
+    private final TourService tourService;
 
-    public PaymentController(TaiKhoanService taiKhoanService, HoaDonService hoaDonService) {
+    public PaymentController(TaiKhoanService taiKhoanService, HoaDonService hoaDonService, TourService tourService) {
         this.taiKhoanService = taiKhoanService;
         this.hoaDonService = hoaDonService;
+        this.tourService = tourService;
     }
 
     @GetMapping("/api/v1/payment/{maTour}/{sdt}/{diachi}/{adults}/{children}")
@@ -186,6 +189,15 @@ public class PaymentController {
         TaiKhoan taiKhoan = taiKhoanService.findByTenTK(username)
                 .orElseThrow(() -> new Exception("Không tìm thấy tài khoản với tên: " + username));
 
+        Tour tour = tourService.getTourByMaTour(maTour);
+
+
+        int soNguoiLonConLai = tour.getSoluong() - NguoiLon;
+        if (soNguoiLonConLai < 0) {
+            throw new Exception("Số lượng người lớn đã đặt vượt quá số lượng còn lại trong tour.");
+        }
+        tour.setSoluong(soNguoiLonConLai);
+        tourService.saveTour(tour);
         HoaDon hoaDon = new HoaDon();
         hoaDon.setMaHD(orderId);
         hoaDon.setTongTien(new BigDecimal(amount));

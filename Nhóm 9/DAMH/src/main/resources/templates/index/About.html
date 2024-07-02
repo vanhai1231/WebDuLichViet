@@ -1,62 +1,88 @@
 <!DOCTYPE html>
-<html lang="vi"
-      xmlns:th="http://www.thymeleaf.org"
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+      layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
-    <link rel="stylesheet" th:href="@{/CSS/About.css}" href="../../static/CSS/About.css" type="text/css">
-    <script th:src="@{/js/About.js}"></script>
+    <title>About Us - Du Lịch Việt</title>
+    <link rel="stylesheet" th:href="@{/CSS/About.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-<div layout:fragment="content">
-    <div class="container">
-        <div id="slide">
-            <div class="item" th:style="'background-image: url(/images/about1.jpg);'">
-                <div class="content">
-                    <div class="name" th:text="#{about_us}"></div>
-                    <div class="des" th:text="#{about_us_description}"></div>
-                    <button th:text="#{view_more}"></button>
+<div layout:fragment="content" style="position: relative;">
+    <main class="py-5">
+        <section class="about-section text-center">
+            <div class="container">
+                <h2 class="display-4 mb-4">About Us - Nhóm 9</h2>
+                <p class="lead mb-5">Chào mừng bạn đến với Du Lịch Việt! Chúng tôi là đơn vị hàng đầu trong lĩnh vực du lịch, mang đến cho bạn những trải nghiệm tuyệt vời và khó quên.</p>
+                <div class="vision-mission">
+                    <div class="row align-items-center mb-5">
+                        <div class="col-md-6">
+                            <img src="/images/vision.jpg" alt="Tầm nhìn" class="img-fluid rounded mb-3">
+                        </div>
+                        <div class="col-md-6">
+                            <h3 class="mb-3">Tầm nhìn</h3>
+                            <p>Trở thành công ty du lịch được yêu thích nhất Việt Nam, đưa du khách khám phá mọi miền đất nước với những hành trình độc đáo và sáng tạo.</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-md-6 order-md-2">
+                            <img src="/images/mission.jpg" alt="Sứ mệnh" class="img-fluid rounded mb-3">
+                        </div>
+                        <div class="col-md-6 order-md-1">
+                            <h3 class="mb-3">Sứ mệnh</h3>
+                            <p>Cung cấp các dịch vụ du lịch chất lượng cao, an toàn và phong phú, mang lại giá trị tốt nhất cho khách hàng.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="team">
+                    <h3 class="mb-4">Our Team</h3>
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="team-member">
+                                <img src="/images/hehe.jpg" alt="Hà Văn Hải" class="img-fluid rounded-circle mb-3">
+                                <h4>Hà Văn Hải</h4>
+                                <p>CEO & Founder</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="team-member">
+                                <img src="/images/hehe.jpg" alt="Đinh Trọng Khang" class="img-fluid rounded-circle mb-3">
+                                <h4>Đinh Trọng Khang</h4>
+                                <p>Tour Manager</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="team-member">
+                                <img src="/images/hehe.jpg" alt="Đặng Trần Tiến Dũng" class="img-fluid rounded-circle mb-3">
+                                <h4>Đặng Trần Tiến Dũng</h4>
+                                <p>Customer Support</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="team-member">
+                                <img src="/images/hehe.jpg" alt="Nguyễn Hữu Khải" class="img-fluid rounded-circle mb-3">
+                                <h4>Nguyễn Hữu Khải</h4>
+                                <p>Customer Support</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="team-member">
+                                <img src="/images/hehe.jpg" alt="Võ Gia Duy" class="img-fluid rounded-circle mb-3">
+                                <h4>Võ Gia Duy</h4>
+                                <p>Customer Support</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="item" th:style="'background-image: url(/images/about2.jpg);'">
-                <div class="content">
-                    <div class="name" th:text="#{about_mission}"></div>
-                    <div class="des" th:text="#{about_mission_description}"></div>
-                    <button th:text="#{view_more}"></button>
-                </div>
-            </div>
-            <div class="item" th:style="'background-image: url(/images/about3.jpg);'">
-                <div class="content">
-                    <div class="name" th:text="#{about_goal}"></div>
-                    <div class="des" th:text="#{about_goal_description}"></div>
-                    <button th:text="#{view_more}"></button>
-                </div>
-            </div>
-            <div class="item" th:style="'background-image: url(/images/about4.jpg);'">
-                <div class="content">
-                    <div class="name" th:text="#{about_responsibility}"></div>
-                    <div class="des" th:text="#{about_responsibility_description}"></div>
-                    <button th:text="#{view_more}"></button>
-                </div>
-            </div>
-            <div class="item" th:style="'background-image: url(/images/about5.jpg);'">
-                <div class="content">
-                    <div class="name" th:text="#{about_team}"></div>
-                    <div class="des" th:text="#{about_team_description}"></div>
-                    <button th:text="#{view_more}"></button>
-                </div>
-            </div>
-        </div>
-        <div class="buttons">
-            <button id="prev"><i class="fa-solid fa-angle-left"></i></button>
-            <button id="next"><i class="fa-solid fa-angle-right"></i></button>
-        </div>
-    </div>
+        </section>
+    </main>
 </div>
-<script src="script.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

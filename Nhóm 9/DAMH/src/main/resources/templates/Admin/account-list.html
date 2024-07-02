@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+<head>
+    <title>Tài Khoản - Admin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        /* Đặt width cho từng cột */
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 5%; /* width cho cột số thứ tự */
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 5%; /* width cho cột tên sản phẩm */
+            white-space: normal; /* Cho phép xuống dòng nếu nội dung quá dài */
+        }
+
+            th:nth-child(3),
+            td:nth-child(3) {
+                width: 20%; /* width cho cột tên sản phẩm */
+                white-space: normal; /* Cho phép xuống dòng nếu nội dung quá dài */
+            }
+        th:nth-child(6),
+        td:nth-child(6) {
+         width: 20%; /* width cho cột tên sản phẩm */
+            white-space: normal; /* Cho phép xuống dòng nếu nội dung quá dài */
+        }
+
+            th:nth-child(7),
+            td:nth-child(7) {
+                width: 5%; /* width cho cột số thứ tự */
+            }
+
+
+        /* Thêm scrollbar ngang */
+        .table-container {
+            overflow-x: auto;
+        }
+    </style>
+    <link rel="stylesheet" th:href="@{/assets/css/Admin.css}" type="text/css">
+</head>
+<body>
+
+<section layout:fragment="content" style="position: relative;">
+    <div>
+        <div>
+            <h2>Danh Sách Tài Khoản</h2>
+        </div>
+
+        <div style="margin-top: 10px; margin-bottom: 10px;">
+            <a th:href="@{/Admin/ThemTaiKhoan}" class="btn btn-success btn-sm" >Thêm Tài Khoản</a>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col" style="background-color:#B66DFF;color:White">ID</th>
+                <th scope="col" style="background-color:#B66DFF;color:White">Tên Tài Khoản</th>
+<!--                <th scope="col" style="background-color:#B66DFF;color:White">Mật Khẩu</th>-->
+                <th scope="col" style="background-color:#B66DFF;color:White">Họ Tên</th>
+                <th scope="col" style="background-color:#B66DFF;color:White">Email</th>
+                <th scope="col" style="background-color:#B66DFF;color:White">Số Điện Thoại</th>
+                <th scope="col" style="background-color:#B66DFF;color:White">Địa Chỉ</th>
+                <th scope="col" style="background-color:#B66DFF;color:White">Quyền</th>
+                <th scope="col" style="background-color:#B66DFF;color:White">Chức Năng</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="taikhoan : ${taikhoans}">
+                <td th:text="${taikhoan.ID}"></td>
+                <td th:text="${taikhoan.tenTK}"></td>
+<!--                <td th:text="${taikhoan.password}"></td>-->
+
+                <td th:text="${taikhoan.user.hoTen}"></td>
+                <td th:text="${taikhoan.user.email}"></td>
+                <td th:text="${taikhoan.user.sdt}"></td>
+                <td th:text="${taikhoan.user.diaChi}"></td>
+                <td>
+        <span th:each="role : ${taikhoan.roles}">
+            <span th:text="${role.name}"></span><br/>
+        </span>
+                </td>
+                <td>
+                    <a th:href="@{/Admin/SuaTaiKhoan/{id}(id=${taikhoan.ID})}"
+                       class="btn btn-warning btn-sm">Sửa</a>
+                    <a th:href="@{/Admin/ResetPassword/{id}(id=${taikhoan.ID})}"
+                       class="btn btn-warning btn-sm">Reset</a>
+<!--                    <span th:if="${#lists.contains(taikhoan.roles.![name], 'EMPLOYEE')}">-->
+<!--                        &lt;!&ndash; Render nothing if the user has EMPLOYEE role &ndash;&gt;-->
+<!--                    </span>-->
+<!--                    <span th:unless="${#lists.contains(taikhoan.roles.![name], 'ADMIN')}">-->
+<!--                        <a th:href="@{/Admin/XoaTaiKhoan/{id}(id=${taikhoan.ID})}"-->
+<!--                           class="btn btn-danger btn-sm"-->
+<!--                           onclick="return confirm('Bạn có chắc không?')">Xóa</a>-->
+<!--                    </span>-->
+                    <span th:if="${isAdmin}">
+        <a th:href="@{/Admin/XoaTaiKhoan/{id}(id=${taikhoan.ID})}"
+           class="btn btn-danger btn-sm"
+           onclick="return confirm('Bạn có chắc không?')">Xóa</a>
+    </span>
+
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

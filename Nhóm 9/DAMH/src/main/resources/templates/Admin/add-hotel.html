@@ -1,0 +1,53 @@
+<!-- add-tour-form.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      layout:decorate="~{layout_admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Hotel</title>
+    <link rel="stylesheet" th:href="@{/assets/css/Admin.css}" type="text/css">
+</head>
+<body>
+<section layout:fragment="content" style="position: relative;">
+    <div class="col-md-12 ">
+        <h3>Thêm Khách Sạn</h3>
+
+        <div class="col-md-9" style="margin-left:150px;">
+            <form action="/Admin/ThemKS" th:object="${khachsan}" method="post" >
+                <div class="form-group">
+                    <label for="maKS">Mã Khách Sạn:</label>
+                    <input type="text" id="maKS" name="maKS" th:field="*{maKS}" required><br><br>
+                    <!--        <span id="tenSanPhamError" class="text-danger"></span>-->
+                </div>
+
+
+                <div class="form-group">
+                    <label for="tenKS">Tên Khách Sạn:</label>
+                    <input type="text" id="tenKS" name="tenKS" th:field="*{tenKS}" required><br><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="diaChi">Địa Chỉ:</label>
+                    <input type="text" id="diaChi" name="diaChi" th:field="*{diaChi}" required><br><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="danhGia">Đánh Giá:</label>
+                    <input type="text" id="danhGia" name="danhGia" th:field="*{danhGia}"><br><br>
+                </div>
+
+
+
+                    <div class="form-group btn" style="margin-top:20px">
+                        <input type="submit" class="btn btn-success" value="Add Tour">
+                    </div>
+
+            </form>
+
+        </div>
+    </div>
+</section>>
+</body>
+</html>

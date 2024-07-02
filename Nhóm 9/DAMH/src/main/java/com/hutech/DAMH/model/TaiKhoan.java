@@ -1,6 +1,7 @@
 package com.hutech.DAMH.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -27,16 +28,19 @@ public class TaiKhoan implements UserDetails {
     private int ID;
 
     @Column(name = "TenTK", unique = true, nullable = false)
-    @NotBlank(message = "Username is required")
-    @Size(min = 1, max = 50, message = "Username must be between 1 and 50 characters")
+    @NotBlank(message = "Vui lòng điền Tài Khoản")
+    @Size(min = 1, max = 50, message = "Tài khoản từ 1 -> 50 ký tự")
     private String tenTK;
 
     @Column(name = "PassWord", nullable = false)
-    @NotBlank(message = "Password is required")
+    @NotBlank(message = "Vui lòng điền Mật Khẩu")
+    @Size(min = 8, max = 255, message = "Mật khẩu phải từ 8 ký tự trở lên")
+    @Pattern(regexp = ".*[!@#$%^&*(),.?\":{}|<>].*", message = "Mật khẩu phải có ít nhất 1 ký tự đặc biệt")
     private String passWord;
 
     @ManyToOne
     @JoinColumn(name = "idUser")
+    @Valid
     private User user;
     // Getters and Setters
 
@@ -95,6 +99,13 @@ public class TaiKhoan implements UserDetails {
         return getClass().hashCode();
     }
 
+    // Manually added getter and setter for passWord
+    public String getPassWord() {
+        return passWord;
+    }
 
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
 
 }

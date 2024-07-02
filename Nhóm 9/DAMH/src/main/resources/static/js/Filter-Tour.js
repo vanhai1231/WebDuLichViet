@@ -8,13 +8,13 @@ $(document).ready(function() {
 
         $.ajax({
             url: '/api/filter',
-            type: 'GET',
+            type: 'POST',
             data: formData,
             success: function(response) {
                 $('#tourList').empty();
 
                 response.forEach(function(tour) {
-                    var mainImageUrl = tour.mainImageUrl();
+                    var mainImageUrl = tour.mainImageUrl;
                     var secondaryImageUrl = tour.secondaryImageUrl;
                     var tenTour = tour.tenTour;
                     var ngayKH = tour.ngayKH;
@@ -42,6 +42,12 @@ $(document).ready(function() {
             },
             error: function(error) {
                 console.log('Error fetching filtered tours:', error);
+            },
+            complete: function() {
+                // Re-apply Flatpickr if needed
+                $(".flatpickr").flatpickr({
+                    dateFormat: "d/m/Y",
+                });
             }
         });
     });

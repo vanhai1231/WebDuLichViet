@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa Hóa Đơn</title>
+    <link rel="stylesheet" th:href="@{/assets/css/Admin.css}" type="text/css">
+</head>
+<body>
+<section layout:fragment="content" style="position: relative;">
+    <div class="col-md-12">
+        <h3>Sửa Hóa Đơn</h3>
+        <div class="col-md-9" style="margin-left:150px;">
+            <form th:action="@{/Admin/SuaHoaDon/{id}(id=${hoadon.maHD})}" method="post">
+                <div class="form-group">
+                    <label for="maHD">Mã Hóa Đơn:</label>
+                    <input type="text" id="maHD" name="maHD" th:value="${hoadon.maHD}"  readonly>
+                </div>
+                <div class="form-group">
+                    <label for="id">Id Tài Khoản:</label>
+                    <input type="text" id="id" name="id" th:value="${hoadon.id}"  readonly>
+                </div>
+                <div class="form-group">
+                    <label for="maTour">Mã Tour:</label>
+                    <input type="text" id="maTour" name="maTour" th:value="${hoadon.maTour}"  readonly>
+                </div>
+<!--                <input type="hidden" id="maHD" name="maHD" th:value="${hoadon.maHD}">-->
+<!--                <input type="hidden" id="id" name="id" th:value="${hoadon.id}">-->
+<!--                <input type="hidden" id="maTour" name="maTour" th:value="${hoadon.maTour}">-->
+                <div class="form-group">
+                    <label for="soNguoiLon">Số Người Lớn:</label>
+                    <input type="text" id="soNguoiLon" name="soNguoiLon" th:value="${hoadon.soNguoiLon}" required >
+                </div>
+                <div class="form-group">
+                    <label for="soTreEm">Số Trẻ Em:</label>
+                    <input type="text" id="soTreEm" name="soTreEm" th:value="${hoadon.soTreEm}" required >
+                </div>
+                <div class="form-group">
+                    <label for="tongTien">Tổng Tền:</label>
+                    <input type="text" id="tongTien" name="tongTien" th:value="${hoadon.tongTien}" required >
+                </div>
+
+                <div class="form-group">
+                    <label for="ngayLap">Ngày Lập:</label>
+                    <input type="datetime-local" id="ngayLap" name="ngayLap" th:value="${hoadon.ngayLap}" required >
+                </div>
+                <div class="form-group">
+                    <label for="diaChi">Địa Chỉ:</label>
+                    <input type="text" id="diaChi" name="diaChi" th:value="${hoadon.diaChi}" required >
+                </div>
+                <div class="form-group">
+                    <label for="sdt">Số Điện Thoại:</label>
+                    <input type="text" id="sdt" name="sdt" th:value="${hoadon.sdt}" required>
+                </div>
+                <div class="form-group">
+                    <label for="trangThai">Trạng Thái:</label>
+                    <select id="trangThai" name="trangThai" th:value="${hoadon.trangThai}" required>
+                        <option value="Đang chờ xác nhận" th:selected="${hoadon.trangThai == 'Đang chờ xác nhận'}">Đang chờ xác nhận</option>
+                        <option value="Đã xác nhận" th:selected="${hoadon.trangThai == 'Đã xác nhận'}">Đã xác nhận</option>
+<!--                        <option value="Đã Hủy" th:selected="${hoadon.trangThai == 'Đã Hủy'}">Đã Hủy</option>-->
+                    </select>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</section>
+</body>
+</html>

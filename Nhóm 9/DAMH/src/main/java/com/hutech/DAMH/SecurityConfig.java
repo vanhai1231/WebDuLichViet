@@ -46,8 +46,21 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/assets/**","/CSS/**","webjars/**", "/js/**","/images/**", "/video/**","/", "/oauth/**", "/index/**", "/error",
-                        "/Admin/delete/**","/Admin/UpdateTour/**","/Admin/edit/**","/Admin/ThemTour","/Admin/ThemTour?error","/Admin/AddTour","/Admin/logoutAdmin", "/Admin/DanhSachTour","/Admin/login?error","/Admin/login","/DangNhap","/Admin/Home","/DuLichViet/Home","/NhapOtp","/verifyOtp","/DoiMatKhau","/QuenMatKhau","/DuLichViet/About","/DuLichViet/Blog","/DangKy", "/partials/**", "/cart/**")
+                        .requestMatchers("/assets/**","/CSS/**","webjars/**", "/js/**","/images/**", "/video/**",
+                                "/", "/oauth/**", "/index/**", "/error","/Admin/SuaTaiKhoan/**","/Admin/ResetPassword/**","/Admin/DanhSachLoaiTour/**",
+                                "/Admin/CapNhatTaiKhoan/**","/Admin/XoaTaiKhoan/**","/Admin/ChangePassword",
+                                "/Admin/ThemLoaiTour","/Admin/ThemLT","/Admin/SuaLoaiTour/**","/Admin/UpdateLoaiTour/**","/Admin/XoaLoaiTour/**",
+                                "/Admin/ThemTaiKhoan","/Admin/ThemTK","/Admin/ThemKhachSan","/Admin/ThemKS","/Admin/SuaKhachSan/**","/Admin/editKhachSan/**",
+                                "/Admin/DanhSachTaiKhoan","/Admin/DanhSachKhachSan","/Admin/SuaHoaDon/**",
+                                "/Admin/DanhSachKhuyenMai","/Admin/KhuyenMai",
+                                "/Admin/editHoaDon/**","/Admin/DanhSachHoaDon","/Admin/delete/**","/Admin/XoaKhachSan/**",
+                                "/Admin/UpdateTour/**","/Admin/edit/**","/Admin/ThemTour",
+                                "/Admin/ThemTour?error","/Admin/AddTour","/Admin/logoutAdmin",
+                                "/Admin/DanhSachTour","/Admin/login?error","/Admin/login","/DangNhap",
+                                "/Admin/Home","/DuLichViet/Home","/NhapOtp","/verifyOtp","/DoiMatKhau",
+                                "/QuenMatKhau","/DuLichViet/About","/DuLichViet/Blog",
+                                "/DuLichViet/Destination","/DuLichViet/Tour","/DangKy",
+                                "/partials/**", "/cart/**")
                         .permitAll() // Cho phép truy cập không cần xác thực.
                         .requestMatchers("/products/edit/**", "/products/add", "/products/delete")
                         .hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.
@@ -123,7 +136,6 @@ public class SecurityConfig {
                 .httpBasic(httpBasic -> httpBasic
                         .realmName("hutech") // Tên miền cho xác thực cơ bản.
                 )
-
                 .build(); // Xây dựng và trả về chuỗi lọc bảo mật.
     }
 

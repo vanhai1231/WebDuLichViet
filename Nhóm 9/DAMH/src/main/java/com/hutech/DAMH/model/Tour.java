@@ -80,7 +80,8 @@ public class Tour {
     private Date ngayBatDauKM;
     @Transient
     private Date ngayKetThucKM;
-
+    @Transient
+    private String formattedGiaTour;
     // Getters and setters
     public boolean isPromotionActive() {
         return promotionActive;

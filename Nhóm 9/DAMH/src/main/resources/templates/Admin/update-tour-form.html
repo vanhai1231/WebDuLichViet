@@ -5,37 +5,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Update Tour</title>
-    <style>
-        .custom-select {
-            width: 100%;
-        }
-        .btn {
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/assets/css/Admin.css}" type="text/css">
+
 </head>
 <body>
 <section layout:fragment="content" style="position:relative;">
     <div class="col-md-12">
-        <h3>Sửa Sản Phẩm</h3>
+        <h3>Sửa Tour</h3>
         <div class="col-md-9" style="margin-left:150px;">
             <form th:action="@{/Admin/UpdateTour/{id}(id=${tour.maTour})}" method="post" enctype="multipart/form-data">
                 <input type="hidden" id="maTour" name="maTour" th:value="${tour.maTour}">
                 <div class="form-group">
                     <label for="tenTour">Tên Tour:</label>
-                    <input type="text" id="tenTour" name="tenTour" th:value="${tour.tenTour}" required>
+                    <input  type="text" id="tenTour" name="tenTour" th:value="${tour.tenTour}" required>
+                    <span id="tenTourError" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="soluong">Số Lượng:</label>
+                    <input type="number" id="soluong" name="soluong" th:value="${tour.soluong}" min="0" required>
+                    <span id="soluongError" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label for="giaTour">Giá:</label>
-                    <input type="number" id="giaTour" name="giaTour" th:value="${tour.giaTour}" required>
+                    <input type="number" id="giaTour" name="giaTour" th:value="${tour.giaTour}" min="0" required>
+                    <span id="giaTourError" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label for="ngayKH">Ngày Khởi Hành:</label>
                     <input type="datetime-local" id="ngayKH" name="ngayKH" th:value="${tour.ngayKH}" required>
+                    <span id="ngayKHError" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label for="noiKhoiHanh">Nơi Khởi Hành:</label>
                     <input type="text" id="noiKhoiHanh" name="noiKhoiHanh" th:value="${tour.noiKhoiHanh}" required>
+                    <span id="noiKhoiHanhError" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label for="tinh">Mã Tỉnh:</label>
@@ -62,18 +65,20 @@
                     </select>
                 </div>
                 <div>
-                    <label for="mainImageFile">Hình Ảnh:</label>
-                    <input type="file" id="mainImageFile" name="mainImageFile" onchange="previewImage1(this);">
+                    <label for="mainImageFile">Hình Ảnh 1:</label>
+                    <input type="file" id="mainImageFile" name="mainImageFile"  onchange="previewImage1(this);">
                     <div id="imagePreview1">
                         <img th:src="@{${tour.mainImageUrl}}" alt="Main Image" style="width: 200px; height: auto;">
                     </div>
+                    <div id="mainImageFileError" class="text-danger"></div>
                 </div>
                 <div>
-                    <label for="secondaryImageFile">Hình Ảnh:</label>
-                    <input type="file" id="secondaryImageFile" name="secondaryImageFile" onchange="previewImage2(this);">
+                    <label for="secondaryImageFile">Hình Ảnh 2:</label>
+                    <input type="file" id="secondaryImageFile" name="secondaryImageFile"  onchange="previewImage2(this);">
                     <div id="imagePreview2">
                         <img th:src="@{${tour.secondaryImageUrl}}" alt="Main Image" style="width: 200px; height: auto;">
                     </div>
+                    <div id="secondaryImageFileError" class="text-danger"></div>
                 </div>
 
                 <script>
@@ -101,12 +106,223 @@
                         reader.readAsDataURL(file);
                     }
                 </script>
-                <div>
-                    <button type="submit" class="btn btn-primary">Update Tour</button>
+                <div class="form-group btn" style="margin-top:20px">
+                    <input type="submit" class="btn btn-success" value="Update Tour" onclick="validateFormUpdate()">
                 </div>
             </form>
         </div>
     </div>
+    <script>
+        function validateFormUpdate() {
+            var maTourInput = document.querySelector('input[name="maTour"]');
+            var maTourError = document.getElementById('maTourError');
+
+            var tenTourInput = document.querySelector('input[name="tenTour"]');
+            var tenTourError = document.getElementById('tenTourError');
+
+            var ngayKHInput = document.querySelector('input[name="ngayKH"]');
+            var ngayKHError = document.getElementById('ngayKHError');
+
+            var noiKhoiHanhInput = document.querySelector('input[name="noiKhoiHanh"]');
+            var noiKhoiHanhError = document.getElementById('noiKhoiHanhError');
+
+            var soluongInput = document.getElementById('soluong');
+            var soluongError = document.getElementById('soluongError');
+
+            var giaTourInput = document.getElementById('giaTour');
+            var giaTourError = document.getElementById('giaTourError');
+
+            var mainImageFile = document.querySelector('input[name="mainImageFile"]');
+            var mainImageFileError = document.getElementById('mainImageFileError');
+
+            var secondaryImageFile = document.querySelector('input[name="secondaryImageFile"]');
+            var secondaryImageFileError = document.getElementById('secondaryImageFileError');
+
+            var isValid = true;
+
+            // Kiểm tra Mã Tour
+            if (!maTourInput.value.trim()) {
+                maTourError.textContent = 'Vui lòng nhập Mã Tour.';
+                isValid = false;
+            } else {
+                maTourError.textContent = '';
+            }
+
+            // Kiểm tra Tên Tour
+            if (!tenTourInput.value.trim()) {
+                tenTourError.textContent = 'Vui lòng nhập Tên Tour.';
+                isValid = false;
+            } else {
+                tenTourError.textContent = '';
+            }
+            var soluongValue = soluongInput.value.trim();
+            if (soluongValue === '' || parseFloat(soluongValue) <= 0) {
+                soluongError.textContent = 'Số lượng phải lớn hơn 0.';
+                isValid = false;
+            } else {
+                soluongError.textContent = '';
+            }
+
+            // Kiểm tra Giá Tour
+            var giaTourValue = giaTourInput.value.trim();
+            if (giaTourValue === '' || parseFloat(giaTourValue) <= 0) {
+                giaTourError.textContent = 'Giá tour phải lớn hơn 0.';
+                isValid = false;
+            } else {
+                giaTourError.textContent = '';
+            }
+            // Kiểm tra Ngày Khởi Hành
+            if (!ngayKHInput.value.trim()) {
+                ngayKHError.textContent = 'Vui lòng chọn Ngày Khởi Hành.';
+                isValid = false;
+            } else {
+                ngayKHError.textContent = '';
+            }
+
+            // Kiểm tra Nơi Khởi Hành
+            if (!noiKhoiHanhInput.value.trim()) {
+                noiKhoiHanhError.textContent = 'Vui lòng nhập Nơi Khởi Hành.';
+                isValid = false;
+            } else {
+                noiKhoiHanhError.textContent = '';
+            }
+
+
+
+            // Kiểm tra Hình Ảnh 1
+            if (mainImageFile.validity.valueMissing) {
+                mainImageFileError.textContent = 'Vui lòng chọn hình ảnh 1.';
+                isValid = false;
+            } else {
+                mainImageFileError.textContent = '';
+            }
+
+            // Kiểm tra Hình Ảnh 2
+            if (secondaryImageFile.validity.valueMissing) {
+                secondaryImageFileError.textContent = 'Vui lòng chọn hình ảnh 2.';
+                isValid = false;
+            } else {
+                secondaryImageFileError.textContent = '';
+            }
+
+            // Nếu form hợp lệ thì submit form
+            if (isValid) {
+                document.querySelector('form').submit();
+            }
+        }
+    </script>
+    <script>
+        // Lấy thẻ input và span hiển thị lỗi
+        var tenTourInput = document.querySelector('input[name="tenTour"]');
+        var tenTourError = document.getElementById('tenTourError');
+
+        // Lắng nghe sự kiện khi mất focus khỏi input
+        tenTourInput.addEventListener('blur', function () {
+            // Kiểm tra nếu giá trị của input không hợp lệ
+            if (tenTourInput.validity.valueMissing) {
+                // Hiển thị thông báo lỗi tùy chỉnh
+                tenTourError.textContent = 'Vui lòng tên Tour.';
+            } else {
+                // Nếu hợp lệ, xóa thông báo lỗi
+                tenTourError.textContent = '';
+            }
+        });
+         // Lấy thẻ input và span hiển thị lỗi
+                    var ngayKHInput = document.querySelector('input[name="ngayKH"]');
+                    var ngayKHError = document.getElementById('ngayKHError');
+
+                    // Lắng nghe sự kiện khi mất focus khỏi input
+                    ngayKHInput.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ (nếu dùng datetime-local, không cần kiểm tra valueMissing)
+                        if (!ngayKHInput.value) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+                            ngayKHError.textContent = 'Vui lòng chọn ngày khởi hành.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                            ngayKHError.textContent = '';
+                        }
+                    });
+        // Lấy thẻ input và span hiển thị lỗi
+                    var noiKhoiHanhInput = document.querySelector('input[name="noiKhoiHanh"]');
+                    var noiKhoiHanhError = document.getElementById('noiKhoiHanhError');
+
+                    // Lắng nghe sự kiện khi mất focus khỏi input
+                    noiKhoiHanhInput.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ
+                        if (noiKhoiHanhInput.validity.valueMissing) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+                            noiKhoiHanhError.textContent = 'Vui lòng nhập nơi khởi hành.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                            noiKhoiHanhError.textContent = '';
+                        }
+                    });
+         // Lấy thẻ input và span hiển thị lỗi cho Số Lượng
+                    var soluongInput = document.getElementById('soluong');
+                    var soluongError = document.getElementById('soluongError');
+
+                    // Lắng nghe sự kiện khi mất focus khỏi input Số Lượng
+                    soluongInput.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ (nhỏ hơn hoặc bằng 0)
+                        if (soluongInput.value <= 0) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+
+                            soluongError.textContent = 'Số lượng phải lớn hơn 0.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                            soluongError.textContent = '';
+                        }
+
+                    });
+
+                    // Lấy thẻ input và span hiển thị lỗi cho Giá
+                    var giaTourInput = document.getElementById('giaTour');
+                    var giaTourError = document.getElementById('giaTourError');
+
+                    // Lắng nghe sự kiện khi mất focus khỏi input Giá
+                    giaTourInput.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ (nhỏ hơn hoặc bằng 0)
+                        if (giaTourInput.value <= 0) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+                            giaTourError.textContent = 'Giá tour phải lớn hơn 0.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                            giaTourError.textContent = '';
+                        }
+                    });
+          // Lấy thẻ input và span hiển thị lỗi
+                        var mainImageFile = document.querySelector('input[name="mainImageFile"]');
+                        var mainImageFileError = document.getElementById('mainImageFileError');
+
+                        // Lắng nghe sự kiện khi mất focus khỏi input
+                        mainImageFile.addEventListener('blur', function () {
+                            // Kiểm tra nếu giá trị của input không hợp lệ
+                            if (mainImageFile.validity.valueMissing) {
+                                // Hiển thị thông báo lỗi tùy chỉnh
+                                mainImageFileError.textContent = 'Vui lòng chọn hình ảnh 1.';
+                            } else {
+                                // Nếu hợp lệ, xóa thông báo lỗi
+                                mainImageFileError.textContent = '';
+                            }
+                        });
+          // Lấy thẻ input và span hiển thị lỗi
+                        var secondaryImageFile = document.querySelector('input[name="secondaryImageFile"]');
+                        var secondaryImageFileError = document.getElementById('secondaryImageFileError');
+
+                        // Lắng nghe sự kiện khi mất focus khỏi input
+                        secondaryImageFile.addEventListener('blur', function () {
+                            // Kiểm tra nếu giá trị của input không hợp lệ
+                            if (secondaryImageFile.validity.valueMissing) {
+                                // Hiển thị thông báo lỗi tùy chỉnh
+                                secondaryImageFileError.textContent = 'Vui lòng chọn hình ảnh 2.';
+                            } else {
+                                // Nếu hợp lệ, xóa thông báo lỗi
+                                secondaryImageFileError.textContent = '';
+                            }
+                        });
+
+
+    </script>
 </section>
 
 </body>

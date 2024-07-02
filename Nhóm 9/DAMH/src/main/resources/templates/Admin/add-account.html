@@ -1,0 +1,65 @@
+<!-- add-tour-form.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      layout:decorate="~{layout_admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Tour</title>
+
+    <link rel="stylesheet" th:href="@{/assets/css/Admin.css}" type="text/css">
+</head>
+<body>
+<section layout:fragment="content" style="position: relative;">
+    <div class="col-md-12 ">
+        <h3>Thêm Tài Khoản</h3>
+
+        <div class="col-md-9" style="margin-left:150px;">
+            <form action="/Admin/ThemTK" method="post" th:object="${taikhoan}">
+                <div class="form-group">
+                    <label for="tenTK">Tài Khoản:</label>
+                    <input type="text" id="tenTK" name="tenTK" th:field="*{tenTK}" required><br><br>
+                    <!--        <span id="tenSanPhamError" class="text-danger"></span>-->
+                </div>
+
+
+                <div class="form-group">
+                    <label for="passWord">Mật Khẩu:</label>
+                    <input type="text" id="passWord" name="passWord" th:field="*{passWord}" required><br><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="hoTen">Họ Tên:</label>
+                    <input type="text" id="hoTen" name="user.hoTen" th:field="*{user.hoTen}" required><br><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="user.email" th:field="*{user.email}" required><br><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="sdt">Số Điện Thoại:</label>
+                    <input type="text" id="sdt" name="user.sdt" th:field="*{user.sdt}" required><br><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="diaChi">Địa Chỉ:</label>
+                    <input type="text" id="diaChi" name="user.diaChi" th:field="*{user.diaChi}" required><br><br>
+                </div>
+
+
+
+
+                    <div class="form-group btn" style="margin-top:20px">
+                        <input type="submit" class="btn btn-success" value="Add Tour">
+                    </div>
+
+            </form>
+
+        </div>
+    </div>
+</section>>
+</body>
+</html>

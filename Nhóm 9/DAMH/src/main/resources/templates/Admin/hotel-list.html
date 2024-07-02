@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Khách Sạn - Admin</title>
+    <link rel="stylesheet" th:href="@{/assets/css/Admin.css}" type="text/css">
+</head>
+<body>
+<section layout:fragment="content" style="position: relative;">
+    <h2 style="text-align:center">Danh Sách Khách Sạn</h2>
+    <div style="margin-top: 10px; margin-bottom: 10px;">
+        <!-- Thêm phần tử div và margin-top -->
+        <a th:href="@{/Admin/ThemKhachSan}" class="btn btn-success btn-sm" >Thêm Khách Sạn</a>
+    </div>
+
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col"  style="background-color:#B66DFF;color:White">Mã Khách Sạn</th>
+                <th scope="col"  style="background-color:#B66DFF;color:White">Tên Khách Sạn</th>
+                <th scope="col" class="wide-column"  style="background-color:#B66DFF;color:White">Địa Chỉ</th>
+                <th scope="col"  style="background-color:#B66DFF;color:White">Đánh Giá</th>
+                <th scope="col" style="background-color:#B66DFF;color:White" >Chức Năng</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="khachsan : ${khachsans}">
+
+                <td th:text="${khachsan.maKS}"></td>
+                <td th:text="${khachsan.tenKS}"></td>
+                <td th:text="${khachsan.diaChi}"></td>
+                <td th:text="${khachsan.danhGia}"></td>
+
+
+
+                <td>
+                    <a th:href="@{/Admin/editKhachSan/{id}(id=${khachsan.maKS})}"
+                       class="btn btn-warning btn-sm">Sửa</a>
+                    <span th:if="${isAdmin}">
+                                    <a th:href="@{/Admin/XoaKhachSan/{id}(id=${khachsan.maKS})}"
+                                       class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc không?')">Xóa</a>
+                    </span>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</section>>
+</body>
+</html>

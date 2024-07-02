@@ -32,7 +32,7 @@
                         $('#errorMessages').html(errorMessage);
                     } else {
                         alert(response.message || 'Đăng ký thành công!');
-                        window.location.href = '/DangNhap';
+                       window.location.href = '/NhapOtp'; // Redirect to OTP input page
                     }
                 },
                 error: function(xhr) {
@@ -58,7 +58,7 @@
         <li><a href="/DuLichViet/Tour"><i class="fas fa-plane"></i> <span th:text="#{tours}"></span></a></li>
         <li><a href="/DuLichViet/Destination"><i class="fas fa-map-marker-alt"></i> <span th:text="#{destinations}"></span></a></li>
         <li><a href="/DuLichViet/Blog"><i class="fas fa-blog"></i> <span th:text="#{blog}"></span></a></li>
-        <li><a href="#"><i class="fas fa-envelope"></i> <span th:text="#{contact_us}"></span></a></li>
+        <li><a href="/DuLichViet/Contact"><i class="fas fa-envelope"></i> <span th:text="#{contact_us}"></span></a></li>
         <li class="login-register">
             <th:block  sec:authorize="isAuthenticated()">
                 <div class="dropdown show">
@@ -74,9 +74,8 @@
                                 <span th:text="#{wishlist}"></span>
                             </button>
                         </form>
-                        <form th:action="@{/logout}" method="post" class="dropdown-item">
-                            <button style="background-color:white;color:red"class="btn btn-outline-light"
-                                    type="submit"><span th:text="#{bookedtour}"></span></button>
+                        <form th:action="@{/customer/HoaDon}" method="get" class="dropdown-item">
+                            <button style="background-color:white;color:red" class="btn btn-outline-light" type="submit"><span th:text="#{bookedtour}"></span></button>
                         </form>
                         <form th:action="@{/logout}" method="post" class="dropdown-item">
                             <button style="background-color:white;color:red"class="btn btn-outline-light"
@@ -208,7 +207,6 @@
         </div>
     </div>
 </footer>
-
 </body>
 
 </html>

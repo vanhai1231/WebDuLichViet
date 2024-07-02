@@ -53,6 +53,7 @@
             overflow-x: auto;
         }
     </style>
+    <link rel="stylesheet" th:href="@{/assets/css/Admin.css}" type="text/css">
 </head>
 <body>
 
@@ -70,17 +71,19 @@
         <table class="table">
             <thead>
             <tr>
-                            <th scope="col">Mã Tour</th>
-                            <th scope="col">Tên Tour</th>
-                            <th scope="col">Ngày Khởi Hành</th>
-                            <th scope="col">Nơi Khởi Hành</th>
-                            <th scope="col">Phương Tiện</th>
-                            <th scope="col">Mã Tỉnh</th>
-                            <th scope="col">Số Lượng</th>
-                            <th scope="col">Mã Phòng</th>
-                            <th scope="col">Mã Loại Tour</th>
-                            <th scope="col">Hình Ảnh</th>
-                            <th scope="col">Chức Năng</th>
+                            <th scope="col" style="background-color:#B66DFF;color:White">Mã Tour</th>
+                            <th scope="col" style="background-color:#B66DFF;color:White">Tên Tour</th>
+                            <th scope="col" style="background-color:#B66DFF;color:White">Ngày Khởi Hành</th>
+                            <th scope="col" style="background-color:#B66DFF;color:White">Giá</th>
+                            <th scope="col" style="background-color:#B66DFF;color:White">Nơi Khởi Hành</th>
+
+                            <th scope="col" style="background-color:#B66DFF;color:White">Phương Tiện</th>
+                            <th scope="col" style="background-color:#B66DFF;color:White">Mã Tỉnh</th>
+                            <th scope="col" style="background-color:#B66DFF;color:White">Số Lượng</th>
+                            <th scope="col" style="background-color:#B66DFF;color:White">Mã Phòng</th>
+                            <th scope="col" style="background-color:#B66DFF;color:White">Mã Loại Tour</th>
+                            <th scope="col" style="background-color:#B66DFF;color:White">Hình Ảnh</th>
+                            <th scope="col" style="background-color:#B66DFF;color:White">Chức Năng</th>
             </tr>
             </thead>
             <tbody>
@@ -88,7 +91,7 @@
             <td th:text="${tour.maTour}"></td>
             <td th:text="${tour.tenTour}"></td>
             <td th:text="${tour.ngayKH}"></td>
-
+            <td th:text="${tour.giaTour}"></td>
             <td th:text="${tour.noiKhoiHanh}"></td>
             <td th:text="${tour.phuongTien.maPhuongTien}"></td>
             <td th:text="${tour.tinh.maTinh}"></td>
@@ -103,8 +106,10 @@
             <td>
                 <a th:href="@{/Admin/edit/{id}(id=${tour.maTour})}"
                    class="btn btn-warning btn-sm">Sửa</a>
+                <span th:if="${isAdmin}">
                 <a th:href="@{/Admin/delete/{id}(id=${tour.maTour})}"
                    class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc không?')">Xóa</a>
+                </span>
             </td>
 
         </tr>

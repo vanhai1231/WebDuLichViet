@@ -46,7 +46,28 @@ public class TourService {
         return imagesRepository.findByMaTour(maTour);
     }
     public List<Tour> getAllTours() {
+
         List<Tour> tours = tourRepository.findAll();
+        //không hiển thị các tour có số lượng là 0
+        tours = tours.stream()
+                .filter(tour -> tour.getSoluong() > 0)
+                .collect(Collectors.toList());
+        for (Tour tour : tours) {
+            List<Images> images = imagesRepository.findByMaTour(tour.getMaTour());
+            List<String> imageUrls = images.stream().map(image -> image.getHinhAnh().getImg()).toList();
+
+            if (!imageUrls.isEmpty()) {
+                tour.setMainImageUrl(imageUrls.getFirst());
+
+            }
+        }
+
+        return tours;
+    }
+    public List<Tour> getAllToursAdmin() {
+
+        List<Tour> tours = tourRepository.findAll();
+        //không hiển thị các tour có số lượng là 0
 
         for (Tour tour : tours) {
             List<Images> images = imagesRepository.findByMaTour(tour.getMaTour());
@@ -57,12 +78,13 @@ public class TourService {
 
             }
         }
+
         return tours;
     }
 
-    public Page<Tour> getProductsbyPage(int page, int size) {
+    public Page<Tour> getProductsByPage(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return tourRepository.findAll(pageable);
+        return tourRepository.findAllWithQuantityGreaterThanZero(pageable);
     }
 
     public List<Tour> getFilteredTours(String tourType, String location, Date departureDate, Integer budget, String transport, Boolean promotion) {
@@ -251,28 +273,14 @@ public class TourService {
         tourRepository.delete(tour);
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public Tour saveTour(Tour tour) throws IOException {
+        // Save the tour entity
+        Tour savedTour = tourRepository.save(tour);
 
 
-//    public int applyPromotionAndGetNewPrice(String maTour, String maKM) {
-//        Tour tour = tourRepository.findByMaTour(maTour);
-//        if (tour == null) {
-//            throw new IllegalArgumentException("Tour not found with maTour: " + maTour);
-//        }
-//
-//        Optional<KhuyenMai> optionalKhuyenMai = khuyenMaiRespository.findByMaKM(maKM);
-//        if (optionalKhuyenMai.isEmpty()) {
-//            throw new IllegalArgumentException("KhuyenMai not found with maKM: " + maKM);
-//        }
-//
-//        KhuyenMai khuyenMai = optionalKhuyenMai.get();
-//
-//        // Áp dụng chiết khấu vào giá tour dựa trên phần trăm khuyến mãi
-//        int giaTour = tour.getGiaTour();
-//        int phanTramKM = khuyenMai.getPhanTramKM();
-//        int discountedPrice = giaTour - (giaTour * phanTramKM / 100);
-//
-//        return discountedPrice;
-//    }
+        return savedTour;
+    }
 
     public Map<String, Object> applyPromotionAndGetNewPrice(String maTour, String maKM) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -315,5 +323,9 @@ public class TourService {
         response.put("endDate", khuyenMai.getNgayKetThuc());
 
         return response;
+    }
+    //đếm số tour
+    public long countAllTour() {
+        return tourRepository.count();
     }
 }

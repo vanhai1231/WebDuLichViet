@@ -12,6 +12,7 @@
     <script th:src="@{/js/LoginAndRegister.js}" src="../../static/js/LoginAndRegister.js"></script>
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script> <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!--    //script cho đăng ký form-->
     <script>
         function submitForm() {
             var form = $('#registerForm');
@@ -45,8 +46,9 @@
                 }
             });
         }
+
     </script>
-    <title>Modern Login Page | AsmrProg</title>
+    <title>Đăng Ký | Đăng Nhập</title>
 
 
 </head>
@@ -89,8 +91,9 @@
 
     </div>
     <div class="form-container sign-in">
-        <form th:action="@{/DangNhap}" method="post">
-
+        <form  th:action="@{/DangNhap}" method="post">
+            <div id="loginErrorMessages" class="alert alert-danger" style="display: none;"></div>
+            <div id="loginSuccessMessages" class="alert alert-success" style="display: none;"></div>
             <h1>Đăng Nhập</h1>
             <div class="social-icons">
                 <a th:href="@{/oauth2/authorization/google}" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -100,7 +103,7 @@
             </div>
             <span>or use your email password</span>
             <div th:if="${param.error}" class="alert alert-danger">
-                Invalid username and password.
+                Sai mật khẩu và tài khoản
             </div>
             <div th:if="${param.logout}" class="alert alert-success">
                 You have been logged out.
