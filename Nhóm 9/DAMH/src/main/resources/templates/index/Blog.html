@@ -6,12 +6,14 @@
     <meta charset="UTF-8">
     <title>Blog Du Lịch</title>
     <link rel="stylesheet" th:href="@{/CSS/StyleForBlog.css}" href="../../static/CSS/StyleForBlog.css" type="text/css">
-    <!-- meta tags và các thư viện CSS khác -->
+    <!-- meta tags-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- link tags-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900|Work+Sans:300,400,500,600,700,800,900">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.min.css">
+    <!-- title tag-->
     <title>Blog</title>
 </head>
 <body>
@@ -19,29 +21,25 @@
 
     <section id="latest-review">
         <h2 class="section-title">
-            <div class="color-city">latest </div>
-            <div class="color-cape">review</div>
+            <div class="color-city">bài viết </div>
+            <div class="color-cape">mới nhất</div>
         </h2>
         <div class="container_wrapper">
             <div class="grid_post_container">
-                <!-- Lặp qua danh sách các bài đăng từ controller -->
-                <div th:each="post : ${posts}" class="post-card">
-                    <a class="post-card__category" th:href="@{/Blog/post/{id}(id=${post.id})}" th:text="${post.title}">Title</a>
-                    <div class="post-card-image">
-                        <!-- Thêm hình ảnh đại diện của bài đăng -->
-                        <img th:src="@{/images/{imageName}(imageName=${post.hinhAnh})}" alt="Featured Image" class="imageForBlog">
-                    </div>
+                <div th:each="tinTuc : ${tinTucList}" class="post-card">
+                    <div class="post-card__featured-image" th:style="'background-image: url(' + @{/images/} + ${tinTuc.hinhAnh} + ');'"></div>
                     <div class="post-card__details">
-                        <p th:text="${post.noiDung}">Summary</p>
-                        <a class="post-card__avatar" th:href="@{/Blog/post/{id}(id=${post.id})}">
+                        <h2><a th:href="@{/DuLichViet/Blog/post/{id}(id=${tinTuc.id})}" th:text="${tinTuc.title}">Tiêu đề</a></h2>
+                        <p th:text="${tinTuc.noiDung}">Nội dung</p>
+                        <a class="post-card__avatar" th:href="@{/DuLichViet/Blog/post/{id}(id=${tinTuc.id})}">
                             <div class="avatar__circle"></div>
-                            <div class="avatar__name" th:text="${'by '}">by Author</div>
+                            <div class="avatar__name" th:text="'bởi ' + ${tinTuc.tacGia}">Tác giả</div>
                             <div class="avatar__muted-line"></div>
                         </a>
                     </div>
                 </div>
             </div>
-            <a class="button border-only muted" href="#">view all</a>
+            <a class="button border-only muted" href="#">Xem tất cả</a>
         </div>
     </section>
     <script src="js/script.min.js"></script>

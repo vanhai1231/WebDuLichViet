@@ -24,6 +24,9 @@ public class TinTuc {
     @Column(name = "HinhAnh")
     private String hinhAnh;
 
+    @Column(name = "TacGia")
+    private String tacGia;
+
     // Constructors, getters and setters
 }
 

@@ -77,16 +77,6 @@ public class homeController {
         return "/index/index";
     }
 
-    @GetMapping("/Blog")
-    public String showBlog(Model model) {
-
-        if (!model.containsAttribute("taiKhoan")) {
-            model.addAttribute("taiKhoan", new TaiKhoan());
-        }
-
-        return "index/Blog";
-    }
-
     @GetMapping("/About")
     public String showAbout(Model model) {
         if (!model.containsAttribute("taiKhoan")) {

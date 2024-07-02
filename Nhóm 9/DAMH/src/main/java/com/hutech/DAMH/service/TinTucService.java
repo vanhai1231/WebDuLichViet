@@ -20,7 +20,13 @@ public class TinTucService {
     public List<TinTuc> getAllBlogs() {
         return tinTucRepository.findAll();
     }
+
     public Optional<TinTuc> getBlogById(int id) {
         return tinTucRepository.findById((long) id);
+    }
+
+    public Optional<TinTuc> findById(int id) {
+
+        return Optional.empty();
     }
 }
