@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Trang Chủ</title>
@@ -22,6 +24,7 @@
     <script th:src="@{/js/Wishlist.js}"></script>
 </head>
 <body>
+
 <div layout:fragment="content" style="position: relative;">
     <video width="1400" autoplay muted loop style="display: block; margin: 0 auto;">
         <source th:src="@{/video/video-nhom9.mp4}" type="video/mp4">
@@ -105,11 +108,13 @@
                 <h2 class="tour-name" th:text="${tour.tenTour}">Tên Tour</h2>
                 <span class="star-icon">⭐⭐⭐⭐⭐</span>
                 <p class="tour-date" th:text="#{departure.date.label} +' '+ ${#dates.format(tour.ngayKH, 'dd/MM/yyyy')}">Ngày Khởi Hành</p>
-                <p class="price" th:text="#{price.label} +' '+ ${tour.giaTour}">Giá: </p>
-
                 <div th:if="${tour.promotionActive}">
                     <p class="discount">Giảm giá: <span th:text="${tour.phanTramGiam} + '%'"></span></p>
-
+                    <p class="price">Giá: <span th:text="${tour.giaTour}"></span></p>
+                    <p class="price">Giá sau khi giảm: <span th:text="${tour.giaSauGiam}"></span></p>
+                </div>
+                <div th:if="${!tour.promotionActive}">
+                    <p class="price">Giá: <span th:text="${tour.giaTour}"></span></p>
                 </div>
             </div>
             <a id="dangkyBtn" class="dangky-btn" onclick="checkLogin(event)" th:href="@{/DuLichViet/TourDetail/{maTour}(maTour=${tour.maTour})}" th:data-ma-tour="${tour.maTour}" th:text="#{register}"></a>
@@ -147,22 +152,25 @@
             const tourCard = document.createElement('div');
             tourCard.classList.add('tour-card');
             tourCard.innerHTML = `
-                <div class="tour-image-container">
-                    <i class="bi bi-heart heart-icon"></i>
-                    <img src="${tour.mainImageUrl}" alt="Main Tour Image" class="tour-image">
-                    <img src="${tour.secondaryImageUrl}" alt="Secondary Tour Image" class="tour-image secondary-image">
-                    <span>
-                        <i class="bi bi-heart"></i>
-                    </span>
+                            <div class="tour-image-container">
+                <i class="bi bi-heart heart-icon" data-ma-tour="${tour.maTour}"></i>
+                <img th:src="@{${tour.mainImageUrl}}" alt="Main Tour Image" class="tour-image">
+                <img th:src="@{${tour.secondaryImageUrl}}" alt="Secondary Tour Image" class="tour-image secondary-image">
+            </div>
+            <div class="tour-info">
+                <h2 class="tour-name" th:text="${tour.tenTour}">Tên Tour</h2>
+                <span class="star-icon">⭐⭐⭐⭐⭐</span>
+                <p class="tour-date" th:text="#{departure.date.label} +' '+ ${#dates.format(tour.ngayKH, 'dd/MM/yyyy')}">Ngày Khởi Hành</p>
+                <div th:if="${tour.promotionActive}">
+                    <p class="discount">Giảm giá: <span th:text="${tour.phanTramGiam} + '%'"></span></p>
+                    <p class="price">Giá: <span th:text="${tour.giaTour}"></span></p>
+                    <p class="price">Giá sau khi giảm: <span th:text="${tour.giaSauGiam}"></span></p>
                 </div>
-                <div class="tour-info">
-                    <h2 class="tour-name">${tour.tenTour}</h2>
-                    <span class="star-icon">⭐⭐⭐⭐⭐</span>
-                    <p class="tour-date">Ngày Khởi Hành: ${tour.ngayKH}</p>
-                    <p class="price">Giá: ${tour.giaTour}</p>
-                    ${tour.promotionActive ? `<p class="discount">${tour.phanTramGiam}%</p><p class="promo-period">Thời gian khuyến mãi: ${tour.ngayBatDauKM} - ${tour.ngayKetThucKM}</p>` : ''}
+                <div th:if="${!tour.promotionActive}">
+                    <p class="price">Giá: <span th:text="${tour.giaTour}"></span></p>
                 </div>
-                <a id="dangkyBtn" class="dangky-btn" href="/DuLichViet/TourDetail/${tour.maTour}" data-ma-tour="${tour.maTour}">Đăng ký</a>
+            </div>
+            <a id="dangkyBtn" class="dangky-btn" onclick="checkLogin(event)" th:href="@{/DuLichViet/TourDetail/{maTour}(maTour=${tour.maTour})}" th:data-ma-tour="${tour.maTour}" th:text="#{register}"></a>
             `;
             container.appendChild(tourCard);
         });

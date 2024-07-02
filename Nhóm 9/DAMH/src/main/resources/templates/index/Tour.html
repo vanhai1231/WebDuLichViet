@@ -131,17 +131,19 @@
                                     <!-- Hình ngôi sao -->
                                     <span class="star-icon">⭐⭐⭐⭐⭐</span>
                                     <p class="tour-date" th:text="'Ngày khởi hành: ' + ${#dates.format(tour.ngayKH, 'dd/MM/yyyy')}">Ngày Khởi Hành</p>
-                                    <p class="price" th:text="'Giá: ' + ${tour.giaTour}"></p>
                                 </div>
                                 <!-- Thông tin khuyến mãi -->
                                 <div th:if="${tour.promotionActive}">
                                     <p class="discount">Giảm giá: <span th:text="${tour.phanTramGiam} + '%'"></span></p>
-
+                                    <p class="price">Giá: <span th:text="${tour.giaTour}"></span></p>
+                                    <p class="price">Giá sau khi giảm: <span th:text="${tour.giaSauGiam}"></span></p>
+                                </div>
+                                <div th:if="${!tour.promotionActive}">
+                                    <p class="price">Giá: <span th:text="${tour.giaTour}"></span></p>
                                 </div>
                                 <a id="dangkyBtn" class="dangky-btn"
                                    th:href="@{/DuLichViet/TourDetail/{maTour}(maTour=${tour.maTour})}"
-                                   onclick="checkLogin(event)"
-                                   th:text="#{register}"></a>
+                                   th:data-ma-tour="${tour.maTour}" th:text="#{register}"></a>
                             </div>
                         </div>
                     </div>

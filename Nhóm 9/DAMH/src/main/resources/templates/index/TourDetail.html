@@ -14,23 +14,46 @@
             document.getElementById('mainImage').src = src;
         }
 
-        function calculateTotal() {
+     function calculateTotal() {
             var adults = document.getElementById('adults').value;
             var pricePerAdult = parseFloat(document.getElementById('pricePerAdult').value);
-            var total = adults * pricePerAdult; // Chỉ tính giá tiền cho người lớn
+            var promoPrice = parseFloat(document.getElementById('priceSale').value); // Giá khuyến mãi
+            var khuyenmai = parseFloat(document.getElementById('Khuyenmai').value); // Giá sau khi giảm
+
+            var total;
+            if (khuyenmai > 0) {
+                // Nếu có giá sau khi giảm, tính tổng tiền dựa trên giá này
+                total = adults * khuyenmai;
+            } else {
+                // Nếu không có giảm giá, tính tổng tiền dựa trên giá gốc
+                if (promoPrice > 0) {
+                    total = adults * promoPrice;
+                } else {
+                    total = adults * pricePerAdult;
+                }
+            }
+
             document.getElementById('totalPrice').textContent = total.toLocaleString('vi-VN') + ' VND';
         }
 
-      function makePayment() {
-            var totalPrice = document.getElementById('totalPrice').textContent;
-            var tongTien = parseFloat(totalPrice.replace(' VND', '').replace(/\./g, ''));
+        function makePayment() {
+            var promoPrice = parseFloat(document.getElementById('Khuyenmai').value);
+            var pricePerAdult = parseFloat(document.getElementById('pricePerAdult').value);
+            var adults = document.getElementById('adults').value;
+            var totalPrice;
+
+            if (promoPrice > 0) {
+                totalPrice = adults * promoPrice;
+            } else {
+                totalPrice = adults * pricePerAdult;
+            }
+
             var maTour = document.getElementById('${tour.maTour}').value;
             var sdt = encodeURIComponent(document.getElementById('phoneNumber').value);
             var diachi = encodeURIComponent(document.getElementById('address').value);
-            var adults = document.getElementById('adults').value;
             var children = document.getElementById('children').value;
 
-            fetch(`/api/v1/payment/${maTour}/${sdt}/${diachi}/${adults}/${children}?amount=${tongTien}`, {
+            fetch(`/api/v1/payment/${maTour}/${sdt}/${diachi}/${adults}/${children}?amount=${totalPrice}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -47,7 +70,55 @@
             .catch(error => console.error('Error:', error));
         }
 
+        function applyPromotion() {
+            var promoCode = document.getElementById('${khuyenMai.maKM}').value;
+            var tourCode = document.getElementById('${tour.maTour}').value;
+
+            fetch('/api/applyPromotion?maTour=' + encodeURIComponent(tourCode) + '&maKM=' + encodeURIComponent(promoCode), {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error(errorData.error || 'Unknown error');
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.discountApplied) {
+                    var startDate = new Date(data.startDate);
+                    var endDate = new Date(data.endDate);
+                    var currentDate = new Date();
+
+                    if (currentDate < startDate || currentDate > endDate) {
+                        document.getElementById('promoMessage').textContent = 'Mã khuyến mãi đã hết hạn.';
+                        document.getElementById('priceSale').value = ''; // Xóa giá khuyến mãi nếu đã hết hạn
+                    } else {
+                        var newPrice = data.newPrice;
+                        document.getElementById('priceSale').value = newPrice;
+                        calculateTotal(); // Tính lại tổng tiền dựa trên giá mới
+                        document.getElementById('promoMessage').textContent = 'Áp dụng mã khuyến mãi thành công!';
+                    }
+                } else {
+                    document.getElementById('promoMessage').textContent = 'Mã khuyến mãi không hợp lệ hoặc đã hết hạn.';
+                    document.getElementById('priceSale').value = ''; // Xóa giá khuyến mãi nếu không hợp lệ
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('promoMessage').textContent = error.message;
+            });
+        }
+
+        function formatCurrency(amount, currency) {
+            return amount.toLocaleString('vi-VN') + ' ' + currency;
+        }
     </script>
+
 </head>
 <body>
 <div layout:fragment="content" class="container">
@@ -149,9 +220,10 @@
             <p>Tổng tiền: <span id="totalPrice">0 VND</span></p>
         </div>
         <input type="hidden" id="pricePerAdult" th:value="${tour.giaTour}">
+        <input type="hidden" id="Khuyenmai" th:value="${tour.giaSauGiam}">
         <div class="form-group">
             <p>Tiền sau giảm:</p>
-            <input type="text" id="priceSale" th:value="${tour.giaTour}">
+            <input type="text" id="priceSale" th:value="${tour.giaSauGiam}">
         </div>
 
         <button class="register-button" onclick="makePayment()">Đặt tour</button>

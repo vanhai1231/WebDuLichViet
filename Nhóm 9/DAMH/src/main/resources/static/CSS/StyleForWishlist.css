@@ -1,0 +1,24 @@
+.img-container{
+    text-align: center;
+}
+
+.x-icon{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 24px;
+    color: #444444;
+    padding: 5px;
+    border-radius: 50%;
+    z-index: 999;
+    cursor: pointer;
+}
+
+#wishlistContainer{
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: normal;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 30px;
+}

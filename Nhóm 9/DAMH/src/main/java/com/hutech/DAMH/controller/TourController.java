@@ -39,14 +39,15 @@ public class TourController {
             }
         }
     @GetMapping("/filter")
-    public ResponseEntity<List<Tour>> filterTours(
-            @RequestParam(required = false) String tenTour,
-            @RequestParam(required = false) String noiKhoiHanh,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date ngayKH,
-            @RequestParam(required = false) Integer giaTour) {
-
-        List<Tour> tours = tourService.getFilteredTours(tenTour, noiKhoiHanh, ngayKH, giaTour);
-        return ResponseEntity.ok(tours);
+    public List<Tour> filterTours(
+            @RequestParam(required = false) String tourType,
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date departureDate,
+            @RequestParam(required = false) Integer budget,
+            @RequestParam(required = false) String transport,
+            @RequestParam(required = false) Boolean promotion
+    ) {
+        return tourService.getFilteredTours(tourType, location, departureDate, budget, transport, promotion);
     }
 
 }

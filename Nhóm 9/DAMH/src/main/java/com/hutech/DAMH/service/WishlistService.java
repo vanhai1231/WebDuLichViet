@@ -1,17 +1,14 @@
 package com.hutech.DAMH.service;
 
-import com.hutech.DAMH.model.ChiTietWishlist;
-import com.hutech.DAMH.model.ChiTietWishlistId;
-import com.hutech.DAMH.model.TaiKhoan;
-import com.hutech.DAMH.model.Tour;
-import com.hutech.DAMH.model.Wishlist;
-import com.hutech.DAMH.repository.ChiTietWishlistRepository;
-import com.hutech.DAMH.repository.TaiKhoanRepository;
-import com.hutech.DAMH.repository.WishlistRepository;
+import com.hutech.DAMH.model.*;
+import com.hutech.DAMH.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class WishlistService {
@@ -25,6 +22,23 @@ public class WishlistService {
     @Autowired
     private TaiKhoanRepository taiKhoanRepository;
 
+    @Autowired
+    private TourRepository tourRepository;
+    @Autowired
+    private ImagesRepository imagesRepository;
+    @Autowired
+    private HinhAnhRepository hinhAnhRepository;
+    @Autowired
+    private TourService tourService;
+
+    public List<Images> getImagesByMaTour(String maTour) {
+        return imagesRepository.findByMaTour(maTour);
+    }
+
+
+    public Optional<Wishlist> findByTaiKhoan(TaiKhoan taiKhoan) {
+        return Optional.ofNullable(wishlistRepository.findByTaiKhoan(taiKhoan));
+    }
     public int getOrCreateWishlistId(int userId) {
         TaiKhoan taiKhoan = taiKhoanRepository.findByID(userId);
         Wishlist wishlist = wishlistRepository.findByTaiKhoan(taiKhoan);

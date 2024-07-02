@@ -57,7 +57,6 @@ public class TourService {
 
             }
         }
-
         return tours;
     }
 
@@ -66,20 +65,26 @@ public class TourService {
         return tourRepository.findAll(pageable);
     }
 
-    public List<Tour> getFilteredTours(String tenTour, String noiKhoiHanh, Date ngayKH, Integer giaTour) {
+    public List<Tour> getFilteredTours(String tourType, String location, Date departureDate, Integer budget, String transport, Boolean promotion) {
         Specification<Tour> spec = Specification.where(null);
 
-        if (tenTour != null && !tenTour.isEmpty()) {
-            spec = spec.and(TourSpecification.withField("tenTour", tenTour));
+        if (tourType != null && !tourType.isEmpty()) {
+            spec = spec.and(TourSpecification.withField("loaiTour.maLoaiTour", tourType));
         }
-        if (noiKhoiHanh != null && !noiKhoiHanh.isEmpty()) {
-            spec = spec.and(TourSpecification.withField("noiKhoiHanh", noiKhoiHanh));
+        if (location != null && !location.isEmpty()) {
+            spec = spec.and(TourSpecification.withField("noiKhoiHanh", location));
         }
-        if (ngayKH != null) {
-            spec = spec.and(TourSpecification.withField("ngayKH", ngayKH));
+        if (departureDate != null) {
+            spec = spec.and(TourSpecification.withField("ngayKH", departureDate));
         }
-        if (giaTour != null) {
-            spec = spec.and(TourSpecification.withField("giaTour", giaTour));
+        if (budget != null) {
+            spec = spec.and(TourSpecification.withField("giaTour", budget));
+        }
+        if (transport != null && !transport.isEmpty()) {
+            spec = spec.and(TourSpecification.withField("phuongTien.maPhuongTien", transport));
+        }
+        if (promotion != null && promotion) {
+            spec = spec.and(TourSpecification.withField("promotionActive", true));
         }
 
         return tourRepository.findAll(spec);

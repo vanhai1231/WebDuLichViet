@@ -1,22 +1,22 @@
 package com.hutech.DAMH.controller;
 
+import com.hutech.DAMH.CustomUserDetails;
 import com.hutech.DAMH.model.*;
-import com.hutech.DAMH.service.ImagesService;
-import com.hutech.DAMH.service.LoaiTourService;
-import com.hutech.DAMH.service.PhuongTienService;
-import com.hutech.DAMH.service.TourService;
+import com.hutech.DAMH.service.*;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.BufferedWriter;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -33,6 +33,15 @@ public class homeController {
     private LoaiTourService loaiTourService;
     @Autowired
     private PhuongTienService phuongTienService;
+    @Autowired
+    private KhuyenMaiService khuyenMaiService;
+    @Autowired
+    private ChiTietKhuyenMaiService chiTietKhuyenMaiService;
+    @Autowired
+    private WishlistService wishlistService;
+    @Autowired
+    private ChiTietWishlistService chiTietWishlistService;
+
     @GetMapping("/Home")
     public String showProductList(Model model, HttpSession session) {
 
@@ -44,7 +53,22 @@ public class homeController {
                 tour.setMainImageUrl(imageUrls.get(0)); // Hình ảnh chính
                 tour.setSecondaryImageUrl(imageUrls.get(1)); // Các hình ảnh khác
             }
+            // Kiểm tra xem tour có trong bảng ChiTietKhuyenMai không
+            ChiTietKhuyenMai chiTietKhuyenMai = chiTietKhuyenMaiService.findByMaTour(tour.getMaTour());
+            if (chiTietKhuyenMai != null) {
+                // Lấy thông tin chi tiết khuyến mãi
+                Optional<KhuyenMai> khuyenMai = khuyenMaiService.findByMaKM(chiTietKhuyenMai.getMaKM());
+                if (khuyenMai.isPresent() && isWithinPromotionPeriod(khuyenMai.orElse(null))) {
+                    // Nếu đang trong thời gian khuyến mãi, thêm thông tin khuyến mãi vào tour
+                    tour.setPromotionActive(true);
+                    tour.setPhanTramGiam(khuyenMai.get().getPhanTramKM());
+                    tour.setNgayBatDauKM(khuyenMai.get().getNgayBatDau());
+                    tour.setNgayKetThucKM(khuyenMai.get().getNgayKetThuc());
+                }
+            }
         }
+
+
         model.addAttribute("tours", tours);
 
 
@@ -89,7 +113,19 @@ public class homeController {
             }
             tour.setOtherImageUrls(imageUrls.subList(1, imageUrls.size())); // Các hình ảnh khác
         }
-
+        // Kiểm tra và áp dụng khuyến mãi nếu có
+        ChiTietKhuyenMai chiTietKhuyenMai = chiTietKhuyenMaiService.findByMaTour(maTour);
+        if (chiTietKhuyenMai != null) {
+            Optional<KhuyenMai> khuyenMai = khuyenMaiService.findByMaKM(chiTietKhuyenMai.getMaKM());
+            if (khuyenMai.isPresent() && isWithinPromotionPeriod(khuyenMai.orElse(null))) {
+                double giaKhuyenMai = calculatePromotionalPrice(tour.getGiaTour(), khuyenMai.get().getPhanTramKM());
+                tour.setGiaKhuyenMai(giaKhuyenMai);
+                tour.setPromotionActive(true);
+                tour.setPhanTramGiam(khuyenMai.get().getPhanTramKM());
+                tour.setNgayBatDauKM(khuyenMai.get().getNgayBatDau());
+                tour.setNgayKetThucKM(khuyenMai.get().getNgayKetThuc());
+            }
+        }
         // Thêm tour và danh sách hình ảnh vào model
         model.addAttribute("tour", tour);
 
@@ -106,7 +142,26 @@ public class homeController {
 
         Page<Tour> tourPage = tourService.getProductsbyPage(page, size);
         List<Tour> tours = tourPage.getContent();
+
+        StringBuilder tourInfoBuilder = new StringBuilder();
+
+        // Lặp qua danh sách tour để kiểm tra thông tin khuyến mãi
         for (Tour tour : tours) {
+            // Kiểm tra xem tour có trong bảng ChiTietKhuyenMai không
+            ChiTietKhuyenMai chiTietKhuyenMai = chiTietKhuyenMaiService.findByMaTour(tour.getMaTour());
+            if (chiTietKhuyenMai != null) {
+                // Lấy thông tin chi tiết khuyến mãi
+                Optional<KhuyenMai> khuyenMai = khuyenMaiService.findByMaKM(chiTietKhuyenMai.getMaKM());
+                if (khuyenMai.isPresent() && isWithinPromotionPeriod(khuyenMai.orElse(null))) {
+                    // Nếu đang trong thời gian khuyến mãi, thêm thông tin khuyến mãi vào tour
+                    tour.setPromotionActive(true);
+                    tour.setPhanTramGiam(khuyenMai.get().getPhanTramKM());
+                    tour.setNgayBatDauKM(khuyenMai.get().getNgayBatDau());
+                    tour.setNgayKetThucKM(khuyenMai.get().getNgayKetThuc());
+                }
+            }
+
+            // Lấy danh sách hình ảnh của tour
             List<String> imageUrls = imagesService.getImagesByMaTour(tour.getMaTour());
             if (!imageUrls.isEmpty()) {
                 tour.setMainImageUrl(imageUrls.get(0));
@@ -115,6 +170,7 @@ public class homeController {
                 }
             }
         }
+
         model.addAttribute("tours", tours);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", tourPage.getTotalPages());
@@ -128,4 +184,56 @@ public class homeController {
         return "index/Tour";
     }
 
+    @GetMapping("/Wishlist")
+    public String showWishlist(Model model, HttpSession session, Authentication authentication) {
+        // Ensure taiKhoan attribute is added to the model if not present
+        if (!model.containsAttribute("taiKhoan")) {
+            model.addAttribute("taiKhoan", new TaiKhoan());
+        }
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        int userID = customUserDetails.getUserId();
+        int wishlistId = wishlistService.getOrCreateWishlistId(userID);
+        // Use wishlistId to fetch chiTietWishlistList
+        List<ChiTietWishlist> chiTietWishlistList = chiTietWishlistService.findByWishlistID(wishlistId);
+        List<Tour> tours = chiTietWishlistList.stream()
+                .map(ChiTietWishlist::getTour)
+                .collect(Collectors.toList());
+
+        // Process tours to set image URLs and promotions
+        for (Tour tour : tours) {
+            List<String> imageUrls = imagesService.getImagesByMaTour(tour.getMaTour());
+            if (!imageUrls.isEmpty()) {
+                tour.setMainImageUrl(imageUrls.get(0));
+                if (imageUrls.size() > 1) {
+                    tour.setSecondaryImageUrl(imageUrls.get(1));
+                }
+            }
+
+            ChiTietKhuyenMai chiTietKhuyenMai = chiTietKhuyenMaiService.findByMaTour(tour.getMaTour());
+            if (chiTietKhuyenMai != null) {
+                Optional<KhuyenMai> khuyenMai = khuyenMaiService.findByMaKM(chiTietKhuyenMai.getMaKM());
+                if (khuyenMai.isPresent() && isWithinPromotionPeriod(khuyenMai.get())) {
+                    tour.setPromotionActive(true);
+                    tour.setPhanTramGiam(khuyenMai.get().getPhanTramKM());
+                    tour.setNgayBatDauKM(khuyenMai.get().getNgayBatDau());
+                    tour.setNgayKetThucKM(khuyenMai.get().getNgayKetThuc());
+                }
+            }
+        }
+
+        // Add tours to model
+        model.addAttribute("tours", tours);
+        // Return the view name
+        return "index/Wishlist";
+    }
+
+    private boolean isWithinPromotionPeriod(KhuyenMai khuyenMai) {
+        Date currentDate = new Date(System.currentTimeMillis());
+        return currentDate.after(khuyenMai.getNgayBatDau()) && currentDate.before(khuyenMai.getNgayKetThuc());
+    }
+
+    private double calculatePromotionalPrice(double originalPrice, double discountPercent) {
+        double discountAmount = (discountPercent / 100) * originalPrice;
+        return originalPrice - discountAmount;
+    }
 }

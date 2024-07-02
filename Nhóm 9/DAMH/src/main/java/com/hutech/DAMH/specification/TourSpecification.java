@@ -3,6 +3,7 @@ package com.hutech.DAMH.specification;
 import com.hutech.DAMH.model.Tour;
 import org.springframework.data.jpa.domain.Specification;
 import jakarta.persistence.criteria.*;
+
 import java.util.Date;
 
 public class TourSpecification implements Specification<Tour> {
@@ -20,16 +21,25 @@ public class TourSpecification implements Specification<Tour> {
         if (value == null) {
             return criteriaBuilder.isTrue(criteriaBuilder.literal(true)); // Always true, no filtering
         }
-        if (fieldName.equals("tenTour")) {
-            return criteriaBuilder.like(root.get(fieldName), "%" + value + "%");
-        } else if (fieldName.equals("noiKhoiHanh")) {
-            return criteriaBuilder.equal(root.get(fieldName), value);
-        } else if (fieldName.equals("ngayKH")) {
-            return criteriaBuilder.equal(root.get(fieldName), (Date) value);
-        } else if (fieldName.equals("giaTour")) {
-            return criteriaBuilder.lessThanOrEqualTo(root.get(fieldName), (Integer) value);
+
+        switch (fieldName) {
+            case "loaiTour.maLoaiTour":
+                Join<Object, Object> loaiTourJoin = root.join("loaiTour");
+                return criteriaBuilder.equal(loaiTourJoin.get("maLoaiTour"), value);
+            case "noiKhoiHanh":
+                return criteriaBuilder.equal(root.get(fieldName), value);
+            case "ngayKH":
+                return criteriaBuilder.equal(root.get(fieldName), (Date) value);
+            case "giaTour":
+                return criteriaBuilder.lessThanOrEqualTo(root.get(fieldName), (Integer) value);
+            case "phuongTien.maPhuongTien":
+                Join<Object, Object> phuongTienJoin = root.join("phuongTien");
+                return criteriaBuilder.equal(phuongTienJoin.get("maPhuongTien"), value);
+            case "promotionActive":
+                return criteriaBuilder.equal(root.get(fieldName), (Boolean) value);
+            default:
+                return criteriaBuilder.isTrue(criteriaBuilder.literal(true)); // No filtering
         }
-        return null;
     }
 
     public static Specification<Tour> withField(String fieldName, Object value) {

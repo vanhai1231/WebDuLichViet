@@ -1,7 +1,7 @@
 package com.hutech.DAMH.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+        import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -71,7 +71,7 @@ public class Tour {
     @Transient
     private List<String> otherImageUrls;
     @Transient
-    private int giaKhuyenMai;
+    private Double giaKhuyenMai;
     @Transient
     private boolean promotionActive;
     @Transient
@@ -120,8 +120,17 @@ public class Tour {
         return phanTramGiam;
     }
 
-    public void setGiaKhuyenMai(int giaKhuyenMai) {
+    public void setGiaKhuyenMai(double giaKhuyenMai) {
         this.giaKhuyenMai = giaKhuyenMai;
     }
     // Getters and setters
+    @Transient
+    private Double giaSauGiam;
+    // Phương thức tính giá sau khi giảm
+    public Double getGiaSauGiam() {
+        if (phanTramGiam > 0) {
+            return giaTour - (giaTour * phanTramGiam / 100.0);
+        }
+        return (double) giaTour;
+    }
 }

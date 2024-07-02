@@ -1,34 +1,28 @@
 $(document).ready(function() {
     $(".flatpickr").flatpickr({
-        dateFormat: "d/m/Y",  // Date format to match your backend processing
+        dateFormat: "d/m/Y",
     });
 
     $('#filterButton').click(function() {
-        var formData = $('#filterForm').serialize(); // Serialize form data
+        var formData = $('#filterForm').serialize();
 
         $.ajax({
-            url: '/api/filter', // Replace with your backend API endpoint
+            url: '/api/filter',
             type: 'GET',
             data: formData,
             success: function(response) {
-                console.log('Success: ', response);
-
-                // Clear existing tour list
                 $('#tourList').empty();
 
-                // Append filtered tours to tourList
                 response.forEach(function(tour) {
-                    // Extract variables from the 'tour' object
-                    var mainImageUrl = tour.mainImageUrl;
+                    var mainImageUrl = tour.mainImageUrl();
                     var secondaryImageUrl = tour.secondaryImageUrl;
                     var tenTour = tour.tenTour;
                     var ngayKH = tour.ngayKH;
                     var giaTour = tour.giaTour;
                     var maTour = tour.maTour;
 
-                    // Construct tour card HTML with Thymeleaf URLs
-                    var tourCardHtml = `
-                        <div class="tour-card">
+                    var tourCardHtml =
+                        `<div class="tour-card">
                             <div class="tour-image-container">
                                 <img src="${mainImageUrl}" alt="Main Tour Image" class="tour-image">
                                 <img src="${secondaryImageUrl}" alt="Secondary Tour Image" class="tour-image secondary-image">
@@ -40,11 +34,9 @@ $(document).ready(function() {
                                 <p class="tour-date">Ngày khởi hành: ${ngayKH}</p>
                                 <p class="price">Giá: ${giaTour}</p>
                             </div>
-                            <a class="dangky-btn" href="/DuLichViet/TourDetail/${maTour}" onclick="checkLogin(event)" th:text="#{register}"></a>
-                        </div>
-                    `;
+                            <a class="dangky-btn" href="/DuLichViet/TourDetail/${maTour}" onclick="checkLogin(event)">Đăng ký</a>
+                        </div>`;
 
-                    // Append tour card to tourList
                     $('#tourList').append(tourCardHtml);
                 });
             },

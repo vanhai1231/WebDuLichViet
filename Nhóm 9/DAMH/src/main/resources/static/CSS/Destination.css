@@ -1,0 +1,171 @@
+.banner-destination {
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+        .banner-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            width:850px;
+        }
+
+/* Destination.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    padding: 20px;
+}
+
+
+.banner-destination img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.main-attractions {
+    margin-top: 30px;
+}
+
+.main-attractions h2 {
+    text-align: center;
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.attraction {
+    border: 1px solid #FF3366;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.attraction:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.attraction h3 {
+    flex: 1 1 100%;
+    font-size: 1.5em;
+    color: #555;
+}
+
+.attraction img {
+    flex: 1 1 200px;
+    max-width: 100%;
+    height: auto;
+    margin-right: 20px;
+    border-radius: 10px;
+}
+
+.attraction p {
+    flex: 2 1 400px;
+    font-size: 1em;
+    color: #666;
+    margin-top: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .attraction {
+        border: 2px solid #FF3366;
+        flex-direction: column;
+    }
+
+    .attraction img {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .attraction p {
+        margin-top: 15px;
+    }
+}
+
+.social-icons {
+    flex: 1 1 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.social-icons i {
+    font-size: 1.5em;
+    margin-right: 15px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.social-icons i:hover {
+    color: #FF3366; /* Màu sắc khi hover */
+}
+
+.filter select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    background-image: linear-gradient(45deg, transparent 50%, #FF3366 50%),
+                      linear-gradient(135deg, #FF3366 50%, transparent 50%);
+    background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    width: 200px;
+    max-width: 100%;
+    cursor: pointer;
+}
+
+.filter select:hover {
+    border-color: #FF3366;
+}
+
+.filter select:focus {
+    outline: none;
+    border-color: #5b9dd9;
+    box-shadow: 0 0 5px rgba(91, 157, 217, 0.5);
+}
+
+.filter label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+/* Style dropdown options */
+.filter select option {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter select option:hover {
+    background-color: #FF3366;
+    color: #fff;
+}
+
+.attraction img {
+    width: 600px;
+    height: 400px;
+    object-fit: cover; /* Đảm bảo hình ảnh không bị biến dạng */
+}

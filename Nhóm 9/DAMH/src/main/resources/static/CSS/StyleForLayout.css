@@ -12,7 +12,6 @@ body {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
     background-color: #ffffff;
     height: 100px;
     position: fixed;
@@ -32,9 +31,20 @@ body {
     padding: 14px 16px;
     text-decoration: none;
 }
+.dropdown-menu .dropdown-item {
+    border-bottom: 1px solid #ddd; /* Adds a bottom border between dropdown items */
+    padding: 8px 20px; /* Adjust padding as needed */
+}
 
-.menu li a:hover {
-    background-color: #f1f1f1;
+.dropdown-menu .dropdown-item:last-child {
+    border-bottom: none; /* Removes the border on the last dropdown item */
+}
+.menu li:hover a:not(.logo-link) {
+    color: #FF3366; /* Change color on hover for all links except logo */
+}
+
+.menu li:hover a:not(.logo-link) i {
+    color: #FF3366; /* Change color of icon on hover for all links except logo */
 }
 
 .submenu {
@@ -194,3 +204,14 @@ footer {
     cursor: pointer;
     transition: background-color 0.3s;
 }
+
+.dropdown.show {
+    position: relative;
+    z-index: 1000; /* Ensure this value is higher than z-index of other overlapping elements */
+}
+
+.dropdown-menu.show {
+    z-index: 1001; /* Ensure this value is higher than the dropdown itself */
+    --bs-dropdown-link-active-bg: #f0f0f0;
+}
+

@@ -24,3 +24,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+function redirectToWishlist() {
+        window.location.href = "/DuLichViet/Wishlist";
+    }

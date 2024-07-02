@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice List</title>
+    <link rel="stylesheet" th:href="@{/CSS/HoaDon.css}">
+</head>
+<body>
+<div layout:fragment="content" style="position: relative;">
+    <h1>Invoice List</h1>
+
+    <!-- Kiểm tra nếu danh sách hóa đơn không rỗng -->
+    <div th:if="${invoices != null and not #lists.isEmpty(invoices)}">
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Mã Hóa Đơn</th>
+                <th>Tổng tiền</th>
+                <th>Ngày lập</th>
+                <th>Tên khách hàng</th>
+                <th>Số điện thoại</th>
+                <th>Địa chỉ</th>
+                <th>Số người lớn</th>
+                <th>Số trẻ em</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Duyệt qua từng hóa đơn trong danh sách -->
+            <tr th:each="invoice : ${invoices}">
+                <td th:text="${invoice.maHD}"></td>
+                <td th:text="${invoice.tongTien}"></td>
+                <td th:text="${#dates.format(invoice.ngayLap, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                <td th:text="${invoice.taiKhoan != null ? invoice.taiKhoan.user.hoTen : ''}"></td>
+                <td th:text="${invoice.sdt}"></td>
+                <td th:text="${invoice.diaChi}"></td>
+                <td th:text="${invoice.soNguoiLon}"></td>
+                <td th:text="${invoice.soTreEm}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Xử lý trường hợp không có hóa đơn nào -->
+    <div th:if="${invoices == null or #lists.isEmpty(invoices)}">
+        <p>No invoices found.</p>
+    </div>
+
+
+</div>
+</body>
+</html>

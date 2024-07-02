@@ -8,11 +8,11 @@
     <link rel="stylesheet" th:href="@{/CSS/loginandregisterlayout.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script th:src="@{/js/ScriptForLayout.js}"></script>
     <script th:src="@{/js/LoginAndRegister.js}"></script>
     <script th:src="@{/js/GoiYDiaDiem.js}"></script>
-<!--    <script th:src="@{/webjars/jquery/jquery.min.js}"></script> &lt;!&ndash; Include jQuery &ndash;&gt;-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function submitFormlayout() {
             var form = $('#registerFormlayout');
@@ -52,32 +52,40 @@
 
 <nav>
     <ul class="menu">
-        <li><a href="/DuLichViet/Home"><img id="logo" th:src="@{/images/Logo.jpg}" alt="Logo" style="height: 100px;"></a></li>
+        <li><a href="/DuLichViet/Home" id="logo2" class="logo-link"><img id="logo" th:src="@{/images/Logo.jpg}" alt="Logo" style="height: 100px;"></a></li>
         <li><a href="/DuLichViet/Home"><i class="fas fa-home"></i> <span th:text="#{home}"></span></a></li>
         <li><a href="/DuLichViet/About"><i class="fas fa-info-circle"></i> <span th:text="#{about_us}"></span></a></li>
         <li><a href="/DuLichViet/Tour"><i class="fas fa-plane"></i> <span th:text="#{tours}"></span></a></li>
-        <li><a href="#"><i class="fas fa-map-marker-alt"></i> <span th:text="#{destinations}"></span></a></li>
+        <li><a href="/DuLichViet/Destination"><i class="fas fa-map-marker-alt"></i> <span th:text="#{destinations}"></span></a></li>
         <li><a href="/DuLichViet/Blog"><i class="fas fa-blog"></i> <span th:text="#{blog}"></span></a></li>
         <li><a href="#"><i class="fas fa-envelope"></i> <span th:text="#{contact_us}"></span></a></li>
         <li class="login-register">
             <th:block  sec:authorize="isAuthenticated()">
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                <div class="dropdown show">
+                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                            id="dropdownMenuButton" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false"
+                            style="background-color:#FF3366; border: none;">
                     <span class="caret">Chào,  <span sec:authentication="name"></span></span>
                     </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">HTML</a></li>
-                        <li><a href="#">CSS</a></li>
-                        <li><a href="#">JavaScript</a></li>
-                    </ul>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <form id="wishlistForm" action="#" class="dropdown-item">
+                            <button onclick="redirectToWishlist()" style="background-color:white;color:red" class="btn btn-outline-light" type="button">
+                                <span th:text="#{wishlist}"></span>
+                            </button>
+                        </form>
+                        <form th:action="@{/logout}" method="post" class="dropdown-item">
+                            <button style="background-color:white;color:red"class="btn btn-outline-light"
+                                    type="submit"><span th:text="#{bookedtour}"></span></button>
+                        </form>
+                        <form th:action="@{/logout}" method="post" class="dropdown-item">
+                            <button style="background-color:white;color:red"class="btn btn-outline-light"
+                                    type="submit"><span th:text="#{logout}"></span></button>
+                        </form>
+                    </div>
                 </div>
             </th:block>
-            <th:block class="nav-item" sec:authorize="isAuthenticated()">
-                <form th:action="@{/logout}" method="post">
-                    <button style="background-color:white;color:red"class="btn btn-outline-light"
-                            type="submit">Logout</button>
-                </form>
-            </th:block>
+
             <th:block  sec:authorize="!isAuthenticated()">
                 <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" th:text="#{login}"></a>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal" th:text="#{register}"></a>
@@ -201,8 +209,6 @@
     </div>
 </footer>
 
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

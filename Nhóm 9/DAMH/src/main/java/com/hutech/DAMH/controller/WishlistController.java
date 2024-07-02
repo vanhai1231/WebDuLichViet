@@ -8,11 +8,14 @@ import com.hutech.DAMH.service.WishlistService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/wishlist")
@@ -43,12 +46,19 @@ public class WishlistController {
         Tour tour = tourService.getTourByMaTour(request.getMaTour());
         wishlistService.removeTourFromWishlist(request.getWishlistID(), tour);
         return ResponseEntity.ok().build();
+
     }
 
     @GetMapping("/id")
-    public int getWishlistId(Authentication authentication) throws Exception {
-        int userId = getCurrentUserID(authentication);
-        return wishlistService.getOrCreateWishlistId(userId);
+    public ResponseEntity<Integer> getWishlistId(Authentication authentication) {
+        try {
+            int userId = getCurrentUserID(authentication);
+            int wishlistId = wishlistService.getOrCreateWishlistId(userId);
+            return ResponseEntity.ok(wishlistId);
+        } catch (Exception e) {
+            // Handle exceptions here, you might want to return a specific error response
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 

@@ -34,11 +34,11 @@ $(document).ready(function() {
 
     function addTourToWishlist(tourId) {
         toastr.options = {
-                    "closeButton": true,
-                    "positionClass": "toast-bottom-right",
-                    "progressBar": true,
-                    "timeOut": "3000", // 3s
-                };
+            "closeButton": true,
+            "positionClass": "toast-bottom-right",
+            "progressBar": true,
+            "timeOut": "3000", // 3s
+        };
         $.ajax({
             url: '/api/wishlist/addTour',
             type: 'POST',
@@ -46,13 +46,52 @@ $(document).ready(function() {
             data: JSON.stringify({ maTour: tourId, wishlistID: wishlistId }),
             success: function() {
                 $('.heart-icon').addClass('active');
-                toastr.success('Tour added to wishlist');
+                toastr.success('Tour đã được thêm vào Wishlist');
             },
             error: function(xhr) {
                 if (xhr.status === 409) {
-                    toastr.info('Tour is already in wishlist');
+                    toastr.info('Tour đã có trong Wishlist');
                 } else {
-                    toastr.error('Failed to add tour to wishlist');
+                    toastr.error('Đã có lỗi khi thêm Tour vào Wishlist');
+                }
+            }
+        });
+    }
+
+    $('.x-icon').on('click', function() {
+        const tourId = $(this).closest('.tour-card').find('.dangky-btn').data('ma-tour');
+
+        if (wishlistId === null) {
+            getWishlistId().done(function() {
+                removeTourFromWishlist(tourId);
+            });
+        } else {
+            removeTourFromWishlist(tourId);
+        }
+    });
+
+    function removeTourFromWishlist(tourId) {
+        toastr.options = {
+            "closeButton": true,
+            "positionClass": "toast-bottom-right",
+            "progressBar": true,
+            "timeOut": "3000", // 3s
+        };
+        $.ajax({
+            url: '/api/wishlist/removeTour',
+            type: 'DELETE',
+            contentType: 'application/json',
+            data: JSON.stringify({ maTour: tourId, wishlistID: wishlistId }),
+            success: function() {
+                $(`.dangky-btn[data-ma-tour="${tourId}"]`).closest('.tour-card').remove(); // Remove the tour card from the DOM
+                toastr.success('Tour đã được xóa khỏi Wishlist');
+            },
+            error: function(xhr) {
+                if (xhr.status === 404) {
+                    toastr.info('Tour không tồn tại trong Wishlist');
+                } else {
+                    toastr.error('Đã có lỗi khi xóa Tour khỏi Wishlist');
+                    console.error('Error removing tour from wishlist:', xhr.responseText); // Log server error response
                 }
             }
         });

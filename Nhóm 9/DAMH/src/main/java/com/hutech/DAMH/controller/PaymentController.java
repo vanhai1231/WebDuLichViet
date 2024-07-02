@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
@@ -118,7 +119,7 @@ public class PaymentController {
 
 
     @GetMapping("/api/v1/payment/callback")
-    public String handlePaymentCallback(@RequestParam Map<String, String> queryParams, Model model, Authentication authentication, HttpSession session) throws Exception {
+    public ModelAndView handlePaymentCallback(@RequestParam Map<String, String> queryParams, Model model, Authentication authentication, HttpSession session) throws Exception {
         // Lấy maTour từ session
         String maTour = (String) session.getAttribute("maTour");
         String sdt = (String) session.getAttribute("sdt");
@@ -151,20 +152,22 @@ public class PaymentController {
 
         System.out.println("Callback received for user: " + username);
         System.out.println("Amount: " + amount + ", Order ID: " + orderId + ", MaTour: " + maTour + ",sdt: " + sdt + ",DiaChi: " + diachi);
-
+        ModelAndView modelAndView = new ModelAndView();
         if (param.contains("Bad request")) {
-            return "index/ThanhToanThatBai";
+            modelAndView.setViewName("index/ThanhToanThatBai.html");
         } else {
             try {
+                model.addAttribute("orderId", orderId);
+                model.addAttribute("amount", amount);
+                model.addAttribute("paymentMethod", "MoMo"); // Assuming MoMo is the payment method here
+                model.addAttribute("paymentDateTime", new Date()); // You can adjust this based on your application logic
                 savePaymentToHoaDon(Integer.parseInt(amount), orderId, username, maTour,sdt,diachi,NguoiLon,TreEm);
-                System.out.println("Payment saved successfully.");
-                return "index/ThanhToanThanhCong";
+                modelAndView.setViewName("index/ThanhToanThanhCong.html");
             } catch (Exception e) {
-                System.err.println("Error while saving payment: " + e.getMessage());
-                e.printStackTrace();
-                return "index/ThanhToanThatBai";
+                modelAndView.setViewName("index/ThanhToanThatBai.html");
             }
         }
+        return modelAndView;
     }
 
     private String getCurrentUsername(Authentication authentication) {
