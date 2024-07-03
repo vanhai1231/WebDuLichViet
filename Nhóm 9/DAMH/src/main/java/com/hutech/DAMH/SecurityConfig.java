@@ -50,17 +50,18 @@ public class SecurityConfig {
                                 "/", "/oauth/**", "/index/**", "/error","/Admin/SuaTaiKhoan/**","/Admin/ResetPassword/**","/Admin/DanhSachLoaiTour/**",
                                 "/Admin/CapNhatTaiKhoan/**","/Admin/XoaTaiKhoan/**","/Admin/ChangePassword",
                                 "/Admin/ThemLoaiTour","/Admin/ThemLT","/Admin/SuaLoaiTour/**","/Admin/UpdateLoaiTour/**","/Admin/XoaLoaiTour/**",
-                                "/Admin/ThemTaiKhoan","/Admin/ThemTK","/Admin/ThemKhachSan","/Admin/ThemKS","/Admin/SuaKhachSan/**","/Admin/editKhachSan/**",
-                                "/Admin/DanhSachTaiKhoan","/Admin/DanhSachKhachSan","/Admin/SuaHoaDon/**",
-                                "/Admin/DanhSachKhuyenMai","/Admin/KhuyenMai",
+                                "/Admin/ThemTaiKhoan","/Admin/ThemTK","/Admin/ThemKhachSan","/Admin/ThemKS","/Admin/SuaKhachSan/**",
+                                "/Admin/editKhachSan/**", "/Admin/SuaPhong/**", "/Admin/CapNhatPhong/**","/Admin/ThemPhong","/Admin/XoaPhong/**",
+                                "/Admin/DanhSachPhong","/Admin/DanhSachTaiKhoan","/Admin/DanhSachKhachSan","/Admin/SuaHoaDon/**",
                                 "/Admin/editHoaDon/**","/Admin/DanhSachHoaDon","/Admin/delete/**","/Admin/XoaKhachSan/**",
-                                "/Admin/UpdateTour/**","/Admin/edit/**","/Admin/ThemTour",
-                                "/Admin/ThemTour?error","/Admin/AddTour","/Admin/logoutAdmin",
-                                "/Admin/DanhSachTour","/Admin/login?error","/Admin/login","/DangNhap",
-                                "/Admin/Home","/DuLichViet/Home","/NhapOtp","/verifyOtp","/DoiMatKhau",
-                                "/QuenMatKhau","/DuLichViet/About","/DuLichViet/Blog",
-                                "/DuLichViet/Destination","/DuLichViet/Tour","/DangKy",
-                                "/partials/**", "/cart/**")
+                                "/Admin/UpdateTour/**","/Admin/edit/**","/Admin/ThemTour","/Admin/SuaLoaiPhong/**","/Admin/CapNhatLoaiPhong/**",
+                                "/Admin/ThemTour?error","/Admin/AddTour","/Admin/logoutAdmin","/Admin/XoaLoaiPhong/**","/Admin/ThemLoaiPhong/**",
+                                "/Admin/LoiXoaDiemDen", "/Admin/XoaDiemDen/**", "/Admin/DanhSachTour","/Admin/login?error","/Admin/login","/DangNhap",
+                                "/Admin/DanhSachDiemDen","/Admin/SuaDiemDen/**","/Admin/CapNhatDiemDen/**",
+                                "/Admin/Home","/DuLichViet/Home","/NhapOtp","/verifyOtp","/DoiMatKhau","/Admin/DanhSachLoaiPhong",
+                                "/QuenMatKhau","/DuLichViet/About","/DuLichViet/Blog","/DangKy","/LoiXoaPhong","/LoiXoaTaiKhoan","/LoiXoaKhachSan","/LoiXoaLoaiTour",
+                                "/partials/**", "/cart/**", "/Admin/KhuyenMai", "/Admin/DanhSachKhuyenMai", "/DuLichViet/Tour",
+                                "/DuLichViet/Destination", "/DuLichViet/Blog", "/DuLichViet/Contract", "/DuLichViet/Search", "/Admin/ThemDiemDen")
                         .permitAll() // Cho phép truy cập không cần xác thực.
                         .requestMatchers("/products/edit/**", "/products/add", "/products/delete")
                         .hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.

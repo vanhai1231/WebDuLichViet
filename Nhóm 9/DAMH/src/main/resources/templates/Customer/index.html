@@ -1,52 +1,132 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 
 <head>
     <meta charset="UTF-8">
-    <title>Invoice List</title>
+    <title>Danh sách hóa đơn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/CSS/HoaDon.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+          crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .table {
+            width: 100%;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .table th,
+        .table td {
+            padding: 12px 15px;
+            vertical-align: middle;
+        }
+
+        .table thead {
+            background-color: #343a40;
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .table th {
+            border: none;
+            font-weight: 600;
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(255, 51, 102, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .empty-invoice {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            border-radius: 5px;
+            padding: 8px 20px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #FF3366;
+            border-color: #FF3366;
+        }
+
+        .btn-primary:hover {
+            background-color: #dc004e;
+            border-color: #dc004e;
+        }
+    </style>
 </head>
+
 <body>
-<div layout:fragment="content" style="position: relative;">
-    <h1>Invoice List</h1>
+<div layout:fragment="content">
+    <div class="container">
+        <h1 class="my-4">Danh sách hóa đơn</h1>
 
-    <!-- Kiểm tra nếu danh sách hóa đơn không rỗng -->
-    <div th:if="${invoices != null and not #lists.isEmpty(invoices)}">
-        <table border="1">
-            <thead>
-            <tr>
-                <th>Mã Hóa Đơn</th>
-                <th>Tổng tiền</th>
-                <th>Ngày lập</th>
-                <th>Tên khách hàng</th>
-                <th>Số điện thoại</th>
-                <th>Địa chỉ</th>
-                <th>Số người lớn</th>
-                <th>Số trẻ em</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Duyệt qua từng hóa đơn trong danh sách -->
-            <tr th:each="invoice : ${invoices}">
-                <td th:text="${invoice.maHD}"></td>
-                <td th:text="${invoice.tongTien}"></td>
-                <td th:text="${#dates.format(invoice.ngayLap, 'dd/MM/yyyy HH:mm:ss')}"></td>
-                <td th:text="${invoice.taiKhoan != null ? invoice.taiKhoan.user.hoTen : ''}"></td>
-                <td th:text="${invoice.sdt}"></td>
-                <td th:text="${invoice.diaChi}"></td>
-                <td th:text="${invoice.soNguoiLon}"></td>
-                <td th:text="${invoice.soTreEm}"></td>
-            </tr>
-            </tbody>
-        </table>
+        <!-- Kiểm tra nếu danh sách hóa đơn không rỗng -->
+        <div th:if="${invoices != null and not #lists.isEmpty(invoices)}" class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Mã Hóa Đơn</th>
+                    <th scope="col">Tổng tiền</th>
+                    <th scope="col">Ngày lập</th>
+                    <th scope="col">Tên khách hàng</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Số người lớn</th>
+                    <th scope="col">Số trẻ em</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Duyệt qua từng hóa đơn trong danh sách -->
+                <tr th:each="invoice : ${invoices}" style="cursor: pointer;"
+                    th:onclick="'window.location.href = \'/invoice/details/\' + ${invoice.maHD}'">
+                    <td th:text="${invoice.maHD}"></td>
+                    <td th:text="${invoice.tongTien}"></td>
+                    <td th:text="${#dates.format(invoice.ngayLap, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                    <td th:text="${invoice.taiKhoan != null ? invoice.taiKhoan.user.hoTen : ''}"></td>
+                    <td th:text="${invoice.sdt}"></td>
+                    <td th:text="${invoice.diaChi}"></td>
+                    <td th:text="${invoice.soNguoiLon}"></td>
+                    <td th:text="${invoice.soTreEm}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Xử lý trường hợp không có hóa đơn nào -->
+        <div th:if="${invoices == null or #lists.isEmpty(invoices)}" class="empty-invoice">
+            <p>Không tìm thấy hóa đơn nào.</p>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="/DuLichViet/Home" class="btn btn-primary">Quay lại trang chủ</a>
+        </div>
     </div>
-
-    <!-- Xử lý trường hợp không có hóa đơn nào -->
-    <div th:if="${invoices == null or #lists.isEmpty(invoices)}">
-        <p>No invoices found.</p>
-    </div>
-
-
 </div>
 </body>
+
 </html>

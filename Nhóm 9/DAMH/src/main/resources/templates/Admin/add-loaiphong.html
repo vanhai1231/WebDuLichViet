@@ -1,0 +1,109 @@
+<!-- add-tour-form.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      layout:decorate="~{layout_admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Loại Phòng - Admin</title>
+    <link rel="stylesheet" th:href="@{/assets/css/Admin.css}" type="text/css">
+</head>
+<body>
+<section layout:fragment="content" style="position: relative;">
+    <div class="col-md-12 ">
+        <h3>Thêm Loại Phòng</h3>
+
+        <div class="col-md-9" style="margin-left:150px;">
+            <form action="/Admin/ThemLoaiPhong" th:object="${loaiphong}" method="post" >
+                <div class="form-group">
+                    <label for="maLoai">Mã Loại Phòng:</label>
+                    <input type="text" id="maLoai" name="maLoai" th:field="*{maLoai}" required><br><br>
+                    <span id="maLoaiError" class="text-danger"></span>
+                </div>
+                <script>
+                    // Lấy thẻ input và span hiển thị lỗi
+                    var maLoai = document.querySelector('input[name="maLoai"]');
+                    var maLoaiError = document.getElementById('maLoaiError');
+
+                    // Lắng nghe sự kiện khi mất focus khỏi input
+                    maLoai.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ
+                        if (maLoai.validity.valueMissing) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+                            maLoaiError.textContent = 'Vui lòng nhập Mã Loại.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                            maLoaiError.textContent = '';
+                        }
+                    });
+                </script>
+
+                <div class="form-group">
+                    <label for="tenLoai">Tên Loại:</label>
+                    <input type="text" id="tenLoai" name="tenLoai" th:field="*{tenLoai}" required><br><br>
+                    <span id="tenLoaiError" class="text-danger"></span>
+                </div>
+                <script>
+                    // Lấy thẻ input và span hiển thị lỗi
+                    var tenLoai = document.querySelector('input[name="tenLoai"]');
+                    var tenLoaiError = document.getElementById('tenLoaiError');
+
+                    // Lắng nghe sự kiện khi mất focus khỏi input
+                    tenLoai.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ
+                        if (tenLoai.validity.valueMissing) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+                            tenLoaiError.textContent = 'Vui lòng nhập Loại Tour.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                            tenLoaiError.textContent = '';
+                        }
+                    });
+                </script>
+
+
+
+
+                <div class="form-group btn" style="margin-top:20px">
+                    <input type="submit" class="btn btn-success"  value="Add Loai Phòng" onclick="validateForm(event)">
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+    <script>
+        function validateForm(event) {
+            var isValid = true;
+
+            var maLoai = document.querySelector('input[name="maLoai"]');
+                    var maLoaiError = document.getElementById('maLoaiError');
+                    var tenLoai = document.querySelector('input[name="tenLoai"]');
+                    var tenLoaiError = document.getElementById('tenLoaiError');
+
+            // Validate Mã Loại Tour
+            if (!maLoai.value.trim()) {
+                maLoaiError.textContent = 'Vui lòng nhập Mã Loại.';
+                isValid = false;
+            } else {
+                maLoaiError.textContent = '';
+            }
+
+            // Validate Loại Tour
+            if (!tenLoai.value.trim()) {
+                tenLoaiError.textContent = 'Vui lòng nhập Tên Loại.';
+                isValid = false;
+            } else {
+                tenLoaiError.textContent = '';
+            }
+
+            // If form is not valid, prevent form submission
+            if (!isValid) {
+                event.preventDefault();
+            }
+        }
+    </script>
+</section>>
+</body>
+</html>

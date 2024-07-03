@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
 @Setter
@@ -20,6 +21,7 @@ public class HoaDon {
     @Column(name = "TongTien", nullable = false)
     private BigDecimal tongTien;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
     @Column(name = "Ngaylap", nullable = false)
     private Date ngayLap;
 

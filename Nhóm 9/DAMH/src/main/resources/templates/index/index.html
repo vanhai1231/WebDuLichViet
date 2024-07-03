@@ -34,14 +34,19 @@
         <span th:text="#{15%}"></span>
     </div>
     <div class="search-bar">
-        <input type="text" oninput="fetchSuggestions(this.value)" id="location-input" th:placeholder="#{location}">
-        <div id="suggestions" class="suggestions"></div>
-        <input type="date" class="date" th:placeholder="#{arrival.date}"><span>|</span>
-        <input type="date" class="date" th:placeholder="#{departure.date}"><span>|</span>
-        <input type="number" th:placeholder="#{rooms}"><span>|</span>
-        <input type="number" th:placeholder="#{guests}"><span>|</span>
-        <button th:text="#{search}"></button>
+        <form id="searchForm" method="GET" th:action="@{/DuLichViet/Search}" style="text-align:center; width: 100%;">
+            <input type="text" oninput="fetchSuggestions(this.value)" name="location" id="location-input" th:placeholder="#{location}">
+            <div id="suggestions" class="suggestions"></div><span>|</span>
+            <select id="tourType" class="fa-solid fa-arrow-down" name="tourType" >
+                <option value="">Tất cả</option>
+                <option th:each="loaiTour : ${loaiTours}" th:value="${loaiTour.maLoaiTour}" th:text="${loaiTour.loaiTour}"></option>
+            </select><span>|</span>
+            <input type="date" id="departureDate-input" name="departureDate" th:placeholder="#{arrival.date}"><span>|</span>
+            <input type="number" id="budget-input" name="budget" th:placeholder="#{price}">
+            <button type="submit" th:text="#{search}"></button>
+        </form>
     </div>
+
     <div th:replace="partials/SlidePartial :: slideshow"></div>
     <div class="banner">
         <img th:src="@{/images/banner1.jpg}" alt="Banner" style="display: block; margin: 0 auto;">

@@ -30,28 +30,28 @@
 <!--                <input type="hidden" id="maTour" name="maTour" th:value="${hoadon.maTour}">-->
                 <div class="form-group">
                     <label for="soNguoiLon">Số Người Lớn:</label>
-                    <input type="text" id="soNguoiLon" name="soNguoiLon" th:value="${hoadon.soNguoiLon}" required >
+                    <input type="number" id="soNguoiLon" name="soNguoiLon" th:value="${hoadon.soNguoiLon}" required readonly>
                 </div>
                 <div class="form-group">
                     <label for="soTreEm">Số Trẻ Em:</label>
-                    <input type="text" id="soTreEm" name="soTreEm" th:value="${hoadon.soTreEm}" required >
+                    <input type="number" id="soTreEm" name="soTreEm" th:value="${hoadon.soTreEm}" required readonly>
                 </div>
                 <div class="form-group">
                     <label for="tongTien">Tổng Tền:</label>
-                    <input type="text" id="tongTien" name="tongTien" th:value="${hoadon.tongTien}" required >
+                    <input type="number" id="tongTien" name="tongTien" th:value="${hoadon.tongTien}" required  readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="ngayLap">Ngày Lập:</label>
-                    <input type="datetime-local" id="ngayLap" name="ngayLap" th:value="${hoadon.ngayLap}" required >
+                    <input type="datetime-local" id="ngayLap" name="ngayLap" th:value="${hoadon.ngayLap}" required readonly >
                 </div>
                 <div class="form-group">
                     <label for="diaChi">Địa Chỉ:</label>
-                    <input type="text" id="diaChi" name="diaChi" th:value="${hoadon.diaChi}" required >
+                    <input type="text" id="diaChi" name="diaChi" th:value="${hoadon.diaChi}" required readonly >
                 </div>
                 <div class="form-group">
                     <label for="sdt">Số Điện Thoại:</label>
-                    <input type="text" id="sdt" name="sdt" th:value="${hoadon.sdt}" required>
+                    <input type="text" id="sdt" name="sdt" th:value="${hoadon.sdt}" required readonly>
                 </div>
                 <div class="form-group">
                     <label for="trangThai">Trạng Thái:</label>

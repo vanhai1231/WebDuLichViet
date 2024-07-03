@@ -6,7 +6,7 @@
       layout:decorate="~{layout_admin}">
 <head>
     <meta charset="UTF-8">
-    <title>Add Tour</title>
+    <title>Add Account</title>
 
     <link rel="stylesheet" th:href="@{/assets/css/Admin.css}" type="text/css">
 </head>
@@ -20,44 +20,212 @@
                 <div class="form-group">
                     <label for="tenTK">Tài Khoản:</label>
                     <input type="text" id="tenTK" name="tenTK" th:field="*{tenTK}" required><br><br>
-                    <!--        <span id="tenSanPhamError" class="text-danger"></span>-->
+                    <span id="tenTKError" class="text-danger"></span>
                 </div>
+                <script>
+                    // Lấy thẻ input và span hiển thị lỗi
+                    var tenTK = document.querySelector('input[name="tenTK"]');
+                    var tenTKError = document.getElementById('tenTKError');
 
+                    // Lắng nghe sự kiện khi mất focus khỏi input
+                    tenTK.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ
+                        if (tenTK.validity.valueMissing) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+                            tenTKError.textContent = 'Vui lòng nhập tên tài khoản.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                            tenTKError.textContent = '';
+                        }
+                    });
+                </script>
 
                 <div class="form-group">
                     <label for="passWord">Mật Khẩu:</label>
                     <input type="text" id="passWord" name="passWord" th:field="*{passWord}" required><br><br>
+                    <span id="passWordError" class="text-danger"></span>
                 </div>
+                <script>
+                    // Lấy thẻ input và span hiển thị lỗi
+                    var passWord = document.querySelector('input[name="passWord"]');
+                    var passWordError = document.getElementById('passWordError');
 
+                    // Lắng nghe sự kiện khi mất focus khỏi input
+                    passWord.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ
+                        if (passWord.validity.valueMissing) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+                            passWordError.textContent = 'Vui lòng nhập mật khẩu.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                            passWordError.textContent = '';
+                        }
+                    });
+                </script>
                 <div class="form-group">
                     <label for="hoTen">Họ Tên:</label>
                     <input type="text" id="hoTen" name="user.hoTen" th:field="*{user.hoTen}" required><br><br>
+                    <span id="hoTenError" class="text-danger"></span>
                 </div>
+             <script>
+                // Lấy thẻ input và span hiển thị lỗi
+                var hoTen = document.querySelector('input[name="user.hoTen"]');
+                var hoTenError = document.getElementById('hoTenError');
 
+                // Lắng nghe sự kiện khi mất focus khỏi input
+                hoTen.addEventListener('blur', function () {
+                    // Kiểm tra nếu giá trị của input không hợp lệ
+                    if (hoTen.validity.valueMissing) {
+                        // Hiển thị thông báo lỗi tùy chỉnh
+                hoTenError.textContent = 'Vui lòng nhập họ tên.';
+                    } else {
+                        // Nếu hợp lệ, xóa thông báo lỗi
+                hoTenError.textContent = '';
+                    }
+                });
+            </script>
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="user.email" th:field="*{user.email}" required><br><br>
+                    <span id="emailError" class="text-danger"></span>
                 </div>
+                <script>
+                    // Lấy thẻ input và span hiển thị lỗi
+                    var email = document.querySelector('input[name="user.email"]');
+                    var emailError = document.getElementById('emailError');
 
+                    // Lắng nghe sự kiện khi mất focus khỏi input
+                    email.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ
+                        if (email.validity.valueMissing) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+                    emailError.textContent = 'Vui lòng nhập email.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                    emailError.textContent = '';
+                        }
+                    });
+                </script>
                 <div class="form-group">
                     <label for="sdt">Số Điện Thoại:</label>
                     <input type="text" id="sdt" name="user.sdt" th:field="*{user.sdt}" required><br><br>
+                    <span id="sdtError" class="text-danger"></span>
                 </div>
+                <script>
+                    // Lấy thẻ input và span hiển thị lỗi
+                    var sdt = document.querySelector('input[name="user.sdt"]');
+                    var sdtError = document.getElementById('sdtError');
 
+                    // Lắng nghe sự kiện khi mất focus khỏi input
+                    sdt.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ
+                        if (sdt.validity.valueMissing) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+                    sdtError.textContent = 'Vui lòng nhập số điện thoại.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                    sdtError.textContent = '';
+                        }
+                    });
+                </script>
                 <div class="form-group">
                     <label for="diaChi">Địa Chỉ:</label>
                     <input type="text" id="diaChi" name="user.diaChi" th:field="*{user.diaChi}" required><br><br>
+                    <span id="diaChiError" class="text-danger"></span>
                 </div>
+                <script>
+                    // Lấy thẻ input và span hiển thị lỗi
+                    var diaChi = document.querySelector('input[name="user.diaChi"]');
+                    var diaChiError = document.getElementById('diaChiError');
 
+                    // Lắng nghe sự kiện khi mất focus khỏi input
+                    diaChi.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ
+                        if (diaChi.validity.valueMissing) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+                    diaChiError.textContent = 'Vui lòng nhập địa chỉ.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                    diaChiError.textContent = '';
+                        }
+                    });
+                </script>
 
 
 
                     <div class="form-group btn" style="margin-top:20px">
-                        <input type="submit" class="btn btn-success" value="Add Tour">
+                        <input type="submit" class="btn btn-success" value="Add Account" onclick="validateForm()">
                     </div>
 
             </form>
+            <script>
+                function validateForm() {
+                    var diaChi = document.querySelector('input[name="user.diaChi"]');
+                    var diaChiError = document.getElementById('diaChiError');
+                    var sdt = document.querySelector('input[name="user.sdt"]');
+                    var sdtError = document.getElementById('sdtError');
+                    var email = document.querySelector('input[name="user.email"]');
+                    var emailError = document.getElementById('emailError');
+                    var hoTen = document.querySelector('input[name="user.hoTen"]');
+                    var hoTenError = document.getElementById('hoTenError');
+                    var passWord = document.querySelector('input[name="passWord"]');
+                    var passWordError = document.getElementById('passWordError');
+                    var tenTK = document.querySelector('input[name="tenTK"]');
+                    var tenTKError = document.getElementById('tenTKError');
 
+                    var isValid = true;
+
+                    // Kiểm tra Mã Tour
+                    if (!tenTK.value.trim()) {
+                        tenTKError.textContent = 'Vui lòng nhập tên tài khoản.';
+                        isValid = false;
+                    } else {
+                        tenTKError.textContent = '';
+                    }
+
+                    // Kiểm tra Tên Tour
+                    if (!passWord.value.trim()) {
+                        passWordError.textContent = 'Vui lòng nhập mật khẩu.';
+                        isValid = false;
+                    } else {
+                        passWordError.textContent = '';
+                    }
+
+                    // Kiểm tra Tên Tour
+                    if (!hoTen.value.trim()) {
+                        hoTenError.textContent = 'Vui lòng nhập họ tên.';
+                        isValid = false;
+                    } else {
+                        hoTenError.textContent = '';
+                    }
+
+                    if (!email.value.trim()) {
+                        emailError.textContent = 'Vui lòng nhập email.';
+                        isValid = false;
+                    } else {
+                        emailError.textContent = '';
+                    }
+
+                    if (!sdt.value.trim()) {
+                        sdtError.textContent = 'Vui lòng nhập số điện thoại.';
+                        isValid = false;
+                    } else {
+                        sdtError.textContent = '';
+                    }
+                    if (!diaChi.value.trim()) {
+                        diaChiError.textContent = 'Vui lòng nhập địa chỉ.';
+                        isValid = false;
+                    } else {
+                        diaChiError.textContent = '';
+                    }
+
+
+                    // Nếu form hợp lệ thì submit form
+                    if (isValid) {
+                        document.querySelector('form').submit();
+                    }
+                }
+            </script>
         </div>
     </div>
 </section>>

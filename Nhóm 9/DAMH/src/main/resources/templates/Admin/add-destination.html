@@ -1,0 +1,203 @@
+<!-- add-tour-form.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      layout:decorate="~{layout_admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Diem Den</title>
+    <link rel="stylesheet" th:href="@{/assets/css/Admin.css}" type="text/css">
+</head>
+<body>
+<section layout:fragment="content" style="position: relative;">
+    <div class="col-md-12 ">
+        <h3>Thêm Điểm Đến</h3>
+
+        <div class="col-md-9" style="margin-left:150px;">
+            <form th:action="@{/Admin/ThemDiemDen}" method="post" th:object="${DiemDen}" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="id">id Đến:</label>
+                    <input type="text" id="id" name="id" th:field="*{id}" required><br><br>
+                    <span id="idError" class="text-danger"></span>
+                </div>
+                <script>
+                    // Lấy thẻ input và span hiển thị lỗi
+                    var id = document.querySelector('input[name="id"]');
+                    var idError = document.getElementById('idError');
+
+                    // Lắng nghe sự kiện khi mất focus khỏi input
+                    id.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ
+                        if (id.validity.valueMissing) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+                            idError.textContent = 'Vui lòng nhập id.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                            idError.textContent = '';
+                        }
+                    });
+                </script>
+                <div class="form-group">
+                    <label for="tenDiemDen">Tên Điểm Đến:</label>
+                    <input type="text" id="tenDiemDen" name="tenDiemDen" th:field="*{tenDiemDen}" required><br><br>
+                    <span id="tenDiemDenError" class="text-danger"></span>
+                </div>
+                <script>
+                    // Lấy thẻ input và span hiển thị lỗi
+                    var tenDiemDenInput = document.querySelector('input[name="tenDiemDen"]');
+                    var tenDiemDenError = document.getElementById('tenDiemDenError');
+
+                    // Lắng nghe sự kiện khi mất focus khỏi input
+                    tenDiemDenInput.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ
+                        if (tenDiemDenInput.validity.valueMissing) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+                            tenDiemDenError.textContent = 'Vui lòng nhập tên điểm đến.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                            tenDiemDenError.textContent = '';
+                        }
+                    });
+                </script>
+
+
+                <div class="form-group">
+                    <label for="hinhAnhFile">Hình Ảnh :</label>
+                    <input type="file" id="hinhAnhFile" name="hinhAnhFile" accept="image/*" required multiple onchange="previewImage1(event)"><br><br>
+                    <img id="preview1" src="#" alt="Preview Image" style="max-width: 200px; max-height: 200px; margin-top: 10px; display: none;">
+                    <div id="hinhAnhError" class="text-danger"></div>
+                </div>
+                <script>
+                    // Lấy thẻ input và span hiển thị lỗi
+                    var hinhAnh = document.querySelector('input[name="hinhAnhFile"]');
+                    var hinhAnhError = document.getElementById('hinhAnhError');
+
+                    // Lắng nghe sự kiện khi mất focus khỏi input
+                    hinhAnh.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ
+                        if (hinhAnh.validity.valueMissing) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+                            hinhAnhError.textContent = 'Vui lòng chọn hình ảnh.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                            hinhAnhError.textContent = '';
+                        }
+                    });
+                </script>
+                <script>
+                    function previewImage1(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var preview = document.getElementById('preview1');
+                preview1.src = reader.result;
+                preview1.style.display = 'block'; // Hiển thị hình ảnh đã chọn
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+                </script>
+                <div class="form-group">
+                    <label for="moTa">Mô tả:</label>
+                    <input type="text" id="moTa" name="moTa" th:field="*{moTa}" required><br><br>
+                    <span id="moTaError" class="text-danger"></span>
+                </div>
+                <script>
+                    // Lấy thẻ input và span hiển thị lỗi
+                    var moTa = document.querySelector('input[name="moTa"]');
+                    var moTaError = document.getElementById('moTaError');
+
+                    // Lắng nghe sự kiện khi mất focus khỏi input
+                    moTa.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ
+                        if (moTa.validity.valueMissing) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+                            moTaError.textContent = 'Vui lòng nhập mô tả.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                            moTaError.textContent = '';
+                        }
+                    });
+                </script>
+
+
+                <div class="form-group">
+                    <label for="maTinh" class="form-label">Tỉnh:</label>
+                    <select th:field="*{maTinh}" class="form-control" id="maTinh" required>
+                        <option th:each="maTinh : ${tinhs}"
+                                th:value="${maTinh.maTinh}" th:text="${maTinh.tenTinh}"></option>
+                    </select>
+                    <div class="text-danger" th:if="${#fields.hasErrors('maTinh')}" th:errors="*{maTinh}"></div>
+                </div>
+
+
+
+
+                    <div class="form-group btn" style="margin-top:20px">
+                        <input type="submit" class="btn btn-success" value="Add Tour" onclick="validateForm()">
+                    </div>
+
+            </form>
+
+        </div>
+    </div>
+    <script>
+        function validateForm() {
+             var tenDiemDenInput = document.querySelector('input[name="tenDiemDen"]');
+                    var tenDiemDenError = document.getElementById('tenDiemDenError');
+                     var hinhAnh = document.querySelector('input[name="hinhAnhFile"]');
+                    var hinhAnhError = document.getElementById('hinhAnhError');
+                    var moTa = document.querySelector('input[name="moTa"]');
+                    var moTaError = document.getElementById('moTaError');
+ var id = document.querySelector('input[name="id"]');
+                    var idError = document.getElementById('idError');
+
+            var isValid = true;
+// Kiểm tra Mã Tour
+            if (!id.value.trim()) {
+                idError.textContent = 'Vui lòng nhập id điểm đến.';
+                isValid = false;
+            } else {
+                idError.textContent = '';
+            }
+            // Kiểm tra Mã Tour
+            if (!tenDiemDenInput.value.trim()) {
+                tenDiemDenError.textContent = 'Vui lòng nhập tên điểm đến.';
+                isValid = false;
+            } else {
+                tenDiemDenError.textContent = '';
+            }
+
+            // Kiểm tra Tên Tour
+            if (!moTa.value.trim()) {
+                moTaError.textContent = 'Vui lòng chọn mô tả.';
+                isValid = false;
+            } else {
+                moTaError.textContent = '';
+            }
+
+
+
+
+
+            // Kiểm tra Hình Ảnh 1
+            if (hinhAnh.validity.valueMissing) {
+                hinhAnhError.textContent = 'Vui lòng chọn hình ảnh .';
+                isValid = false;
+            } else {
+                hinhAnhError.textContent = '';
+            }
+
+
+
+            // Nếu form hợp lệ thì submit form
+            if (isValid) {
+                document.querySelector('form').submit();
+            }
+        }
+    </script>
+
+</section>>
+</body>
+
+
+</html>

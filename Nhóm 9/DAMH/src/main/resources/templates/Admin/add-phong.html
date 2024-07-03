@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Phòng</title>
+    <link rel="stylesheet" th:href="@{/assets/css/Admin.css}" type="text/css">
+</head>
+<body>
+<section layout:fragment="content" style="position: relative;">
+    <div class="col-md-12">
+        <h3>Thêm Phòng</h3>
+        <div class="col-md-9" style="margin-left:150px;">
+            <form th:action="@{/Admin/ThemPhong}" th:object="${phong}" method="post">
+                <div class="form-group">
+                    <label for="maPhong">Mã Phòng:</label>
+                    <input type="text" id="maPhong" name="maPhong" th:field="${phong.maPhong}" readonly>
+                    <span id="maPhongError" class="text-danger"></span>
+                </div>
+                <script>
+                    var maPhong = document.querySelector('input[name="maPhong"]');
+                    var maPhongError = document.getElementById('maPhongError');
+
+                    maPhong.addEventListener('blur', function () {
+                        if (maPhong.validity.valueMissing) {
+                            maPhongError.textContent = 'Vui lòng nhập Mã Phòng';
+                        } else {
+                            maPhongError.textContent = '';
+                        }
+                    });
+                </script>
+                <div class="form-group">
+                    <label for="gia">Giá:</label>
+                    <input type="text" id="gia" name="gia" th:field="${phong.gia}" required>
+                    <span id="giaError" class="text-danger"></span>
+                </div>
+                <script>
+                    var gia = document.querySelector('input[name="gia"]');
+                    var giaError = document.getElementById('giaError');
+
+                    gia.addEventListener('blur', function () {
+                        if (gia.validity.valueMissing) {
+                            giaError.textContent = 'Vui lòng nhập giá.';
+                        } else {
+                            giaError.textContent = '';
+                        }
+                    });
+                </script>
+                <div class="form-group">
+                    <label for="moTa">Mô Tả:</label>
+                    <input type="text" id="moTa" name="moTa" th:field="${phong.moTa}" required>
+                    <span id="moTaError" class="text-danger"></span>
+                </div>
+                <script>
+                    var moTa = document.querySelector('input[name="moTa"]');
+                    var moTaError = document.getElementById('moTaError');
+
+                    moTa.addEventListener('blur', function () {
+                        if (moTa.validity.valueMissing) {
+                            moTaError.textContent = 'Vui lòng nhập mô tả.';
+                        } else {
+                            moTaError.textContent = '';
+                        }
+                    });
+                </script>
+                <div class="form-group">
+                    <label for="khachSan" class="form-label">Mã Khách Sạn:</label>
+                    <select th:field="*{khachSan}" class="form-control" id="khachSan" required>
+                        <option th:each="khachSan : ${khachSans}"
+                                th:value="${khachSan.maKS}" th:text="${khachSan.tenKS}"></option>
+                    </select>
+                    <div class="text-danger" th:if="${#fields.hasErrors('khachSan')}" th:errors="*{khachSan}"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="loaiPhong" class="form-label">Loại Phòng:</label>
+                    <select th:field="*{loaiPhong}" class="form-control" id="loaiPhong" required>
+                        <option th:each="loaiPhong : ${loaiPhongs}"
+                                th:value="${loaiPhong.maLoai}" th:text="${loaiPhong.tenLoai}"></option>
+                    </select>
+                    <div class="text-danger" th:if="${#fields.hasErrors('loaiPhong')}" th:errors="*{loaiPhong}"></div>
+                </div>
+
+                <div>
+                    <input type="submit" class="btn btn-primary" value="Update Room" onclick="validateHotelForm()">
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function validateHotelForm() {
+             var gia = document.querySelector('input[name="gia"]');
+                    var giaError = document.getElementById('giaError');
+                    var moTa = document.querySelector('input[name="moTa"]');
+                    var moTaError = document.getElementById('moTaError');
+ var maPhong = document.querySelector('input[name="maPhong"]');
+                    var maPhongError = document.getElementById('maPhongError');
+
+            var isValid = true;
+// Kiểm tra Mã Khách Sạn
+            if (!maPhong.value.trim()) {
+                maPhongError.textContent = 'Vui lòng nhập Mã Phòng.';
+                isValid = false;
+            } else {
+                giaError.textContent = '';
+            }
+            // Kiểm tra Mã Khách Sạn
+            if (!gia.value.trim()) {
+                giaError.textContent = 'Vui lòng nhập Giá.';
+                isValid = false;
+            } else {
+                giaError.textContent = '';
+            }
+
+            // Kiểm tra Tên Khách Sạn
+            if (!moTa.value.trim()) {
+                moTaError.textContent = 'Vui lòng nhập Mô Tả.';
+                isValid = false;
+            } else {
+                moTaError.textContent = '';
+            }
+
+
+
+
+
+           // Nếu form hợp lệ thì submit form
+            if (isValid) {
+                document.querySelector('form').submit();
+            }
+        }
+    </script>
+</section>
+</body>
+</html>

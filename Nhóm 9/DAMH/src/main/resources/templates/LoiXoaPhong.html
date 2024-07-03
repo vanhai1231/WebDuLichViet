@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout_admin}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lỗi</title>
+</head>
+<body>
+
+<section layout:fragment="content" class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="text-center mt-5">
+                <h1 class="display-4">Đã xảy ra lỗi khi xóa phòng</h1>
+                <p class="lead">Không thể xóa phòng này do có dữ liệu liên quan.</p>
+                <a th:href="@{/Admin/DanhSachPhong}" class="btn btn-primary">Quay lại danh sách Phòng</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

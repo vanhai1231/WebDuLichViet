@@ -15,4 +15,5 @@ public class TinhService {
     public List<Tinh> getSuggestions(String query) {
         return TinhRepository.findBytenTinhContainingIgnoreCase(query);
     }
+    public List<Tinh> findByTenTinh(String TenTinh){return TinhRepository.findBytenTinhContainingIgnoreCase(TenTinh);}
 }

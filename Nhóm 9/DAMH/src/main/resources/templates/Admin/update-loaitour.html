@@ -19,18 +19,67 @@
                 </div>
                 <div class="form-group">
                     <label for="loaiTour">Tên Loại Tour:</label>
-                    <input type="text" id="loaiTour" name="loaiTour" th:value="${loaitour.loaiTour}">
+                    <input type="text" id="loaiTour" name="loaiTour" th:value="${loaitour.loaiTour}" required>
+                    <span id="loaiTourError" class="text-danger"></span>
                 </div>
+                <script>
+                    // Lấy thẻ input và span hiển thị lỗi
+                    var loaiTour = document.querySelector('input[name="loaiTour"]');
+                    var loaiTourError = document.getElementById('loaiTourError');
 
+                    // Lắng nghe sự kiện khi mất focus khỏi input
+                    loaiTour.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ
+                        if (loaiTour.validity.valueMissing) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+                            loaiTourError.textContent = 'Vui lòng nhập Loại Tour.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                            loaiTourError.textContent = '';
+                        }
+                    });
+                </script>
 
 
                 <div>
-                    <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                    <input type="submit" class="btn btn-success"  value="Update Loai Tour" onclick="validateForm(event)">
                 </div>
             </form>
         </div>
     </div>
+    <script>
+        function validateForm(event) {
+            var isValid = true;
 
+            // Get input fields and error spans
+            var maLoaiTourInput = document.getElementById('maLoaiTour');
+            var maLoaiTourError = document.getElementById('maLoaiTourError');
+
+            var loaiTourInput = document.getElementById('loaiTour');
+            var loaiTourError = document.getElementById('loaiTourError');
+
+            // Validate Mã Loại Tour
+            if (!maLoaiTourInput.value.trim()) {
+                maLoaiTourError.textContent = 'Vui lòng nhập Mã Loại Tour.';
+                isValid = false;
+            } else {
+                maLoaiTourError.textContent = '';
+            }
+
+            // Validate Loại Tour
+            if (!loaiTourInput.value.trim()) {
+                loaiTourError.textContent = 'Vui lòng nhập Loại Tour.';
+                isValid = false;
+            } else {
+                loaiTourError.textContent = '';
+            }
+
+            // If form is not valid, prevent form submission
+            if (!isValid) {
+                event.preventDefault();
+            }
+        }
+    </script>
 </section>
 </body>
 </html>

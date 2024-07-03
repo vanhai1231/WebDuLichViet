@@ -74,7 +74,7 @@ public class AccountController {
                     .stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .collect(Collectors.toList());
-            return ResponseEntity.badRequest().body(Map.of("errors", errors));
+            return ResponseEntity.badRequest().body(errors);
         }
 
         List<Map.Entry<Boolean, String>> checks = List.of(
@@ -82,10 +82,10 @@ public class AccountController {
                 Map.entry(taiKhoanService.findByEmail(user.getUser().getEmail()).isPresent(), "Email đã tồn tại"),
                 Map.entry(taiKhoanService.findBySdt(user.getUser().getSdt()).isPresent(), "Số điện thoại đã tồn tại")
         );
-
+        // hiển thị lỗi trong danh sách checks
         for (Map.Entry<Boolean, String> check : checks) {
             if (check.getKey()) {
-                return ResponseEntity.badRequest().body(Map.of("errors", Collections.singletonList(check.getValue())));
+                return ResponseEntity.badRequest().body(Collections.singletonList(check.getValue()));
             }
         }
         // Generate OTP and send email

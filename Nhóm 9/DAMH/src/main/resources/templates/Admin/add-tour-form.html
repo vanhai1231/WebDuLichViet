@@ -12,7 +12,7 @@
 <body>
 <section layout:fragment="content" style="position: relative;">
     <div class="col-md-12 ">
-        <h3>Thêm Sản Phẩm</h3>
+        <h3>Thêm Tour</h3>
 
         <div class="col-md-9" style="margin-left:150px;">
             <form action="/Admin/AddTour" method="post" th:object="${tour}" enctype="multipart/form-data">
@@ -54,7 +54,7 @@
                         // Kiểm tra nếu giá trị của input không hợp lệ
                         if (tenTourInput.validity.valueMissing) {
                             // Hiển thị thông báo lỗi tùy chỉnh
-                            tenTourError.textContent = 'Vui lòng tên Tour.';
+                            tenTourError.textContent = 'Vui lòng nhập tên Tour.';
                         } else {
                             // Nếu hợp lệ, xóa thông báo lỗi
                             tenTourError.textContent = '';
@@ -180,7 +180,7 @@
                         <div class="text-danger" th:if="${#fields.hasErrors('phong')}" th:errors="*{phong}"></div>
                     </div>
                     <div class="form-group">
-                        <label for="loaiTour" class="form-label">Phương Tiện:</label>
+                        <label for="phuongTien" class="form-label">Phương Tiện:</label>
                         <select th:field="*{phuongTien}" class="form-control" id="phuongTien" required>
                             <option th:each="phuongTien : ${phuongTiens}"
                                     th:value="${phuongTien.maPhuongTien}" th:text="${phuongTien.tenPhuongTien}"></option>

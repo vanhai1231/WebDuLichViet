@@ -16,6 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script th:src="@{/js/Filter-Tour.js}"></script>
+    <script th:src="@{/js/Wishlist.js}"></script>
     <style>
         .filter-box {
             background-color: #f8f9fa;
@@ -121,9 +122,9 @@
                         <div th:each="tour : ${tours}" class="tour-card">
                             <!-- Hình ảnh đại diện -->
                             <div class="tour-image-container">
+                                <i class="bi bi-heart heart-icon" data-ma-tour="${tour.maTour}"></i>
                                 <img th:src="@{${tour.mainImageUrl}}" alt="Main Tour Image" class="tour-image">
                                 <img th:src="@{${tour.secondaryImageUrl}}" alt="Secondary Tour Image" class="tour-image secondary-image">
-                                <span><i class="bi bi-heart"></i></span>
                             </div>
                             <!-- Thông tin tour -->
                             <div class="tour-info">

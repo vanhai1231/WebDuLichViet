@@ -1,5 +1,6 @@
 package com.hutech.DAMH.specification;
 
+import com.hutech.DAMH.model.Tinh;
 import com.hutech.DAMH.model.Tour;
 import org.springframework.data.jpa.domain.Specification;
 import jakarta.persistence.criteria.*;
@@ -26,10 +27,12 @@ public class TourSpecification implements Specification<Tour> {
             case "loaiTour.maLoaiTour":
                 Join<Object, Object> loaiTourJoin = root.join("loaiTour");
                 return criteriaBuilder.equal(loaiTourJoin.get("maLoaiTour"), value);
-            case "noiKhoiHanh":
-                return criteriaBuilder.equal(root.get(fieldName), value);
+            case "tinh.tenTinh":
+                Join<Object, Object> tinhJoin = root.join("tinh");
+                return criteriaBuilder.equal(tinhJoin.get("tenTinh"), value);
+
             case "ngayKH":
-                return criteriaBuilder.equal(root.get(fieldName), (Date) value);
+                return criteriaBuilder.greaterThanOrEqualTo(root.get(fieldName), (Date) value);
             case "giaTour":
                 return criteriaBuilder.lessThanOrEqualTo(root.get(fieldName), (Integer) value);
             case "phuongTien.maPhuongTien":

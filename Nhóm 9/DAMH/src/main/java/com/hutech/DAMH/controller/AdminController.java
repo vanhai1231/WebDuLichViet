@@ -113,9 +113,12 @@ public class AdminController {
                 // Store roles or username in session attributes if needed
                 return "redirect:/Admin/Home"; // Redirect to admin home page after successful login
             }
+//            else{
+//                return "redirect:/Admin/login?error404";
+//            }
         }
 
-        return "redirect:/Admin/login?error";
+        return "redirect:/Admin/login?error404";
     }
 
     @GetMapping("/logoutAdmin")

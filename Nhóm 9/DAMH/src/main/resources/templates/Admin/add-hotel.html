@@ -19,19 +19,56 @@
                 <div class="form-group">
                     <label for="maKS">Mã Khách Sạn:</label>
                     <input type="text" id="maKS" name="maKS" th:field="*{maKS}" required><br><br>
-                    <!--        <span id="tenSanPhamError" class="text-danger"></span>-->
+                    <span id="maKSError" class="text-danger"></span>
                 </div>
 
+                <script>
+                    var maKSInput = document.querySelector('input[name="maKS"]');
+                    var maKSError = document.getElementById('maKSError');
 
+                    maKSInput.addEventListener('blur', function () {
+                        if (maKSInput.validity.valueMissing) {
+                            maKSError.textContent = 'Vui lòng nhập Mã Khách Sạn.';
+                        } else {
+                            maKSError.textContent = '';
+                        }
+                    });
+                </script>
                 <div class="form-group">
                     <label for="tenKS">Tên Khách Sạn:</label>
                     <input type="text" id="tenKS" name="tenKS" th:field="*{tenKS}" required><br><br>
+                    <span id="tenKSError" class="text-danger"></span>
                 </div>
+                <script>
+                    var tenKSInput = document.querySelector('input[name="tenKS"]');
+                    var tenKSError = document.getElementById('tenKSError');
+
+                    tenKSInput.addEventListener('blur', function () {
+                        if (tenKSInput.validity.valueMissing) {
+                            tenKSError.textContent = 'Vui lòng nhập Tên Khách Sạn.';
+                        } else {
+                            tenKSError.textContent = '';
+                        }
+                    });
+                </script>
 
                 <div class="form-group">
                     <label for="diaChi">Địa Chỉ:</label>
                     <input type="text" id="diaChi" name="diaChi" th:field="*{diaChi}" required><br><br>
+                    <span id="diaChiError" class="text-danger"></span>
                 </div>
+                <script>
+                    var diaChiInput = document.querySelector('input[name="diaChi"]');
+                    var diaChiError = document.getElementById('diaChiError');
+
+                    diaChiInput.addEventListener('blur', function () {
+                        if (diaChiInput.validity.valueMissing) {
+                            diaChiError.textContent = 'Vui lòng nhập Địa Chỉ.';
+                        } else {
+                            diaChiError.textContent = '';
+                        }
+                    });
+                </script>
 
                 <div class="form-group">
                     <label for="danhGia">Đánh Giá:</label>
@@ -41,13 +78,59 @@
 
 
                     <div class="form-group btn" style="margin-top:20px">
-                        <input type="submit" class="btn btn-success" value="Add Tour">
+                        <input type="submit" class="btn btn-success" value="Add Hotel" onclick="validateHotelForm()">
                     </div>
 
             </form>
 
         </div>
     </div>
+    <script>
+        function validateHotelForm() {
+            var maKSInput = document.querySelector('input[name="maKS"]');
+            var maKSError = document.getElementById('maKSError');
+
+            var tenKSInput = document.querySelector('input[name="tenKS"]');
+            var tenKSError = document.getElementById('tenKSError');
+
+            var diaChiInput = document.querySelector('input[name="diaChi"]');
+            var diaChiError = document.getElementById('diaChiError');
+
+
+            var isValid = true;
+
+            // Kiểm tra Mã Khách Sạn
+            if (!maKSInput.value.trim()) {
+                maKSError.textContent = 'Vui lòng nhập Mã Khách Sạn.';
+                isValid = false;
+            } else {
+                maKSError.textContent = '';
+            }
+
+            // Kiểm tra Tên Khách Sạn
+            if (!tenKSInput.value.trim()) {
+                tenKSError.textContent = 'Vui lòng nhập Tên Khách Sạn.';
+                isValid = false;
+            } else {
+                tenKSError.textContent = '';
+            }
+
+            // Kiểm tra Địa Chỉ
+            if (!diaChiInput.value.trim()) {
+                diaChiError.textContent = 'Vui lòng nhập Địa Chỉ.';
+                isValid = false;
+            } else {
+                diaChiError.textContent = '';
+            }
+
+
+
+           // Nếu form hợp lệ thì submit form
+            if (isValid) {
+                document.querySelector('form').submit();
+            }
+        }
+    </script>
 </section>>
 </body>
 </html>

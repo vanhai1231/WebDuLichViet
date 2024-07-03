@@ -22,3 +22,10 @@
     align-items: stretch;
     gap: 30px;
 }
+
+.tour-card{
+    flex-basis: calc(25% - 30px);
+    margin-bottom: 30px;
+
+}
+

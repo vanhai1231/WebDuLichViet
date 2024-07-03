@@ -2,10 +2,7 @@ package com.hutech.DAMH.service;
 
 import com.hutech.DAMH.CustomUserDetails;
 import com.hutech.DAMH.model.*;
-import com.hutech.DAMH.repository.HinhAnhRepository;
-import com.hutech.DAMH.repository.ImagesRepository;
-import com.hutech.DAMH.repository.KhuyenMaiRespository;
-import com.hutech.DAMH.repository.TourRepository;
+import com.hutech.DAMH.repository.*;
 import com.hutech.DAMH.specification.TourSpecification;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +39,8 @@ public class TourService {
     private KhuyenMaiRespository khuyenMaiRespository;
     @Autowired
     private HinhAnhRepository hinhAnhRepository;
+    @Autowired
+    private ChiTietKhuyenMaiRepository chiTietKhuyenMaiRepository;
     public List<Images> getImagesByMaTour(String maTour) {
         return imagesRepository.findByMaTour(maTour);
     }
@@ -112,7 +111,23 @@ public class TourService {
         return tourRepository.findAll(spec);
     }
 
+    public List<Tour> getSearchedTours(String tourType, String location, Date departureDate, Integer budget) {
+        Specification<Tour> spec = Specification.where(null);
+        if (tourType != null && !tourType.isEmpty()) {
+            spec = spec.and(TourSpecification.withField("loaiTour.maLoaiTour", tourType));
+        }
+        if (location != null && !location.isEmpty()) {
+            spec = spec.and(TourSpecification.withField("tinh.tenTinh", location));
+        }
+        if (departureDate != null) {
+            spec = spec.and(TourSpecification.withField("ngayKH", departureDate));
+        }
+        if (budget != null) {
+            spec = spec.and(TourSpecification.withField("giaTour", budget));
+        }
 
+        return tourRepository.findAll(spec);
+    }
 
     public Tour getTourByMaTour(String maTour) {
         return tourRepository.findByMaTour(maTour);
@@ -291,27 +306,31 @@ public class TourService {
         int currentUserId = userDetails.getUserId();
         Tour tour = tourRepository.findByMaTour(maTour);
         if (tour == null) {
-            throw new IllegalArgumentException("Tour not found with maTour: " + maTour);
+            throw new IllegalArgumentException("Không tìm thấy mã tour: " + maTour);
         }
         if (Objects.equals(tour.getLoaiTour().getMaLoaiTour(), "LT03")) {
-            throw new IllegalArgumentException("Tour VIP is not eligible for discounts.");
+            throw new IllegalArgumentException("Tour Vip không sử dụng được.");
         }
         Optional<KhuyenMai> optionalKhuyenMai = khuyenMaiRespository.findByMaKM(maKM);
         if (optionalKhuyenMai.isEmpty()) {
-            throw new IllegalArgumentException("KhuyenMai not found with maKM: " + maKM);
+            throw new IllegalArgumentException("Không tìm thấy mã khuyến mãi " + maKM);
         }
 
         KhuyenMai khuyenMai = optionalKhuyenMai.get();
         if (currentUserId != (khuyenMai.getTaiKhoan().getID())) { // Assuming KhuyenMai has a getUserId method
-            throw new IllegalArgumentException("Promotion code does not belong to the current user");
+            throw new IllegalArgumentException("Khuyến mãi không dành cho bạn");
         }
-
+        ChiTietKhuyenMai optionalCTKhuyenMai = chiTietKhuyenMaiRepository.findByMaTour(maTour);
         // Áp dụng chiết khấu vào giá tour dựa trên phần trăm khuyến mãi
         int giaTour = tour.getGiaTour();
         int phanTramKM = khuyenMai.getPhanTramKM();
         int discountedPrice = giaTour - (giaTour * phanTramKM / 100);
+        if (optionalCTKhuyenMai != null) {
+            int additionalPhanTramKM = optionalCTKhuyenMai.getKhuyenMai().getPhanTramKM();
+            discountedPrice = discountedPrice - (discountedPrice * additionalPhanTramKM / 100);
+        }
         if(!khuyenMai.isSoLan()){
-            throw new IllegalArgumentException("Promotion code has been used.");
+            throw new IllegalArgumentException("Khuyến Mãi đã được sử dụng.");
         }
 
         // Chuẩn bị thông tin thời gian sử dụng mã khuyến mãi
@@ -328,4 +347,5 @@ public class TourService {
     public long countAllTour() {
         return tourRepository.count();
     }
+
 }

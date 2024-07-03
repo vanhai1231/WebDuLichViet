@@ -3,6 +3,7 @@ package com.hutech.DAMH.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -21,9 +22,10 @@ public class Destination {
 
     @Column(name = "MoTa", nullable = false, length = 1000)
     private String moTa;
-
+    @Transient
+    private MultipartFile hinhAnhFile;
     @ManyToOne
-    @JoinColumn(name = "MaTinh", insertable = false, updatable = false)
+    @JoinColumn(name = "MaTinh", updatable = false)
     private Tinh maTinh;
 
 }

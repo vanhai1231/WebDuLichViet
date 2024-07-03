@@ -52,13 +52,16 @@
                 <div class="col-lg-4 mx-auto">
                     <div class="auth-form-light text-left p-5">
                         <div class="brand-logo">
-                            <img th:src="@{/assets/images/logo.svg}">
+                            <img th:src="@{/images/Logo.jpg}">
                         </div>
-                        <h4>Hello! let's get started</h4>
-                        <h6 class="font-weight-light">Sign in to continue.</h6>
+                        <h4>Đăng Nhập</h4>
+                        <h6 class="font-weight-light">Để sử dụng chức năng</h6>
                         <form th:action="@{/Admin/login}" method="post" class="pt-3">
                             <div th:if="${param.error}" class="alert alert-danger">
-                                Invalid username and password.
+                                Sai Mật Khẩu Hoặc Tài Khoản
+                            </div>
+                            <div th:if="${param.error404}" class="alert alert-danger">
+                                Người dùng không được đăng nhập
                             </div>
                             <div th:if="${param.logout}" class="alert alert-success">
                                 You have been logged out.
@@ -81,12 +84,9 @@
                                 </div>
                                 <a href="#" class="auth-link text-black">Forgot password?</a>
                             </div>
-                            <div class="mb-2">
-                                <button type="button" class="btn btn-block btn-facebook auth-form-btn">
-                                    <i class="mdi mdi-facebook me-2"></i>Connect using facebook </button>
-                            </div>
-                            <div class="text-center mt-4 font-weight-light"> Don't have an account? <a href="register.html" class="text-primary">Create</a>
-                            </div>
+
+
+
                         </form>
                     </div>
                 </div>

@@ -19,6 +19,7 @@ public class Tour {
     @Column(name = "MaTour")
     private String maTour;
 
+
     @Column(name = "TenTour")
     private String tenTour;
 

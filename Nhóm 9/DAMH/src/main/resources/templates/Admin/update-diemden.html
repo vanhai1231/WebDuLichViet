@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa Điểm Đến</title>
+    <link rel="stylesheet" th:href="@{/assets/css/Admin.css}" type="text/css">
+</head>
+<body>
+<section layout:fragment="content" style="position: relative;">
+    <div class="col-md-12">
+        <h3>Sửa Điểm Đến</h3>
+        <div class="col-md-9" style="margin-left:150px;">
+            <form th:action="@{/Admin/CapNhatDiemDen/{id}(id=${destination.id})}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="id">id Đến:</label>
+                    <input type="text" id="id" name="id" th:value="*{destination.id}" required><br><br>
+                    <span id="idError" class="text-danger"></span>
+                </div>
+                <script>
+                    // Lấy thẻ input và span hiển thị lỗi
+                    var id = document.querySelector('input[name="id"]');
+                    var idError = document.getElementById('idError');
+
+                    // Lắng nghe sự kiện khi mất focus khỏi input
+                    id.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ
+                        if (id.validity.valueMissing) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+                            idError.textContent = 'Vui lòng nhập id.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                            idError.textContent = '';
+                        }
+                    });
+                </script>
+                <div class="form-group">
+                    <label for="tenDiemDen">Tên Điểm Đến:</label>
+                    <input type="text" id="tenDiemDen" name="tenDiemDen" th:value="${destination.tenDiemDen}" required>
+                    <span id="tenDDError" class="text-danger"></span>
+                </div>
+                <script>
+                    var tenDDInput = document.querySelector('input[name="tenDiemDen"]');
+                    var tenDDError = document.getElementById('tenDDError');
+
+                    tenDDInput.addEventListener('blur', function () {
+                        if (tenDDInput.validity.valueMissing) {
+                            tenDDError.textContent = 'Vui lòng nhập Tên Điểm Đến.';
+                        } else {
+                            tenDDError.textContent = '';
+                        }
+                    });
+                </script>
+                <div class="form-group">
+                    <label for="moTa">Mô Tả:</label>
+                    <input type="text" id="moTa" name="moTa" th:value="${destination.moTa}" required>
+                    <span id="moTaError" class="text-danger"></span>
+                </div>
+                <script>
+                    var moTaInput = document.querySelector('input[name="moTa"]');
+                    var moTaError = document.getElementById('moTaError');
+
+                    moTaInput.addEventListener('blur', function () {
+                        if (moTaInput.validity.valueMissing) {
+                            moTaError.textContent = 'Vui lòng nhập Địa Chỉ.';
+                        } else {
+                            moTaError.textContent = '';
+                        }
+                    });
+                </script>
+
+                <div>
+                    <label for="hinhAnhFile">Hình Ảnh:</label>
+                    <input type="file" id="hinhAnhFile" name="hinhAnhFile" accept="image/*" multiple  onchange="previewImage1(this);">
+                    <div id="imagePreview1">
+                        <img th:src="@{${destination.hinhAnh}}" alt="Main Image" style="width: 200px; height: auto;">
+                    </div>
+                    <div id="hinhAnhFileError" class="text-danger"></div>
+                </div>
+                <script>
+                    // Lấy thẻ input và span hiển thị lỗi
+                    var hinhAnh = document.querySelector('input[name="hinhAnhFile"]');
+                    var hinhAnhError = document.getElementById('hinhAnhError');
+
+                    // Lắng nghe sự kiện khi mất focus khỏi input
+                    hinhAnh.addEventListener('blur', function () {
+                        // Kiểm tra nếu giá trị của input không hợp lệ
+                        if (hinhAnh.validity.valueMissing) {
+                            // Hiển thị thông báo lỗi tùy chỉnh
+                            hinhAnhError.textContent = 'Vui lòng chọn hình ảnh.';
+                        } else {
+                            // Nếu hợp lệ, xóa thông báo lỗi
+                            hinhAnhError.textContent = '';
+                        }
+                    });
+                </script>
+                <script>
+                    function previewImage1(input) {
+                       var file = input.files[0];
+                       var reader = new FileReader();
+
+                       reader.onload = function(e) {
+                           var preview = document.getElementById('imagePreview1').getElementsByTagName('img')[0];
+                           preview.src = e.target.result;
+                       };
+
+                       reader.readAsDataURL(file);
+                   }
+                </script>
+
+                <div>
+                    <input type="submit" class="btn btn-primary" value="Update Destination" onclick="validateHotelForm()">
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function validateHotelForm() {
+            var tenDiemDenInput = document.querySelector('input[name="tenDiemDen"]');
+                    var tenDiemDenError = document.getElementById('tenDDError');
+                     var hinhAnh = document.querySelector('input[name="hinhAnhFile"]');
+                    var hinhAnhError = document.getElementById('hinhAnhError');
+                    var moTa = document.querySelector('input[name="moTa"]');
+                    var moTaError = document.getElementById('moTaError');
+ var id = document.querySelector('input[name="id"]');
+                    var idError = document.getElementById('idError');
+
+
+            var isValid = true;
+
+            if (!id.value.trim()) {
+                idError.textContent = 'Vui lòng nhập id điểm đến.';
+                isValid = false;
+            } else {
+                idError.textContent = '';
+            }
+            // Kiểm tra Mã Tour
+            if (!tenDiemDenInput.value.trim()) {
+                tenDiemDenError.textContent = 'Vui lòng nhập tên điểm đến.';
+                isValid = false;
+            } else {
+                tenDiemDenError.textContent = '';
+            }
+
+            // Kiểm tra Tên Tour
+            if (!moTa.value.trim()) {
+                moTaError.textContent = 'Vui lòng chọn mô tả.';
+                isValid = false;
+            } else {
+                moTaError.textContent = '';
+            }
+
+
+
+
+
+            // Kiểm tra Hình Ảnh 1
+            if (hinhAnh.validity.valueMissing) {
+                hinhAnhError.textContent = 'Vui lòng chọn hình ảnh .';
+                isValid = false;
+            } else {
+                hinhAnhError.textContent = '';
+            }
+
+
+
+           // Nếu form hợp lệ thì submit form
+            if (isValid) {
+                document.querySelector('form').submit();
+            }
+        }
+    </script>
+</section>
+</body>
+</html>

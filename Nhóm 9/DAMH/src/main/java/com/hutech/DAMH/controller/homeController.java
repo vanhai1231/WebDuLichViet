@@ -7,6 +7,7 @@ import com.hutech.DAMH.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,7 +43,8 @@ public class homeController {
     private WishlistService wishlistService;
     @Autowired
     private ChiTietWishlistService chiTietWishlistService;
-
+    @Autowired
+    private TinhService tinhService;
     @GetMapping("/Home")
     public String showProductList(Model model, HttpSession session) {
         NumberFormat numberFormat = NumberFormat.getInstance(new Locale("vi", "VN"));
@@ -72,7 +74,8 @@ public class homeController {
                 }
             }
         }
-
+        List<LoaiTour> loaiTours = loaiTourService.getAllLoaiTour();
+        model.addAttribute("loaiTours", loaiTours);
         model.addAttribute("tours", tours);
         return "/index/index";
     }
@@ -236,4 +239,45 @@ public class homeController {
 
         return "index/Contact";
     }
+
+    @GetMapping("/Search")
+    public String searchPage(
+            @RequestParam(required = false) String tourType,
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date departureDate,
+            @RequestParam(required = false) Integer budget,
+            Model model
+    ) {
+        if (!model.containsAttribute("taiKhoan")) {
+            model.addAttribute("taiKhoan", new TaiKhoan());
+        }
+        NumberFormat numberFormat = NumberFormat.getInstance(new Locale("vi", "VN"));
+        List<Tour> tours = tourService.getSearchedTours(tourType,location, departureDate, budget);
+        for (Tour tour : tours) {
+            List<String> imageUrls = imagesService.getImagesByMaTour(tour.getMaTour());
+            if (!imageUrls.isEmpty()) {
+                tour.setMainImageUrl(imageUrls.get(0)); // Hình ảnh chính
+                tour.setSecondaryImageUrl(imageUrls.get(1)); // Các hình ảnh khác
+            }
+            String formattedPrice = numberFormat.format(tour.getGiaTour());
+            tour.setFormattedGiaTour(formattedPrice + "VNĐ");
+
+            // Kiểm tra xem tour có trong bảng ChiTietKhuyenMai không
+            ChiTietKhuyenMai chiTietKhuyenMai = chiTietKhuyenMaiService.findByMaTour(tour.getMaTour());
+            if (chiTietKhuyenMai != null) {
+                // Lấy thông tin chi tiết khuyến mãi
+                Optional<KhuyenMai> khuyenMai = khuyenMaiService.findByMaKM(chiTietKhuyenMai.getMaKM());
+                if (khuyenMai.isPresent() && isWithinPromotionPeriod(khuyenMai.orElse(null))) {
+                    // Nếu đang trong thời gian khuyến mãi, thêm thông tin khuyến mãi vào tour
+                    tour.setPromotionActive(true);
+                    tour.setPhanTramGiam(khuyenMai.get().getPhanTramKM());
+                    tour.setNgayBatDauKM(khuyenMai.get().getNgayBatDau());
+                    tour.setNgayKetThucKM(khuyenMai.get().getNgayKetThuc());
+                }
+            }
+        }
+        model.addAttribute("tours", tours);
+        return "/index/Search";
+    }
+
 }

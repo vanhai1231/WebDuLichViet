@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Phòng - Admin</title>
+    <link rel="stylesheet" th:href="@{/assets/css/Admin.css}" type="text/css">
+    <style>
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        /* Đặt width cho từng cột */
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 5%; /* width cho cột số thứ tự */
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 5%; /* width cho cột tên sản phẩm */
+            white-space: normal; /* Cho phép xuống dòng nếu nội dung quá dài */
+        }
+
+            th:nth-child(3),
+            td:nth-child(3) {
+                width: 40%; /* width cho cột tên sản phẩm */
+                white-space: normal; /* Cho phép xuống dòng nếu nội dung quá dài */
+            }
+        th:nth-child(4),
+        td:nth-child(4) {
+         width: 5%; /* width cho cột tên sản phẩm */
+            white-space: normal; /* Cho phép xuống dòng nếu nội dung quá dài */
+        }
+
+            th:nth-child(5),
+            td:nth-child(5) {
+                width: 5%; /* width cho cột số thứ tự */
+            }
+
+
+        /* Thêm scrollbar ngang */
+        .table-container {
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content" style="position: relative;">
+    <h2 style="text-align:center">Danh Sách Phòng</h2>
+    <div style="margin-top: 10px; margin-bottom: 10px;">
+        <!-- Thêm phần tử div và margin-top -->
+        <a th:href="@{/Admin/ThemPhong}" class="btn btn-success btn-sm" >Thêm Phòng</a>
+    </div>
+
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col"  style="background-color:#B66DFF;color:White">Mã Phòng</th>
+                <th scope="col"  style="background-color:#B66DFF;color:White">Giá</th>
+                <th scope="col" class="wide-column"  style="background-color:#B66DFF;color:White">Mô tả</th>
+                <th scope="col"  style="background-color:#B66DFF;color:White">Mã Khách Sạn</th>
+                <th scope="col"  style="background-color:#B66DFF;color:White">Mã Loại Phòng</th>
+                <th scope="col" style="background-color:#B66DFF;color:White" >Chức Năng</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="phong : ${phongs}">
+
+                <td th:text="${phong.maPhong}"></td>
+                <td th:text="${phong.gia}"></td>
+                <td th:text="${phong.moTa}"></td>
+                <td th:text="${phong.khachSan.maKS}"></td>
+                <td th:text="${phong.loaiPhong.maLoai}"></td>
+
+
+                <td>
+                    <a th:href="@{/Admin/SuaPhong/{id}(id=${phong.maPhong})}"
+                       class="btn btn-warning btn-sm">Sửa</a>
+                    <span th:if="${isAdmin}">
+                                    <a th:href="@{/Admin/XoaPhong/{id}(id=${phong.maPhong})}"
+                                       class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc không?')">Xóa</a>
+                    </span>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</section>>
+</body>
+</html>

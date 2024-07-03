@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 window.addEventListener('DOMContentLoaded', (event) => {
     flatpickr("input[type=date]", {
         position: "below", // Đảm bảo lịch luôn nằm dưới
-        dateFormat: "d-m-Y",
+        dateFormat: "Y-m-d",
 
     });
 });

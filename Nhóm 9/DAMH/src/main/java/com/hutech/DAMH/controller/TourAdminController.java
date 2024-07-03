@@ -138,7 +138,12 @@ public class TourAdminController {
     }
 
     @GetMapping("/KhuyenMai")
-    public String showKhuyenMaiForm(Model model) {
+    public String showKhuyenMaiForm(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false); // Check existing session
+
+        if (session == null || session.getAttribute("username") == null) {
+            return "redirect:/Admin/login";
+        }
         List<Tour> tours = tourService.getAllTours();
         model.addAttribute("tours", tours);
         return "/Admin/khuyenmai";
@@ -149,7 +154,13 @@ public class TourAdminController {
                                   @RequestParam("phanTramKM") int phanTramKM,
                                   @RequestParam("ngayBatDau") String ngayBatDau,
                                   @RequestParam("ngayKetThuc") String ngayKetThuc,
-                                  @RequestParam("maTour") String maTour) {
+                                  @RequestParam("maTour") String maTour,
+                                  HttpServletRequest request) {
+        HttpSession session = request.getSession(false); // Check existing session
+
+        if (session == null || session.getAttribute("username") == null) {
+            return "redirect:/Admin/login";
+        }
         KhuyenMai khuyenMai = new KhuyenMai();
         String timeStamp = String.valueOf(System.currentTimeMillis());
         String maKM = "KM" + timeStamp.substring(timeStamp.length() - 8);
@@ -172,7 +183,12 @@ public class TourAdminController {
     }
 
     @GetMapping("/DanhSachKhuyenMai")
-    public String danhSachKhuyenMai(Model model) {
+    public String danhSachKhuyenMai(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false); // Check existing session
+
+        if (session == null || session.getAttribute("username") == null) {
+            return "redirect:/Admin/login";
+        }
         List<KhuyenMai> danhSachKhuyenMai = khuyenMaiService.findAll();
 
         List<KhuyenMaiDTO> khuyenMaiDTOs = new ArrayList<>();

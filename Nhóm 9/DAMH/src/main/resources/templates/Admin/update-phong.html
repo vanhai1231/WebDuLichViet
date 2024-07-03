@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa Phòng</title>
+    <link rel="stylesheet" th:href="@{/assets/css/Admin.css}" type="text/css">
+</head>
+<body>
+<section layout:fragment="content" style="position: relative;">
+    <div class="col-md-12">
+        <h3>Sửa Phòng</h3>
+        <div class="col-md-9" style="margin-left:150px;">
+            <form th:action="@{/Admin/CapNhatPhong/{id}(id=${phong.maPhong})}" method="post">
+                <div class="form-group">
+                    <label for="maPhong">Mã Phòng:</label>
+                    <input type="text" id="maPhong" name="maPhong" th:value="${phong.maPhong}" readonly>
+
+                </div>
+                <div class="form-group">
+                    <label for="gia">Giá:</label>
+                    <input type="text" id="gia" name="gia" th:value="${phong.gia}" required>
+                    <span id="giaError" class="text-danger"></span>
+                </div>
+                <script>
+                    var gia = document.querySelector('input[name="gia"]');
+                    var giaError = document.getElementById('giaError');
+
+                    gia.addEventListener('blur', function () {
+                        if (gia.validity.valueMissing) {
+                            giaError.textContent = 'Vui lòng nhập giá.';
+                        } else {
+                            giaError.textContent = '';
+                        }
+                    });
+                </script>
+                <div class="form-group">
+                    <label for="moTa">Mô Tả:</label>
+                    <input type="text" id="moTa" name="moTa" th:value="${phong.moTa}" required>
+                    <span id="moTaError" class="text-danger"></span>
+                </div>
+                <script>
+                    var moTa = document.querySelector('input[name="moTa"]');
+                    var moTaError = document.getElementById('moTaError');
+
+                    moTa.addEventListener('blur', function () {
+                        if (moTa.validity.valueMissing) {
+                            moTaError.textContent = 'Vui lòng nhập mô tả.';
+                        } else {
+                            moTaError.textContent = '';
+                        }
+                    });
+                </script>
+
+                <div class="form-group">
+                    <label for="khachSan">Mã Khách Sạn:</label>
+                    <select id="khachSan" name="khachSan.maKS" required>
+                        <option th:each="khachSan : ${khachSans}" th:value="${khachSan.maKS}" th:text="${khachSan.tenKS}" th:selected="${phong.khachSan.maKS == khachSan.maKS}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="loaiPhong">Mã Loại Phòng:</label>
+                    <select id="loaiPhong" name="loaiPhong.maLoai" required>
+                        <option th:each="loaiPhong : ${loaiPhongs}" th:value="${loaiPhong.maLoai}" th:text="${loaiPhong.tenLoai}" th:selected="${phong.loaiPhong.maLoai == loaiPhong.maLoai}"></option>
+                    </select>
+                </div>
+
+                <div>
+                    <input type="submit" class="btn btn-primary" value="Update Room" onclick="validateHotelForm()">
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function validateHotelForm() {
+             var gia = document.querySelector('input[name="gia"]');
+                    var giaError = document.getElementById('giaError');
+                    var moTa = document.querySelector('input[name="moTa"]');
+                    var moTaError = document.getElementById('moTaError');
+
+
+            var isValid = true;
+
+            // Kiểm tra Mã Khách Sạn
+            if (!gia.value.trim()) {
+                giaError.textContent = 'Vui lòng nhập Giá.';
+                isValid = false;
+            } else {
+                giaError.textContent = '';
+            }
+
+            // Kiểm tra Tên Khách Sạn
+            if (!moTa.value.trim()) {
+                moTaError.textContent = 'Vui lòng nhập Mô Tả.';
+                isValid = false;
+            } else {
+                moTaError.textContent = '';
+            }
+
+
+
+
+
+           // Nếu form hợp lệ thì submit form
+            if (isValid) {
+                document.querySelector('form').submit();
+            }
+        }
+    </script>
+</section>
+</body>
+</html>
