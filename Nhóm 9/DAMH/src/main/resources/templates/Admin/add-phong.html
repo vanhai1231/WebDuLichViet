@@ -15,7 +15,7 @@
             <form th:action="@{/Admin/ThemPhong}" th:object="${phong}" method="post">
                 <div class="form-group">
                     <label for="maPhong">Mã Phòng:</label>
-                    <input type="text" id="maPhong" name="maPhong" th:field="${phong.maPhong}" readonly>
+                    <input type="text" id="maPhong" name="maPhong" th:field="${phong.maPhong}">
                     <span id="maPhongError" class="text-danger"></span>
                 </div>
                 <script>

@@ -135,4 +135,6 @@ public class Tour {
         }
         return (double) giaTour;
     }
+    @Transient
+    private String formattedGiaSauGiam;
 }

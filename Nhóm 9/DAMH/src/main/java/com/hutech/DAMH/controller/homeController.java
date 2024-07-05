@@ -59,7 +59,6 @@ public class homeController {
             }
             String formattedPrice = numberFormat.format(tour.getGiaTour());
             tour.setFormattedGiaTour(formattedPrice + "VNĐ");
-
             // Kiểm tra xem tour có trong bảng ChiTietKhuyenMai không
             ChiTietKhuyenMai chiTietKhuyenMai = chiTietKhuyenMaiService.findByMaTour(tour.getMaTour());
             if (chiTietKhuyenMai != null) {
@@ -71,6 +70,8 @@ public class homeController {
                     tour.setPhanTramGiam(khuyenMai.get().getPhanTramKM());
                     tour.setNgayBatDauKM(khuyenMai.get().getNgayBatDau());
                     tour.setNgayKetThucKM(khuyenMai.get().getNgayKetThuc());
+                    String formattedPromotionPrice = numberFormat.format(tour.getGiaSauGiam());
+                    tour.setFormattedGiaSauGiam(formattedPromotionPrice + "VNĐ");
                 }
             }
         }
@@ -273,6 +274,8 @@ public class homeController {
                     tour.setPhanTramGiam(khuyenMai.get().getPhanTramKM());
                     tour.setNgayBatDauKM(khuyenMai.get().getNgayBatDau());
                     tour.setNgayKetThucKM(khuyenMai.get().getNgayKetThuc());
+                    String formattedPromotionPrice = numberFormat.format(tour.getGiaSauGiam());
+                    tour.setFormattedGiaSauGiam(formattedPromotionPrice + "VNĐ");
                 }
             }
         }

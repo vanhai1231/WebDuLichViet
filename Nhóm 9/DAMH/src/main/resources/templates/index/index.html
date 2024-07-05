@@ -115,10 +115,12 @@
                 <p class="tour-date" th:text="#{departure.date.label} +' '+ ${#dates.format(tour.ngayKH, 'dd/MM/yyyy')}">Ngày Khởi Hành</p>
                 <div th:if="${tour.promotionActive}">
                     <p class="discount">Giảm giá: <span th:text="${tour.phanTramGiam} + '%'"></span></p>
-                    <p class="price" th:text="#{price.label} +' '+ ${tour.formattedGiaTour}">Giá: </p>                    <p class="price">Giá sau khi giảm: <span th:text="${tour.giaSauGiam}"></span></p>
+                    <p class="price" th:text="#{price.label} +' '+ ${tour.formattedGiaTour}">Giá: </p>
+                    <p class="price" th:text="#{pricewithpromo} +' '+ ${tour.formattedGiaSauGiam}">Giá sau khi giảm: </p>
                 </div>
                 <div th:if="${!tour.promotionActive}">
-                    <p class="price" th:text="#{price.label} +' '+ ${tour.formattedGiaTour}">Giá: </p>                </div>
+                    <p class="price" th:text="#{price.label} +' '+ ${tour.formattedGiaTour}">Giá: </p>
+                </div>
             </div>
             <a id="dangkyBtn" class="dangky-btn" onclick="checkLogin(event)" th:href="@{/DuLichViet/TourDetail/{maTour}(maTour=${tour.maTour})}" th:data-ma-tour="${tour.maTour}" th:text="#{register}"></a>
         </div>
@@ -137,56 +139,6 @@
         </div>
     </div>
 </div>
-<script>
-    let tours = [
-        { maTour: 1, tenTour: "Tour 1", ngayKH: "2024-07-01", giaTour: "1000", mainImageUrl: "/images/tour1.jpg", secondaryImageUrl: "/images/tour1-2.jpg" },
-        { maTour: 2, tenTour: "Tour 2", ngayKH: "2024-07-02", giaTour: "2000", mainImageUrl: "/images/tour2.jpg", secondaryImageUrl: "/images/tour2-2.jpg" },
-    ];
-
-    let currentIndex = 0;
-    const toursPerPage = 4;
-
-    function showMoreTours() {
-        const container = document.querySelector('.card-container');
-        const endIndex = currentIndex + toursPerPage;
-        const toursToShow = tours.slice(currentIndex, endIndex);
-
-        toursToShow.forEach(tour => {
-            const tourCard = document.createElement('div');
-            tourCard.classList.add('tour-card');
-            tourCard.innerHTML = `
-                            <div class="tour-image-container">
-                <i class="bi bi-heart heart-icon" data-ma-tour="${tour.maTour}"></i>
-                <img th:src="@{${tour.mainImageUrl}}" alt="Main Tour Image" class="tour-image">
-                <img th:src="@{${tour.secondaryImageUrl}}" alt="Secondary Tour Image" class="tour-image secondary-image">
-            </div>
-            <div class="tour-info">
-                <h2 class="tour-name" th:text="${tour.tenTour}">Tên Tour</h2>
-                <span class="star-icon">⭐⭐⭐⭐⭐</span>
-                <p class="tour-date" th:text="#{departure.date.label} +' '+ ${#dates.format(tour.ngayKH, 'dd/MM/yyyy')}">Ngày Khởi Hành</p>
-                <div th:if="${tour.promotionActive}">
-                    <p class="discount">Giảm giá: <span th:text="${tour.phanTramGiam} + '%'"></span></p>
-                    <p class="price">Giá: <span th:text="${tour.giaTour}"></span></p>
-                    <p class="price">Giá sau khi giảm: <span th:text="${tour.giaSauGiam}"></span></p>
-                </div>
-                <div th:if="${!tour.promotionActive}">
-                    <p class="price">Giá: <span th:text="${tour.giaTour}"></span></p>
-                </div>
-            </div>
-            <a id="dangkyBtn" class="dangky-btn" onclick="checkLogin(event)" th:href="@{/DuLichViet/TourDetail/{maTour}(maTour=${tour.maTour})}" th:data-ma-tour="${tour.maTour}" th:text="#{register}"></a>
-            `;
-            container.appendChild(tourCard);
-        });
-
-        currentIndex += toursPerPage;
-
-        if (currentIndex >= tours.length) {
-            document.getElementById('showMoreBtn').style.display = 'none';
-        }
-    }
-
-    showMoreTours();
-</script>
 
 </body>
 </html>

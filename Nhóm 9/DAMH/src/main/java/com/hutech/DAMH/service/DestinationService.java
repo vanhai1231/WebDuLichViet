@@ -2,9 +2,13 @@ package com.hutech.DAMH.service;
 
 import com.hutech.DAMH.model.Destination;
 import com.hutech.DAMH.model.LoaiPhong;
+import com.hutech.DAMH.model.Tour;
 import com.hutech.DAMH.repository.DestinationRepository;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,6 +32,12 @@ public class DestinationService {
     public List<Destination> getDestinationsByProvince(String maTinh) {
         return destinationRepository.findByMaTinh_MaTinh(maTinh);
     }
+
+    public Page<Destination> getDestinationsByPage(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return destinationRepository.findAll(pageable);
+    }
+
     public String uploadImage(MultipartFile imageFile) throws IOException {
         if (imageFile.isEmpty()) {
             throw new IllegalArgumentException("Image file is empty");

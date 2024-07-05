@@ -61,7 +61,8 @@ public class SecurityConfig {
                                 "/Admin/Home","/DuLichViet/Home","/NhapOtp","/verifyOtp","/DoiMatKhau","/Admin/DanhSachLoaiPhong",
                                 "/QuenMatKhau","/DuLichViet/About","/DuLichViet/Blog","/DangKy","/LoiXoaPhong","/LoiXoaTaiKhoan","/LoiXoaKhachSan","/LoiXoaLoaiTour",
                                 "/partials/**", "/cart/**", "/Admin/KhuyenMai", "/Admin/DanhSachKhuyenMai", "/DuLichViet/Tour",
-                                "/DuLichViet/Destination", "/DuLichViet/Blog", "/DuLichViet/Contract", "/DuLichViet/Search", "/Admin/ThemDiemDen")
+                                "/DuLichViet/Destination", "/DuLichViet/Blog", "/DuLichViet/Contract", "/DuLichViet/Search",
+                                "/Admin/ThemDiemDen", "/DuLichViet/FilterDestination")
                         .permitAll() // Cho phép truy cập không cần xác thực.
                         .requestMatchers("/products/edit/**", "/products/add", "/products/delete")
                         .hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.

@@ -36,7 +36,13 @@ public class DestinationAdminController {
         return "/Admin/diemden-list";
     }
     @GetMapping("/ThemDiemDen")
-    public String showAddFormLT(Model model) {
+    public String showAddFormLT(Model model, HttpServletRequest request) {
+        // Kiểm tra session
+        HttpSession session = request.getSession(false); // Check existing session
+
+        if (session == null || session.getAttribute("username") == null) {
+            return "redirect:/Admin/login";
+        }
         model.addAttribute("DiemDen", new Destination());
         model.addAttribute("tinhs",tinhService.getAllTinh());
         return "/Admin/add-destination";
